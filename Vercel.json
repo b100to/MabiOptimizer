@@ -2,6 +2,6 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "installCommand": null,
-  "framework": null,
+  "framework": "static",
   "devCommand": null
 }

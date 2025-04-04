@@ -927,7 +927,7 @@ memorysetup-temp-allocator-size-gfx=${Math.floor(
                 다운로드한 boot.config 파일을 Data 폴더에 넣으세요.
               </li>
               <li style={{ marginBottom: "0px" }}>
-                마비노기 모바일을 재시작하면 최적화 설정이 적용됩니다. 
+                마비노기 모바일을 재시작하면 최적화 설정이 적용됩니다.
               </li>
             </ol>
           </div>

@@ -1,7 +1,7 @@
 /* 전체 앱 스타일 변수 */
 :root {
   --background-color: #f9fafb;
-  --card-background: #ffffff;
+  --card-bg: #ffffff;
   --text-primary: #111827;
   --text-secondary: #4b5563;
   --border-color: #d1d5db;
@@ -11,16 +11,16 @@
   --accent-color: #3b82f6;
 }
 
-/* 다크 모드 변수 */
+/* 다크 모드 변수 - 덜 어두운 색상으로 조정 */
 .dark {
-  --background-color: #1f2937;
-  --card-background: #111827;
+  --background-color: #2a3441;
+  --card-bg: #1e293b;
   --text-primary: #f9fafb;
-  --text-secondary: #d1d5db;
-  --border-color: #4b5563;
-  --hover-color: #374151;
-  --button-bg: #374151;
-  --shadow-color: rgba(0, 0, 0, 0.3);
+  --text-secondary: #e2e8f0;
+  --border-color: #64748b;
+  --hover-color: #475569;
+  --button-bg: #475569;
+  --shadow-color: rgba(0, 0, 0, 0.25);
   --accent-color: #60a5fa;
 }
 
@@ -38,6 +38,7 @@ body {
   max-width: 1024px;
   margin: 0 auto;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .app-header {
@@ -45,6 +46,13 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  position: relative;
+}
+
+.theme-button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .app-card {
@@ -53,11 +61,12 @@ body {
   box-shadow: 0 4px 6px var(--shadow-color), 0 1px 3px var(--shadow-color);
   padding: 32px;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .app-card.dark {
   background-color: var(--card-bg);
-  color: var(--text-color);
+  color: var(--text-primary);
 }
 
 .app-title {
@@ -65,8 +74,9 @@ body {
   font-weight: bold;
   margin-bottom: 0;
   text-align: center;
-  color: var(--text-color);
+  color: var(--text-primary);
   transition: color 0.3s ease;
+  width: 100%;
 }
 
 .help-button-container {
@@ -98,16 +108,16 @@ body {
 /* 다크 모드에서의 Select 박스 색상 */
 .dark select {
   background-color: var(--card-bg);
-  color: var(--text-color);
+  color: var(--text-primary);
   border-color: var(--border-color);
 }
 
-/* 다크 모드에서의 Input 박스 색상 */
+/* 다크 모드에서의 Input, Textarea 색상 */
 .dark input[type="text"],
 .dark input[type="number"],
 .dark textarea {
   background-color: var(--card-bg);
-  color: var(--text-color);
+  color: var(--text-primary);
   border-color: var(--border-color);
 }
 
@@ -119,7 +129,7 @@ body {
 /* 다크 모드에서의 버튼 스타일 */
 .dark button {
   background-color: var(--button-bg);
-  color: var(--text-color);
+  color: var(--text-primary);
   border-color: var(--border-color);
 }
 
@@ -135,5 +145,11 @@ body {
   .app-header {
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .theme-button-container {
+    position: relative;
+    margin-top: 10px;
   }
 }

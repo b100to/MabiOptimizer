@@ -54,7 +54,9 @@ const App = () => {
       <div className={`app-card ${theme}`}>
         <div className="app-header">
           <h1 className="app-title">Unity Boot Config Generator</h1>
-          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+          <div className="theme-button-container">
+            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+          </div>
         </div>
 
         <Disclaimer

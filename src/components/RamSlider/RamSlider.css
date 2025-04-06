@@ -1,32 +1,94 @@
 .ram-slider {
   margin-bottom: 20px;
+  padding: 0 10px;
 }
 
 .ram-label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-size: 16px;
 }
 
-.ram-buttons {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+/* 슬라이더 컨테이너 */
+.slider-container {
+  position: relative;
+  padding: 20px 0;
+  width: 100%;
 }
 
-.ram-button {
-  padding: 8px 16px;
-  background-color: #f3f4f6;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+/* 슬라이더 스타일 */
+.ram-range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+  outline: none;
+}
+
+/* 슬라이더 썸(핸들) 스타일 */
+.ram-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #3b82f6;
+  border-radius: 50%;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
-  font-size: 14px;
-  font-weight: 500;
 }
 
-.ram-button-active {
-  background-color: #3b82f6;
-  color: white;
-  border-color: #3b82f6;
-} 
+.ram-range-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #3b82f6;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  border: none;
+}
+
+/* 썸 호버 효과 */
+.ram-range-slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  transform: scale(1.1);
+}
+
+.ram-range-slider::-moz-range-thumb:hover {
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  transform: scale(1.1);
+}
+
+/* 슬라이더 마크 컨테이너 */
+.slider-marks {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+}
+
+/* 개별 마크 스타일 */
+.slider-mark {
+  position: absolute;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+/* 마크 레이블 스타일 */
+.slider-mark-label {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4b5563;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.slider-mark-label:hover {
+  color: #3b82f6;
+  transform: scale(1.1);
+}

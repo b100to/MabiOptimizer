@@ -30,19 +30,17 @@ export const applyCpuPreset = (preset, setCpuCores, setCpuThreads) => {
 // GPU 프리셋 적용 함수
 export const applyGpuPreset = (preset, setGpuTier) => {
   switch (preset) {
-    case "nvidia-low":
-    case "amd-low":
+    case "low":
       setGpuTier("low");
       break;
-    case "nvidia-mid":
-    case "amd-mid":
+    case "mid":
       setGpuTier("mid");
       break;
-    case "nvidia-high":
-    case "amd-high":
+    case "high":
       setGpuTier("high");
       break;
     default:
+      setGpuTier("mid"); // 기본값은 중간 사양
       break;
   }
 };

@@ -40,12 +40,25 @@ const RamSlider = ({ ram, setRam }) => {
     setSliderValue(ramToSlider(ram));
   }, [ram]);
 
+  const scrollToGuide = () => {
+    const guideElement = document.querySelector('.pc-spec-guide');
+    if (guideElement) {
+      guideElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="ram-slider">
       <div className="ram-header">
         <label className="ram-label">
           RAM 용량: <strong>{ram}GB</strong>
         </label>
+        <button
+          type="button"
+          className="check-specs-button"
+          onClick={scrollToGuide}>
+          PC 사양 확인 방법
+        </button>
       </div>
 
       <div className="slider-container">

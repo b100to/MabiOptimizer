@@ -13,23 +13,28 @@
 .option-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 16px;
 }
 
 .option-button {
-  padding: 10px 12px;
+  padding: 18px 16px;
   background-color: #f1f5f9;
   border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 14px;
-  text-align: center;
+  text-align: left;
   color: #0f172a;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .option-button:hover {
   background-color: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* 선택된 버튼 스타일 */
@@ -40,14 +45,69 @@
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
+.option-button.active:hover {
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.2);
+}
+
+.option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-title-main {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.option-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.option-button.active .option-subtitle {
+  color: #e2e8f0;
+}
+
+.option-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.brand {
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  color: #475569;
+}
+
+.brand:before {
+  content: '•';
+  margin-right: 6px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.option-button.active .brand {
+  color: #f1f5f9;
+}
+
+.option-button.active .brand:before {
+  color: #f1f5f9;
+}
+
 @media (max-width: 768px) {
   .option-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .option-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }

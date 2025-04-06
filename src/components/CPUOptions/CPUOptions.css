@@ -50,20 +50,17 @@
   display: flex;
   justify-content: center;
   gap: 4px;
+  color: #475569;
 }
 
-.intel {
-  color: #0071c5;
-  /* 인텔 브랜드 색상 */
-}
-
+.intel,
 .amd {
-  color: #ED1C24;
-  /* AMD 브랜드 색상 */
+  color: inherit;
 }
 
 .option-button.active .intel,
-.option-button.active .amd {
+.option-button.active .amd,
+.option-button.active .cpu-model {
   color: white;
 }
 

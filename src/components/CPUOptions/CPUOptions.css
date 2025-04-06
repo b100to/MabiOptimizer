@@ -10,37 +10,47 @@
   transition: color 0.3s ease;
 }
 
-.option-grid {
+/* CPU에만 적용되는 그리드 스타일 */
+.cpu-options .option-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 
-.option-button {
-  padding: 14px 12px;
+/* CPU에만 적용되는 버튼 스타일 */
+.cpu-options .option-button {
+  padding: 18px 16px;
   background-color: #f1f5f9;
   border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 14px;
   text-align: center;
   color: #0f172a;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-.option-button:hover {
+.cpu-options .option-button:hover {
   background-color: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* 선택된 버튼 스타일 */
-.option-button.active {
+.cpu-options .option-button.active {
   background-color: #3b82f6;
   color: white;
   border-color: #3b82f6;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.cpu-options .option-button.active:hover {
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.2);
 }
 
 .cpu-model {
@@ -58,9 +68,9 @@
   color: inherit;
 }
 
-.option-button.active .intel,
-.option-button.active .amd,
-.option-button.active .cpu-model {
+.cpu-options .option-button.active .intel,
+.cpu-options .option-button.active .amd,
+.cpu-options .option-button.active .cpu-model {
   color: white;
 }
 
@@ -69,14 +79,18 @@
   color: #475569;
 }
 
-@media (max-width: 768px) {
-  .option-grid {
+.cpu-options .option-button.active .cpu-spec {
+  color: #e2e8f0;
+}
+
+@media (max-width: 1024px) {
+  .cpu-options .option-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  .option-grid {
+  .cpu-options .option-grid {
     grid-template-columns: 1fr;
   }
 }

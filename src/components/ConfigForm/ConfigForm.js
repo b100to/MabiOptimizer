@@ -23,7 +23,7 @@ const ConfigForm = ({
 
     // 설정 생성
     const config = generateConfig(cpuThreads, gpuTier, ram, unityVersion, platform);
-    
+
     // 파일 다운로드
     downloadConfigFile(config);
   };
@@ -62,6 +62,27 @@ const ConfigForm = ({
 
       <div className="form-group">
         <RamSlider ram={ram} setRam={setRam} />
+      </div>
+
+      <div className="usage-instructions">
+        <h3>사용 방법:</h3>
+        <ol>
+          <li>
+            <strong>게임 Data 폴더에 접근하세요:</strong>
+            <div className="code-path">C:\Nexon\MabinogiMobile\MabinogiMobile_Data</div>
+            <div className="path-note">(일반적으로 게임 설치 폴더 내의 [게임이름]_Data 폴더입니다)</div>
+          </li>
+          <li>
+            <strong>기존 boot.config 파일이 있다면 이름을 변경하여 백업하세요:</strong>
+            <div className="backup-example">boot.config → boot.config.backup</div>
+          </li>
+          <li>
+            <strong>다운로드한 boot.config 파일을 Data 폴더에 넣으세요.</strong>
+          </li>
+          <li>
+            <strong>마비노기 모바일을 재시작하면 최적화 설정이 적용됩니다.</strong>
+          </li>
+        </ol>
       </div>
 
       <button

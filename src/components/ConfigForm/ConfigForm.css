@@ -11,7 +11,7 @@
   margin-bottom: 8px;
   font-weight: 500;
   font-size: 16px;
-  color: var(--text-color);
+  color: var(--text-primary);
   transition: color 0.3s ease;
 }
 
@@ -22,7 +22,7 @@
   border-radius: 6px;
   font-size: 16px;
   background-color: var(--card-bg);
-  color: var(--text-color);
+  color: var(--text-primary);
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -43,6 +43,67 @@
 .form-select:hover,
 .form-select:focus {
   border-color: var(--accent-color);
+}
+
+/* 사용 방법 스타일 */
+.usage-instructions {
+  margin: 30px 0;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.dark .usage-instructions {
+  background-color: rgba(96, 165, 250, 0.05);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.usage-instructions h3 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.usage-instructions ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.usage-instructions li {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.usage-instructions li:last-child {
+  margin-bottom: 0;
+}
+
+.code-path {
+  font-family: monospace;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin: 8px 0;
+  display: inline-block;
+}
+
+.dark .code-path {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.path-note {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.backup-example {
+  font-family: monospace;
+  display: inline-block;
+  margin: 8px 0;
 }
 
 .generate-button {

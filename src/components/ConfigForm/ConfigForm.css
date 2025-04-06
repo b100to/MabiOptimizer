@@ -268,17 +268,17 @@
 
 /* 프리뷰 및 설명 스타일 */
 .config-preview-section {
-  background-color: #f8fafc;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-card);
-  padding: 24px;
-  margin-top: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  transition: all var(--transition-speed) ease;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 28px;
+  margin-top: 36px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
 }
 
 .config-preview-section:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
   transform: translateY(-2px);
 }
 
@@ -346,21 +346,199 @@
   margin-bottom: 0;
 }
 
-.config-preview {
+/* 설정 파일 상세 내용 리팩토링 스타일 */
+.config-preview-tabs {
+  margin-bottom: 20px;
+}
+
+.tabs-header {
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  gap: 8px;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.tabs-header::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge */
+}
+
+.tab-category {
+  background-color: #f8fafc;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tab-category:hover {
   background-color: #f1f5f9;
-  border-radius: 8px;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+.tab-category.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.25);
+}
+
+.tab-info {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background-color: #f0f9ff;
+  border-left: 3px solid #3b82f6;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #0369a1;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 토글 버튼 스타일 */
+.toggle-button {
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toggle-button:hover {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.toggle-button::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
+
+.toggle-button.expanded::after {
+  transform: rotate(0deg);
+}
+
+/* 설정 파일 구문 강조 스타일 */
+.config-preview .highlight {
+  padding: 4px 0;
+  margin: 1px 0;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  display: block;
+  overflow-x: visible;
+  white-space: pre;
+}
+
+.config-preview .highlight:hover {
+  background-color: rgba(203, 213, 225, 0.3);
+}
+
+.config-preview .cpu-gpu-setting {
+  color: #2563eb;
+  font-weight: 500;
+  border-left: 3px solid #2563eb;
+  padding-left: 12px;
+}
+
+.config-preview .memory-setting {
+  color: #047857;
+  font-weight: 500;
+  border-left: 3px solid #047857;
+  padding-left: 12px;
+}
+
+.config-preview .rendering-setting {
+  color: #b45309;
+  font-weight: 500;
+  border-left: 3px solid #b45309;
+  padding-left: 12px;
+}
+
+.config-preview .other-setting {
+  color: #6b7280;
+  font-weight: 500;
+  border-left: 3px solid #6b7280;
+  padding-left: 12px;
+}
+
+/* 프리뷰 스타일 */
+.config-preview {
+  background-color: #f8fafc;
+  border-radius: 10px;
   padding: 16px;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
   overflow-x: auto;
   color: #334155;
-  height: 200px;
+  height: auto;
+  max-height: 300px;
   overflow-y: auto;
   border: 1px solid #e2e8f0;
-  transition: height 0.3s ease;
-  max-height: 500px;
-  white-space: pre-wrap;
+  transition: all 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+  white-space: pre;
+}
+
+.config-preview.expanded {
+  max-height: 600px;
+}
+
+.config-preview::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.config-preview::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.config-preview::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.config-preview::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 .preview-actions {
@@ -470,149 +648,22 @@
   margin-top: 8px;
 }
 
-/* 프리뷰 헤더와 버튼 스타일 */
+/* 반응형 스타일 */
+@media (max-width: 640px) {
+  .tabs-header {
+    padding-bottom: 8px;
+  }
+
+  .tab-category {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+/* 프리뷰 헤더 스타일 */
 .preview-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-}
-
-.toggle-button {
-  background-color: var(--button-secondary-bg);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-button);
-  padding: 8px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.toggle-button:hover {
-  background-color: var(--hover-color);
-}
-
-/* 프리뷰 높이 조절 */
-.config-preview {
-  height: auto;
-  overflow-y: auto;
-  transition: height 0.3s ease;
-  max-height: 300px;
-}
-
-.config-preview.expanded {
-  height: 400px;
-  max-height: 600px;
-}
-
-/* 스크롤바 스타일 (웹킷 브라우저용) */
-.config-preview::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.config-preview::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.5);
-  border-radius: 10px;
-}
-
-.config-preview::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
-}
-
-.config-preview::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-@media (max-width: 768px) {
-  .summary-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .summary-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
-/* 설정 파일 상세 내용 리팩토링 스타일 */
-.config-preview-tabs {
-  margin-bottom: 20px;
-}
-
-.tabs-header {
-  display: flex;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 16px;
-}
-
-.tab-category {
-  padding: 12px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
-}
-
-.tab-category:hover {
-  color: var(--text-primary);
-}
-
-.tab-category.active {
-  color: var(--accent-color);
-  border-bottom: 2px solid var(--accent-color);
-  font-weight: 600;
-}
-
-.tab-info {
-  font-size: 13px;
-  color: var(--text-secondary);
-  background-color: rgba(203, 213, 225, 0.2);
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 16px;
-}
-
-/* 설정 파일 구문 강조 스타일 */
-.config-preview .highlight {
-  background-color: rgba(59, 130, 246, 0.1);
-  padding: 2px;
-  border-radius: 3px;
-}
-
-.config-preview .cpu-gpu-setting {
-  color: #2563eb;
-  font-weight: bold;
-}
-
-.config-preview .memory-setting {
-  color: #047857;
-  font-weight: bold;
-}
-
-.config-preview .rendering-setting {
-  color: #b45309;
-  font-weight: bold;
-}
-
-.config-preview .other-setting {
-  color: #9333ea;
-  font-weight: bold;
-}
-
-/* 설정 파일 줄 바꿈 스타일 */
-.config-preview span {
-  display: inline;
-  white-space: pre-wrap;
-}
-
-.config-preview br {
-  line-height: 1.7;
+  margin-bottom: 24px;
 }

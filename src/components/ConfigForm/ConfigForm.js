@@ -13,7 +13,7 @@ const ConfigForm = ({
   onShowTerms
 }) => {
   const [configContent, setConfigContent] = useState('');
-  const [showFullConfig, setShowFullConfig] = useState(true);
+  const [showFullConfig, setShowFullConfig] = useState(false);
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'cpu-gpu', 'memory', 'rendering'
 
   // GPU 티어에 따른 텍스트 반환
@@ -166,14 +166,12 @@ const ConfigForm = ({
       <div className="config-preview-section">
         <div className="preview-header">
           <h3 className="preview-title">설정 파일 상세 내용</h3>
-          {configContent.length > 500 && (
-            <button
-              className="toggle-button"
-              onClick={() => setShowFullConfig(!showFullConfig)}
-            >
-              {showFullConfig ? '일부만 보기' : '전체 보기'}
-            </button>
-          )}
+          <button
+            className={`toggle-button ${showFullConfig ? 'expanded' : 'collapsed'}`}
+            onClick={() => setShowFullConfig(!showFullConfig)}
+          >
+            {showFullConfig ? '접기' : '펼치기'}
+          </button>
         </div>
 
         <div className="config-preview-tabs">
@@ -222,35 +220,31 @@ const ConfigForm = ({
             if (line.includes('gfx-enable') ||
               line.includes('job-worker-count') ||
               line.includes('max-chunks-per-shader')) {
-              return <span key={index} className="highlight cpu-gpu-setting">{line}</span>;
+              return <div key={index} className="highlight cpu-gpu-setting">{line}</div>;
             }
             // 메모리 관련 설정에 강조 표시
             else if (line.includes('memorysetup')) {
-              return <span key={index} className="highlight memory-setting">{line}</span>;
+              return <div key={index} className="highlight memory-setting">{line}</div>;
             }
             // 렌더링 관련 설정에 강조 표시
             else if (line.includes('batch') ||
               line.includes('renderthread') ||
               line.includes('hdr-display-enabled')) {
-              return <span key={index} className="highlight rendering-setting">{line}</span>;
+              return <div key={index} className="highlight rendering-setting">{line}</div>;
             }
             // 일반 설정
             else {
-              return <span key={index} className="highlight other-setting">{line}</span>;
+              return <div key={index} className="highlight other-setting">{line}</div>;
             }
-          }).filter(Boolean).reduce((prev, curr, i) =>
-            prev.length === 0 ? [curr] : [prev, <br key={`br-${i}`} />, curr], []
-          )}
+          }).filter(Boolean)}
         </pre>
 
         {activeTab !== 'all' && (
           <div className="tab-info">
-            <p>
-              {activeTab === 'cpu-gpu' && '현재 CPU/GPU 최적화 관련 설정만 표시하고 있습니다.'}
-              {activeTab === 'memory' && '현재 메모리 관련 설정만 표시하고 있습니다.'}
-              {activeTab === 'rendering' && '현재 렌더링 관련 설정만 표시하고 있습니다.'}
-              {activeTab === 'other' && '현재 기타 설정만 표시하고 있습니다.'}
-            </p>
+            {activeTab === 'cpu-gpu' && '현재 CPU/GPU 최적화 관련 설정만 표시하고 있습니다.'}
+            {activeTab === 'memory' && '현재 메모리 관련 설정만 표시하고 있습니다.'}
+            {activeTab === 'rendering' && '현재 렌더링 관련 설정만 표시하고 있습니다.'}
+            {activeTab === 'other' && '현재 기타 설정만 표시하고 있습니다.'}
           </div>
         )}
       </div>

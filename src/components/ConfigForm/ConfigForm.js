@@ -141,24 +141,70 @@ const ConfigForm = ({
         </div>
       </div>
 
-      <div className="usage-instructions">
-        <h3>사용 방법:</h3>
-        <ol>
-          <li>
-            <strong>게임 Data 폴더에 접근하세요:</strong>
-            <div className="code-path">C:\Nexon\MobinogiPC\MobinogiPC_Data</div>
-          </li>
-          <li>
-            <strong>기존 boot.config 파일이 있다면 이름을 변경하여 백업하세요:</strong>
-            <div className="backup-example">boot.config → boot.config.backup</div>
-          </li>
-          <li>
-            <strong>다운로드한 boot.config 파일을 Data 폴더에 넣으세요.</strong>
-          </li>
-          <li>
-            <strong>모비노기 PC버전을 재시작하면 최적화 설정이 적용됩니다.</strong>
-          </li>
-        </ol>
+      <div className="install-guide">
+        <h3 className="install-guide-title">설치 가이드</h3>
+        <div className="install-steps">
+          <div className="install-step">
+            <div className="step-number">1</div>
+            <div className="step-content">
+              <h4>게임 Data 폴더 접근</h4>
+              <div className="path-container">
+                <code className="file-path">C:\Nexon\MobinogiPC\MobinogiPC_Data</code>
+                <button className="copy-button" onClick={() => { navigator.clipboard.writeText('C:\\Nexon\\MobinogiPC\\MobinogiPC_Data') }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 4v12a2 2 0 002 2h8a2 2 0 002-2V7.242a2 2 0 00-.602-1.43L16.083 2.57A2 2 0 0014.685 2H10a2 2 0 00-2 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M16 18v2a2 2 0 01-2 2H6a2 2 0 01-2-2V9a2 2 0 012-2h2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  복사
+                </button>
+              </div>
+              <p className="step-description">윈도우 탐색기에서 위 경로로 이동합니다</p>
+            </div>
+          </div>
+
+          <div className="install-step">
+            <div className="step-number">2</div>
+            <div className="step-content">
+              <h4>기존 파일 백업</h4>
+              <div className="backup-illustration">
+                <span className="file-icon">📄</span>
+                <span className="file-name">boot.config</span>
+                <span className="arrow">→</span>
+                <span className="file-icon">📄</span>
+                <span className="file-name">boot.config.backup</span>
+              </div>
+              <p className="step-description">기존 파일이 있다면 이름을 변경하여 백업합니다</p>
+            </div>
+          </div>
+
+          <div className="install-step">
+            <div className="step-number">3</div>
+            <div className="step-content">
+              <h4>최적화 파일 설치</h4>
+              <div className="install-illustration">
+                <span className="file-icon download">⤓</span>
+                <span className="file-name">boot.config</span>
+                <span className="arrow">→</span>
+                <span className="folder-icon">📁</span>
+                <span className="folder-name">MobinogiPC_Data</span>
+              </div>
+              <p className="step-description">다운로드한 파일을 Data 폴더에 넣습니다</p>
+            </div>
+          </div>
+
+          <div className="install-step">
+            <div className="step-number">4</div>
+            <div className="step-content">
+              <h4>게임 재시작</h4>
+              <div className="restart-illustration">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor" />
+                </svg>
+              </div>
+              <p className="step-description">모비노기 PC버전을 재시작하면 최적화 설정이 적용됩니다</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="config-preview-section">

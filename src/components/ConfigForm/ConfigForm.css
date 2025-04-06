@@ -42,94 +42,7 @@
   outline: none;
 }
 
-/* 사용 방법 스타일 */
-.usage-instructions {
-  margin: 40px 0;
-  padding: 24px;
-  border-radius: var(--border-radius-input);
-  background-color: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.05);
-  transition: all 0.3s ease;
-}
-
-.usage-instructions:hover {
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.08);
-  transform: translateY(-2px);
-}
-
-.usage-instructions h3 {
-  margin-top: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  position: relative;
-  padding-bottom: 12px;
-}
-
-.usage-instructions h3::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-color), transparent);
-  border-radius: 2px;
-}
-
-.usage-instructions ol {
-  padding-left: 20px;
-  margin: 0;
-  counter-reset: item;
-}
-
-.usage-instructions li {
-  margin-bottom: 20px;
-  line-height: 1.6;
-  position: relative;
-  padding-left: 8px;
-}
-
-.usage-instructions li:last-child {
-  margin-bottom: 0;
-}
-
-.usage-instructions li strong {
-  color: var(--accent-color);
-  font-weight: 600;
-}
-
-.code-path {
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  background-color: rgba(0, 0, 0, 0.04);
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin: 10px 0;
-  display: inline-block;
-  font-size: 14px;
-  line-height: 1.4;
-  border-left: 3px solid var(--accent-color);
-}
-
-.path-note {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 6px;
-  font-style: italic;
-}
-
-.backup-example {
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  display: inline-block;
-  margin: 10px 0;
-  font-size: 14px;
-  background-color: rgba(0, 0, 0, 0.04);
-  padding: 6px 10px;
-  border-radius: 4px;
-}
-
+/* 생성 버튼 스타일 */
 .generate-button {
   width: 100%;
   padding: 18px 20px;
@@ -186,14 +99,6 @@
   .generate-button {
     padding: 16px;
     font-size: 16px;
-  }
-
-  .usage-instructions {
-    padding: 20px;
-  }
-
-  .usage-instructions h3 {
-    font-size: 18px;
   }
 }
 
@@ -724,5 +629,181 @@
 
   .step-number {
     margin-bottom: 5px;
+  }
+}
+
+/* 설치 가이드 스타일 */
+.install-guide {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.install-guide-title {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.install-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.install-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.path-container {
+  display: flex;
+  align-items: center;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.file-path {
+  flex: 1;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.copy-button:hover {
+  background: var(--primary-color-dark);
+}
+
+.step-description {
+  margin: 0.5rem 0 0;
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+}
+
+.backup-illustration,
+.install-illustration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.file-icon,
+.folder-icon {
+  font-size: 1.2rem;
+}
+
+.file-icon.download {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.arrow {
+  color: var(--text-tertiary);
+  font-weight: bold;
+}
+
+.file-name,
+.folder-name {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.restart-illustration {
+  display: flex;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.restart-illustration svg {
+  color: var(--primary-color);
+  width: 2rem;
+  height: 2rem;
+}
+
+@media (max-width: 768px) {
+  .install-step {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .step-number {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .path-container,
+  .backup-illustration,
+  .install-illustration {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .copy-button {
+    align-self: flex-end;
+  }
+
+  .backup-illustration,
+  .install-illustration {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }

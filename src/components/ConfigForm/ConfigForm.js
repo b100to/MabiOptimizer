@@ -112,42 +112,6 @@ const ConfigForm = ({
         <RamSlider ram={ram} setRam={setRam} />
       </div>
 
-      <div className="pc-spec-guide">
-        <h3>PC 사양 확인 방법</h3>
-        <div className="guide-content">
-          <div className="guide-step">
-            <div className="step-number">1</div>
-            <div className="step-instruction">
-              <div className="instruction-title">프로그램 실행</div>
-              <div className="instruction-detail">
-                <span className="keyboard-key">Windows</span> + <span className="keyboard-key">R</span> 키를 누른 후
-                <span className="command">dxdiag</span> 입력하고 Enter
-              </div>
-            </div>
-          </div>
-
-          <div className="guide-step">
-            <div className="step-number">2</div>
-            <div className="step-instruction">
-              <div className="instruction-title">CPU 및 RAM 확인</div>
-              <div className="instruction-detail">
-                시스템 탭에서 <strong>프로세서</strong>(CPU) 정보와 <strong>메모리</strong>(RAM) 확인
-              </div>
-            </div>
-          </div>
-
-          <div className="guide-step">
-            <div className="step-number">3</div>
-            <div className="step-instruction">
-              <div className="instruction-title">그래픽 카드(GPU) 확인</div>
-              <div className="instruction-detail">
-                <strong>디스플레이</strong> 탭을 클릭하여 <strong>이름</strong> 항목에서 GPU 모델 확인
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="settings-summary">
         <h3 className="summary-title">현재 최적화 설정 요약</h3>
         <div className="summary-grid">

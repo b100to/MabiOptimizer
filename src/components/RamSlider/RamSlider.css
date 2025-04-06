@@ -13,7 +13,44 @@
 
 .ram-label {
   font-size: 16px;
-  color: var(--text-color);
+  color: #0f172a;
+}
+
+.check-specs-button {
+  background-color: transparent;
+  border: none;
+  color: #3b82f6;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.check-specs-button:hover {
+  background-color: #f1f5f9;
+  text-decoration: underline;
+}
+
+.check-specs-button::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform 0.2s;
+}
+
+.check-specs-button:hover::after {
+  transform: translateY(2px);
 }
 
 /* 슬라이더 컨테이너 */
@@ -29,15 +66,9 @@
   appearance: none;
   width: 100%;
   height: 8px;
-  background: var(--border-color);
+  background: #e2e8f0;
   border-radius: 4px;
   outline: none;
-}
-
-/* 다크 모드에서 슬라이더 트랙 색상 변경 */
-.dark .ram-range-slider {
-  background: #374151;
-  height: 10px;
 }
 
 /* 슬라이더 썸(핸들) 스타일 */
@@ -46,37 +77,22 @@
   appearance: none;
   width: 22px;
   height: 22px;
-  background: var(--accent-color);
+  background: #3b82f6;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 2px 6px var(--shadow-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   transition: all 0.2s ease;
 }
 
 .ram-range-slider::-moz-range-thumb {
   width: 22px;
   height: 22px;
-  background: var(--accent-color);
+  background: #3b82f6;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 2px 6px var(--shadow-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   transition: all 0.2s ease;
   border: none;
-}
-
-/* 다크 모드에서 슬라이더 핸들 색상 변경 */
-.dark .ram-range-slider::-webkit-slider-thumb {
-  background: #4f46e5;
-  width: 24px;
-  height: 24px;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-.dark .ram-range-slider::-moz-range-thumb {
-  background: #4f46e5;
-  width: 24px;
-  height: 24px;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* 썸 호버 효과 */
@@ -90,17 +106,6 @@
   transform: scale(1.1);
 }
 
-/* 다크 모드 썸 호버 효과 */
-.dark .ram-range-slider::-webkit-slider-thumb:hover {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
-  transform: scale(1.15);
-}
-
-.dark .ram-range-slider::-moz-range-thumb:hover {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
-  transform: scale(1.15);
-}
-
 /* 최소/최대 레이블 스타일 */
 .slider-range-labels {
   display: flex;
@@ -112,11 +117,17 @@
 .max-label {
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-color);
+  color: #64748b;
 }
 
-/* 다크 모드에서 레이블 색상 변경 */
-.dark .min-label,
-.dark .max-label {
-  color: #d1d5db;
+@media (max-width: 640px) {
+  .ram-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .check-specs-button {
+    margin-left: 0;
+  }
 }

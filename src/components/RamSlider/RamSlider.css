@@ -3,10 +3,35 @@
   padding: 0 10px;
 }
 
+/* 헤더 영역 (RAM 라벨과 스냅 토글) */
+.ram-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
 .ram-label {
-  display: block;
-  margin-bottom: 20px;
   font-size: 16px;
+}
+
+/* 스냅 토글 스타일 */
+.snap-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.snap-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.snap-checkbox {
+  margin-right: 6px;
+  cursor: pointer;
 }
 
 /* 슬라이더 컨테이너 */

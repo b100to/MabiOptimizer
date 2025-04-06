@@ -32,15 +32,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 }
 
-/* 다크 모드에서 드롭다운 화살표 아이콘 색상 변경 */
-.dark .form-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23cbd5e1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-primary);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 .form-select:hover {
   border-color: var(--accent-color);
 }
@@ -65,12 +56,6 @@
 .usage-instructions:hover {
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.08);
   transform: translateY(-2px);
-}
-
-.dark .usage-instructions {
-  background-color: rgba(59, 130, 246, 0.05);
-  border: 1px solid rgba(59, 130, 246, 0.15);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .usage-instructions h3 {
@@ -128,11 +113,6 @@
   border-left: 3px solid var(--accent-color);
 }
 
-.dark .code-path {
-  background-color: rgba(255, 255, 255, 0.07);
-  border-left: 3px solid var(--accent-color);
-}
-
 .path-note {
   font-size: 14px;
   color: var(--text-secondary);
@@ -148,10 +128,6 @@
   background-color: rgba(0, 0, 0, 0.04);
   padding: 6px 10px;
   border-radius: 4px;
-}
-
-.dark .backup-example {
-  background-color: rgba(255, 255, 255, 0.07);
 }
 
 .generate-button {
@@ -199,24 +175,10 @@
   transform: translateY(-1px);
 }
 
-.dark .generate-button {
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
-}
-
-.dark .generate-button::before {
-  background: linear-gradient(90deg, #2563eb, #7c3aed);
-}
-
 .generate-button:disabled {
   background: #94a3b8;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
-}
-
-.dark .generate-button:disabled {
-  background: #475569;
   box-shadow: none;
 }
 
@@ -255,107 +217,76 @@
 }
 
 .terms-text {
-  color: var(--text-secondary);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 14px;
+  color: var(--text-primary);
 }
 
 .text-link {
   background: none;
   border: none;
-  color: var(--accent-color);
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
   padding: 0;
-  transition: all 0.2s;
-  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-color);
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .text-link:hover {
+  text-decoration: underline;
   color: #2563eb;
 }
 
-.dark .text-link {
-  color: #60a5fa;
-}
-
-.dark .text-link:hover {
-  color: #93c5fd;
-}
-
 .terms-notice {
-  margin-top: 12px;
-  color: #ef4444;
-  font-size: 14px;
-  text-align: center;
-  padding: 8px;
-  background-color: rgba(239, 68, 68, 0.08);
-  border-radius: var(--border-radius-input);
-}
-
-.dark .terms-notice {
-  color: #f87171;
-  background-color: rgba(239, 68, 68, 0.05);
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  padding-left: 28px;
+  line-height: 1.4;
+  font-style: italic;
 }
 
 /* 고정된 설정 정보 스타일 */
 .fixed-settings-info {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-input);
+  background-color: rgba(255, 237, 213, 0.5);
+  border: 1px solid #fb923c;
   padding: 16px;
-  margin-bottom: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
 .fixed-settings-info p {
-  margin: 8px 0;
-  color: var(--text-color);
-  font-size: 15px;
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #92400e;
 }
 
 .fixed-settings-info strong {
   font-weight: 600;
-  margin-right: 8px;
-}
-
-/* 다크 모드 스타일 */
-.dark .fixed-settings-info {
-  background-color: #1e293b;
-  border-color: #374151;
+  color: #9a3412;
 }
 
 /* 프리뷰 및 설명 스타일 */
 .config-preview-section {
-  margin: 30px 0;
+  background-color: #f8fafc;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-input);
-  padding: 20px;
-  background-color: var(--card-bg);
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.05);
-  transition: all 0.3s ease;
-}
-
-.dark .config-preview-section {
-  background-color: var(--card-bg);
-  border-color: #374151;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-card);
+  padding: 24px;
+  margin-top: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all var(--transition-speed) ease;
 }
 
 .config-preview-section:hover {
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
   transform: translateY(-2px);
 }
 
-.dark .config-preview-section:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
 .preview-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--text-color);
+  margin-top: 0;
+  margin-bottom: 24px;
   position: relative;
   padding-bottom: 12px;
 }
@@ -372,45 +303,43 @@
 }
 
 .config-explanation {
-  margin-bottom: 20px;
-  background-color: rgba(59, 130, 246, 0.1);
-  border-radius: var(--border-radius-input);
+  margin-bottom: 24px;
+  background-color: rgba(241, 245, 249, 0.6);
   padding: 16px;
-}
-
-.dark .config-explanation {
-  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: 8px;
 }
 
 .config-explanation h4 {
+  margin-top: 0;
+  margin-bottom: 16px;
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 12px;
-  color: var(--text-color);
+  color: var(--text-primary);
 }
 
 .config-explanation ul {
-  list-style-type: none;
-  padding: 0;
   margin: 0;
-}
-
-.config-explanation li {
-  margin-bottom: 10px;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--text-color);
-  position: relative;
   padding-left: 20px;
 }
 
+.config-explanation li {
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 .config-explanation li:before {
-  content: "•";
+  content: "";
   position: absolute;
-  left: 0;
-  color: var(--accent-color);
-  font-weight: bold;
-  font-size: 16px;
+  left: -16px;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
 }
 
 .config-explanation li:last-child {
@@ -418,38 +347,38 @@
 }
 
 .config-preview {
-  background-color: #2d3748;
-  color: #e2e8f0;
+  background-color: #f1f5f9;
+  border-radius: 8px;
   padding: 16px;
-  border-radius: var(--border-radius-input);
-  font-family: 'Consolas', 'Courier New', monospace;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   font-size: 14px;
   line-height: 1.5;
   overflow-x: auto;
-  white-space: pre-wrap;
-  max-height: 300px;
+  color: #334155;
+  height: 200px;
   overflow-y: auto;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  scrollbar-width: thin;
-  scrollbar-color: #4a5568 transparent;
-  transition: max-height 0.3s ease;
+  border: 1px solid #e2e8f0;
+  transition: height 0.3s ease;
+  max-height: 500px;
+  white-space: pre-wrap;
 }
 
 .preview-actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .secondary-button {
-  padding: 12px 24px;
   background-color: var(--button-secondary-bg);
-  color: var(--text-color);
+  color: var(--text-secondary);
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-input);
-  cursor: pointer;
-  font-size: 15px;
+  border-radius: var(--border-radius-button);
+  padding: 12px 16px;
+  font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -457,76 +386,46 @@
   background-color: var(--hover-color);
 }
 
-.dark .secondary-button {
-  background-color: #2d3748;
-  color: #e2e8f0;
-  border-color: #4a5568;
-}
-
-.dark .secondary-button:hover {
-  background-color: #4a5568;
-}
-
 .preview-button {
-  padding: 12px 24px;
-  background-color: var(--button-secondary-bg);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-input);
-  cursor: pointer;
-  font-size: 15px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-button);
+  padding: 12px 16px;
+  font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
   transition: all 0.2s;
-  margin-right: 12px;
 }
 
 .preview-button:hover {
-  background-color: var(--hover-color);
-}
-
-.dark .preview-button {
-  background-color: #2d3748;
-  color: #e2e8f0;
-  border-color: #4a5568;
-}
-
-.dark .preview-button:hover {
-  background-color: #4a5568;
+  background-color: #2563eb;
 }
 
 .form-actions {
   display: flex;
-  margin-top: 20px;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
 /* 설정값 요약 섹션 스타일 */
 .settings-summary {
-  margin: 24px 0 30px;
-  padding: 20px;
-  border-radius: var(--border-radius-input);
-  background-color: #ebf5ff;
-  border: 1px solid #bfdbfe;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
-  transition: all 0.3s ease;
-}
-
-.dark .settings-summary {
-  background-color: #1e3a8a;
-  border-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-card);
+  padding: 24px;
+  margin-top: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all var(--transition-speed) ease;
 }
 
 .summary-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 20px;
-  color: #1e40af;
+  margin-top: 0;
+  margin-bottom: 24px;
   position: relative;
   padding-bottom: 12px;
-}
-
-.dark .summary-title {
-  color: #93c5fd;
 }
 
 .summary-title::after {
@@ -536,56 +435,39 @@
   left: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #3b82f6, transparent);
+  background: linear-gradient(90deg, var(--accent-color), transparent);
   border-radius: 2px;
 }
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .summary-item {
-  background-color: white;
-  border-radius: 8px;
+  background-color: #f1f5f9;
   padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
 }
 
 .summary-item:hover {
+  background-color: #e2e8f0;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.dark .summary-item {
-  background-color: #1e293b;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.dark .summary-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .summary-label {
   font-size: 14px;
-  color: #64748b;
-  margin-bottom: 8px;
-}
-
-.dark .summary-label {
-  color: #94a3b8;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .summary-value {
-  font-size: 18px;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.dark .summary-value {
-  color: #f1f5f9;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 8px;
 }
 
 /* 프리뷰 헤더와 버튼 스타일 */
@@ -593,47 +475,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .toggle-button {
   background-color: var(--button-secondary-bg);
-  color: var(--accent-color);
-  border: 1px solid var(--accent-color);
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 14px;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-button);
+  padding: 8px 12px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .toggle-button:hover {
-  background-color: var(--accent-color);
-  color: white;
-}
-
-.dark .toggle-button {
-  background-color: #1e293b;
-  color: #60a5fa;
-  border-color: #60a5fa;
-}
-
-.dark .toggle-button:hover {
-  background-color: #3b82f6;
-  color: white;
+  background-color: var(--hover-color);
 }
 
 /* 프리뷰 높이 조절 */
 .config-preview {
+  height: auto;
+  overflow-y: auto;
+  transition: height 0.3s ease;
   max-height: 300px;
-  transition: max-height 0.3s ease;
-  scrollbar-width: thin;
-  scrollbar-color: #4a5568 transparent;
 }
 
 .config-preview.expanded {
-  max-height: 800px;
+  height: 400px;
+  max-height: 600px;
 }
 
 /* 스크롤바 스타일 (웹킷 브라우저용) */
@@ -643,178 +514,105 @@
 }
 
 .config-preview::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  background: rgba(241, 245, 249, 0.5);
+  border-radius: 10px;
 }
 
 .config-preview::-webkit-scrollbar-thumb {
-  background-color: #4a5568;
-  border-radius: 4px;
+  background: #cbd5e1;
+  border-radius: 10px;
 }
 
-.dark .config-preview::-webkit-scrollbar-thumb {
-  background-color: #60a5fa;
+.config-preview::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 @media (max-width: 768px) {
   .summary-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
   .summary-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
 /* 설정 파일 상세 내용 리팩토링 스타일 */
 .config-preview-tabs {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .tabs-header {
   display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 16px;
 }
 
 .tab-category {
-  padding: 6px 12px;
-  font-size: 13px;
+  padding: 12px 20px;
+  font-size: 14px;
   font-weight: 500;
-  border-radius: 30px;
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
-  border: none;
+  color: var(--text-secondary);
   cursor: pointer;
+  border-bottom: 2px solid transparent;
   transition: all 0.2s ease;
 }
 
 .tab-category:hover {
-  background-color: rgba(59, 130, 246, 0.2);
+  color: var(--text-primary);
 }
 
 .tab-category.active {
-  background-color: #3b82f6;
-  color: white;
-  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
-}
-
-.dark .tab-category {
-  background-color: rgba(59, 130, 246, 0.15);
-  color: #60a5fa;
-}
-
-.dark .tab-category:hover {
-  background-color: rgba(59, 130, 246, 0.25);
-}
-
-.dark .tab-category.active {
-  background-color: #3b82f6;
-  color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  font-weight: 600;
 }
 
 .tab-info {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: rgba(59, 130, 246, 0.05);
-  border-radius: 8px;
-  border-left: 3px solid #3b82f6;
-  font-size: 14px;
-  color: #4b5563;
-}
-
-.dark .tab-info {
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #e5e7eb;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background-color: rgba(203, 213, 225, 0.2);
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
 }
 
 /* 설정 파일 구문 강조 스타일 */
 .config-preview .highlight {
-  display: block;
-  padding: 2px 0;
+  background-color: rgba(59, 130, 246, 0.1);
+  padding: 2px;
   border-radius: 3px;
 }
 
 .config-preview .cpu-gpu-setting {
-  color: #10b981;
-  background-color: rgba(16, 185, 129, 0.1);
-  padding-left: 8px;
+  color: #2563eb;
+  font-weight: bold;
 }
 
 .config-preview .memory-setting {
-  color: #f59e0b;
-  background-color: rgba(245, 158, 11, 0.1);
-  padding-left: 8px;
+  color: #047857;
+  font-weight: bold;
 }
 
 .config-preview .rendering-setting {
-  color: #8b5cf6;
-  background-color: rgba(139, 92, 246, 0.1);
-  padding-left: 8px;
+  color: #b45309;
+  font-weight: bold;
 }
 
 .config-preview .other-setting {
-  color: #64748b;
-  background-color: rgba(100, 116, 139, 0.1);
-  padding-left: 8px;
-}
-
-.dark .config-preview .cpu-gpu-setting {
-  color: #34d399;
-  background-color: rgba(16, 185, 129, 0.15);
-}
-
-.dark .config-preview .memory-setting {
-  color: #fbbf24;
-  background-color: rgba(245, 158, 11, 0.15);
-}
-
-.dark .config-preview .rendering-setting {
-  color: #a78bfa;
-  background-color: rgba(139, 92, 246, 0.15);
-}
-
-.dark .config-preview .other-setting {
-  color: #94a3b8;
-  background-color: rgba(100, 116, 139, 0.15);
+  color: #9333ea;
+  font-weight: bold;
 }
 
 /* 설정 파일 줄 바꿈 스타일 */
 .config-preview span {
-  display: inline-block;
-  white-space: pre;
+  display: inline;
+  white-space: pre-wrap;
 }
 
 .config-preview br {
-  line-height: 1.5;
-}
-
-/* 스크롤바 스타일 개선 */
-.config-preview::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-.config-preview::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-}
-
-.config-preview::-webkit-scrollbar-thumb {
-  background-color: #4a5568;
-  border-radius: 6px;
-  border: 2px solid #2d3748;
-}
-
-.dark .config-preview::-webkit-scrollbar-thumb {
-  background-color: #60a5fa;
-  border: 2px solid #2d3748;
-}
-
-.config-preview::-webkit-scrollbar-thumb:hover {
-  background-color: #3b82f6;
+  line-height: 1.7;
 }

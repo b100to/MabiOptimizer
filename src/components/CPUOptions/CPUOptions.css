@@ -6,7 +6,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: var(--text-color);
+  color: #0f172a;
   transition: color 0.3s ease;
 }
 
@@ -18,38 +18,29 @@
 
 .option-button {
   padding: 14px 12px;
-  background-color: var(--button-bg);
-  border: 1px solid var(--border-color);
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 14px;
   text-align: center;
-  color: var(--text-color);
+  color: #0f172a;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .option-button:hover {
-  background-color: var(--hover-color);
+  background-color: #e2e8f0;
 }
 
 /* 선택된 버튼 스타일 */
 .option-button.active {
-  background-color: var(--accent-color);
+  background-color: #3b82f6;
   color: white;
-  border-color: var(--accent-color);
+  border-color: #3b82f6;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-}
-
-.dark .option-button.active {
-  background-color: #4f46e5;
-  /* 보라색으로 변경하여 더 구분되게 */
-  color: white;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
-  font-weight: 500;
 }
 
 .cpu-model {
@@ -76,32 +67,9 @@
   color: white;
 }
 
-.dark .intel {
-  color: #00a2ff;
-  /* 다크 모드에서의 인텔 색상 */
-}
-
-.dark .amd {
-  color: #ff5c5c;
-  /* 다크 모드에서의 AMD 색상 */
-}
-
-.dark .option-button.active .intel,
-.dark .option-button.active .amd {
-  color: white;
-}
-
 .cpu-spec {
   font-size: 12px;
-  color: var(--text-secondary);
-}
-
-.dark .cpu-model {
-  color: #60a5fa;
-}
-
-.dark .cpu-spec {
-  color: #94a3b8;
+  color: #475569;
 }
 
 @media (max-width: 768px) {

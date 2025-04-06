@@ -4,13 +4,13 @@ import './RamSlider.css';
 // 기본 값과 범위 설정
 const MIN_RAM = 4;
 const MAX_RAM = 64;
-const SNAP_POINTS = [4, 8, 16, 24, 32, 36, 48, 64]; // 스냅 포인트 확장
+const SNAP_POINTS = [4, 8, 16, 24, 32, 36, 48, 64]; // 참조용 스냅 포인트
 
 const RamSlider = ({ ram, setRam }) => {
   // 슬라이더 값 상태
   const [sliderValue, setSliderValue] = useState(ramToSlider(ram));
-  // 슬라이더가 스냅 포인트로 점프할지 여부
-  const [snapEnabled, setSnapEnabled] = useState(true);
+  // 슬라이더가 스냅 포인트로 점프할지 여부 - 기본값 false로 변경
+  const [snapEnabled, setSnapEnabled] = useState(false);
 
   // RAM 값을 슬라이더 값(0-100)으로 변환
   function ramToSlider(ramValue) {
@@ -24,7 +24,8 @@ const RamSlider = ({ ram, setRam }) => {
     // 로그 스케일 역변환
     const normalizedValue = value / 100;
     const ramValue = MIN_RAM * Math.pow(MAX_RAM / MIN_RAM, normalizedValue);
-    return Math.round(ramValue);
+    // 정수값으로 반올림
+    return Math.max(MIN_RAM, Math.min(MAX_RAM, Math.round(ramValue)));
   }
 
   // 가장 가까운 스냅 포인트 찾기

@@ -6,7 +6,8 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: #1f2937;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .gpu-categories {
@@ -16,16 +17,24 @@
 }
 
 .gpu-category {
-  background-color: #f9fafb;
+  background-color: var(--button-bg);
   border-radius: 8px;
   padding: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.dark .gpu-category {
+  background-color: #1e293b;
+  /* 더 밝은 색상으로 배경 변경 */
+  border: 1px solid var(--border-color);
 }
 
 .category-title {
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 10px;
-  color: #374151;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .gpu-buttons {
@@ -36,18 +45,41 @@
 
 .gpu-button {
   padding: 10px 12px;
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 14px;
   text-align: left;
+  color: var(--text-color);
+}
+
+.dark .gpu-button {
+  background-color: #111827;
+  /* 다크 모드에서 배경색 더 어둡게 */
+  border-color: #374151;
 }
 
 .gpu-button:hover {
-  background-color: #f3f4f6;
-  border-color: #d1d5db;
+  background-color: var(--hover-color);
+}
+
+/* 선택된 버튼 스타일 */
+.gpu-button.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.dark .gpu-button.active {
+  background-color: #4f46e5;
+  /* 보라색으로 변경하여 더 구분되게 */
+  color: white;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+  font-weight: 500;
 }
 
 @media (min-width: 768px) {
@@ -59,4 +91,4 @@
   .gpu-category {
     flex: 1;
   }
-} 
+}

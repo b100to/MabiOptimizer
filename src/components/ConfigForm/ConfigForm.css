@@ -11,42 +11,91 @@
   margin-bottom: 8px;
   font-weight: 500;
   font-size: 16px;
-  color: #1f2937;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .form-select {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 16px;
-  background-color: #fff;
-  color: #1f2937;
+  background-color: var(--card-bg);
+  color: var(--text-color);
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
+  transition: all 0.3s ease;
+}
+
+/* 다크 모드에서 드롭다운 화살표 아이콘 색상 변경 */
+.dark .form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d1d5db'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  border: 1px solid var(--border-color);
+  background-color: #1e293b;
+  /* 더 밝은 색상으로 변경 */
+  color: white;
+}
+
+.form-select:hover,
+.form-select:focus {
+  border-color: var(--accent-color);
 }
 
 .generate-button {
   width: 100%;
-  padding: 12px 16px;
-  background-color: #3b82f6;
+  padding: 16px;
+  background-color: var(--accent-color);
   color: white;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  margin-top: 15px;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .generate-button:hover {
   background-color: #2563eb;
+  opacity: 1;
+  /* 호버 시 투명도 재정의 */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(59, 130, 246, 0.3);
+}
+
+.dark .generate-button {
+  background-color: #6366f1;
+  /* 더 밝은 보라색으로 변경 */
+  color: white;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+  border: 1px solid rgba(147, 197, 253, 0.3);
+  /* 밝은 테두리 추가 */
+}
+
+.dark .generate-button:hover {
+  background-color: #818cf8;
+  /* 호버 시 더 밝은 색상 */
+  opacity: 1;
+  box-shadow: 0 6px 12px rgba(99, 102, 241, 0.5);
+  border: 1px solid rgba(147, 197, 253, 0.5);
 }
 
 .generate-button:disabled {
   background-color: #94a3b8;
   cursor: not-allowed;
-} 
+  transform: none;
+  box-shadow: none;
+}
+
+.dark .generate-button:disabled {
+  background-color: #4b5563;
+  box-shadow: none;
+  border: 1px solid rgba(147, 197, 253, 0.1);
+}

@@ -6,7 +6,8 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: #1f2937;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .option-grid {
@@ -17,18 +18,35 @@
 
 .option-button {
   padding: 10px 12px;
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background-color: var(--button-bg);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 14px;
   text-align: center;
+  color: var(--text-color);
 }
 
 .option-button:hover {
-  background-color: #f3f4f6;
-  border-color: #d1d5db;
+  background-color: var(--hover-color);
+}
+
+/* 선택된 버튼 스타일 */
+.option-button.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.dark .option-button.active {
+  background-color: #4f46e5;
+  /* 보라색으로 변경하여 더 구분되게 */
+  color: white;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -41,4 +59,4 @@
   .option-grid {
     grid-template-columns: 1fr;
   }
-} 
+}

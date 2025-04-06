@@ -3,7 +3,7 @@
   padding: 0 10px;
 }
 
-/* 헤더 영역 (RAM 라벨과 스냅 토글) */
+/* 헤더 영역 */
 .ram-header {
   display: flex;
   justify-content: space-between;
@@ -13,31 +13,13 @@
 
 .ram-label {
   font-size: 16px;
-}
-
-/* 스냅 토글 스타일 */
-.snap-toggle {
-  display: flex;
-  align-items: center;
-}
-
-.snap-label {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #4b5563;
-  cursor: pointer;
-}
-
-.snap-checkbox {
-  margin-right: 6px;
-  cursor: pointer;
+  color: var(--text-color);
 }
 
 /* 슬라이더 컨테이너 */
 .slider-container {
   position: relative;
-  padding: 20px 0;
+  padding: 10px 0 20px;
   width: 100%;
 }
 
@@ -46,34 +28,55 @@
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 3px;
+  height: 8px;
+  background: var(--border-color);
+  border-radius: 4px;
   outline: none;
+}
+
+/* 다크 모드에서 슬라이더 트랙 색상 변경 */
+.dark .ram-range-slider {
+  background: #374151;
+  height: 10px;
 }
 
 /* 슬라이더 썸(핸들) 스타일 */
 .ram-range-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #3b82f6;
+  width: 22px;
+  height: 22px;
+  background: var(--accent-color);
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px var(--shadow-color);
   transition: all 0.2s ease;
 }
 
 .ram-range-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: #3b82f6;
+  width: 22px;
+  height: 22px;
+  background: var(--accent-color);
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px var(--shadow-color);
   transition: all 0.2s ease;
   border: none;
+}
+
+/* 다크 모드에서 슬라이더 핸들 색상 변경 */
+.dark .ram-range-slider::-webkit-slider-thumb {
+  background: #4f46e5;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark .ram-range-slider::-moz-range-thumb {
+  background: #4f46e5;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* 썸 호버 효과 */
@@ -87,33 +90,33 @@
   transform: scale(1.1);
 }
 
-/* 슬라이더 마크 컨테이너 */
-.slider-marks {
-  position: relative;
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
+/* 다크 모드 썸 호버 효과 */
+.dark .ram-range-slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.15);
 }
 
-/* 개별 마크 스타일 */
-.slider-mark {
-  position: absolute;
-  transform: translateX(-50%);
-  cursor: pointer;
+.dark .ram-range-slider::-moz-range-thumb:hover {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.15);
 }
 
-/* 마크 레이블 스타일 */
-.slider-mark-label {
-  display: inline-block;
-  padding: 2px 6px;
-  font-size: 12px;
+/* 최소/최대 레이블 스타일 */
+.slider-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.min-label,
+.max-label {
+  font-size: 14px;
   font-weight: 500;
-  color: #4b5563;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  color: var(--text-color);
 }
 
-.slider-mark-label:hover {
-  color: #3b82f6;
-  transform: scale(1.1);
+/* 다크 모드에서 레이블 색상 변경 */
+.dark .min-label,
+.dark .max-label {
+  color: #d1d5db;
 }

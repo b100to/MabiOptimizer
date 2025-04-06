@@ -7,6 +7,7 @@
   --border-color: #e2e8f0;
   --hover-color: #f1f5f9;
   --button-bg: #f1f5f9;
+  --button-secondary-bg: #f8fafc;
   --shadow-color: rgba(0, 0, 0, 0.06);
   --accent-color: #3b82f6;
   --transition-speed: 0.3s;
@@ -24,6 +25,7 @@
   --border-color: #334155;
   --hover-color: #334155;
   --button-bg: #334155;
+  --button-secondary-bg: #1e293b;
   --shadow-color: rgba(0, 0, 0, 0.2);
   --accent-color: #3b82f6;
 }

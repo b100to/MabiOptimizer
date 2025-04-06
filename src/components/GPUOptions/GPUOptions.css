@@ -10,70 +10,37 @@
   transition: color 0.3s ease;
 }
 
-.gpu-categories {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
-.gpu-category {
-  background-color: var(--button-bg);
-  border-radius: 8px;
-  padding: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.dark .gpu-category {
-  background-color: #1e293b;
-  /* 더 밝은 색상으로 배경 변경 */
-  border: 1px solid var(--border-color);
-}
-
-.category-title {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 10px;
-  color: var(--text-color);
-  transition: color 0.3s ease;
-}
-
-.gpu-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.gpu-button {
+.option-button {
   padding: 10px 12px;
-  background-color: var(--card-bg);
+  background-color: var(--button-bg);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 14px;
-  text-align: left;
+  text-align: center;
   color: var(--text-color);
 }
 
-.dark .gpu-button {
-  background-color: #111827;
-  /* 다크 모드에서 배경색 더 어둡게 */
-  border-color: #374151;
-}
-
-.gpu-button:hover {
+.option-button:hover {
   background-color: var(--hover-color);
 }
 
 /* 선택된 버튼 스타일 */
-.gpu-button.active {
+.option-button.active {
   background-color: var(--accent-color);
   color: white;
   border-color: var(--accent-color);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
-.dark .gpu-button.active {
+.dark .option-button.active {
   background-color: #4f46e5;
   /* 보라색으로 변경하여 더 구분되게 */
   color: white;
@@ -82,13 +49,14 @@
   font-weight: 500;
 }
 
-@media (min-width: 768px) {
-  .gpu-categories {
-    flex-direction: row;
-    gap: 20px;
+@media (max-width: 768px) {
+  .option-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  .gpu-category {
-    flex: 1;
+@media (max-width: 480px) {
+  .option-grid {
+    grid-template-columns: 1fr;
   }
 }

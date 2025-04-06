@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ConfigForm.css';
 import RamSlider from '../RamSlider/RamSlider';
 import { generateConfig, downloadConfigFile } from '../../utils/configGenerator';
@@ -12,6 +12,28 @@ const ConfigForm = ({
   setTermsAgreed,
   onShowTerms
 }) => {
+  const [configContent, setConfigContent] = useState('');
+  const [showFullConfig, setShowFullConfig] = useState(false);
+
+  // GPU 티어에 따른 텍스트 반환
+  const getGpuTierText = (tier) => {
+    switch (tier) {
+      case 'low': return '저사양';
+      case 'mid': return '중간사양';
+      case 'high': return '고사양';
+      default: return '중간사양';
+    }
+  };
+
+  // 설정 파일 생성 및 프리뷰 자동 업데이트
+  useEffect(() => {
+    const unityVersion = "2021.3";
+    const platform = "windows";
+    const config = generateConfig(cpuThreads, gpuTier, ram, unityVersion, platform);
+    setConfigContent(config);
+  }, [cpuThreads, gpuTier, ram]);
+
+  // 설정 파일 생성 및 다운로드
   const handleGenerateConfig = () => {
     // 이용약관에 동의하지 않았으면 경고
     if (!termsAgreed) {
@@ -28,6 +50,39 @@ const ConfigForm = ({
     downloadConfigFile(config);
   };
 
+  // 워커 수 계산 (보통 논리 코어/스레드 수의 3/4 정도가 최적)
+  const workerCount = Math.max(1, Math.floor(cpuThreads * 0.75));
+
+  // GPU 티어에 따른 설정 변경
+  const maxChunksPerShader = gpuTier === "high" ? 12 : gpuTier === "mid" ? 8 : 4;
+  const hdrEnabled = gpuTier === "low" ? 0 : 1;
+
+  // 설정 항목 설명
+  const getConfigExplanation = () => {
+    return [
+      {
+        key: 'job-worker-count',
+        name: '작업 스레드 수',
+        desc: 'CPU 스레드 수에 맞춰 게임 작업을 병렬 처리할 스레드 수를 최적화합니다.'
+      },
+      {
+        key: 'max-chunks-per-shader',
+        name: '셰이더 청크 제한',
+        desc: 'GPU 성능에 따라 셰이더 컴파일 시 처리할 수 있는 최대 청크 수를 조절합니다.'
+      },
+      {
+        key: 'hdr-display-enabled',
+        name: 'HDR 디스플레이',
+        desc: 'GPU 성능에 따라 HDR 기능 사용 여부를 결정합니다. 저사양 GPU에서는 비활성화됩니다.'
+      },
+      {
+        key: 'memorysetup',
+        name: '메모리 할당 설정',
+        desc: 'RAM 용량에 맞춰 게임에서 사용할 메모리 블록 크기와 할당 방식을 최적화합니다.'
+      }
+    ];
+  };
+
   return (
     <div className="config-form">
       <div className="fixed-settings-info">
@@ -41,6 +96,36 @@ const ConfigForm = ({
 
       <div className="form-group">
         <RamSlider ram={ram} setRam={setRam} />
+      </div>
+
+      <div className="settings-summary">
+        <h3 className="summary-title">현재 최적화 설정 요약</h3>
+        <div className="summary-grid">
+          <div className="summary-item">
+            <div className="summary-label">CPU 스레드</div>
+            <div className="summary-value">{cpuThreads}개</div>
+          </div>
+          <div className="summary-item">
+            <div className="summary-label">GPU 사양</div>
+            <div className="summary-value">{getGpuTierText(gpuTier)}</div>
+          </div>
+          <div className="summary-item">
+            <div className="summary-label">메모리(RAM)</div>
+            <div className="summary-value">{ram}GB</div>
+          </div>
+          <div className="summary-item">
+            <div className="summary-label">작업 스레드 수</div>
+            <div className="summary-value">{workerCount}개</div>
+          </div>
+          <div className="summary-item">
+            <div className="summary-label">셰이더 청크</div>
+            <div className="summary-value">{maxChunksPerShader}</div>
+          </div>
+          <div className="summary-item">
+            <div className="summary-label">HDR 디스플레이</div>
+            <div className="summary-value">{hdrEnabled === 1 ? '활성화' : '비활성화'}</div>
+          </div>
+        </div>
       </div>
 
       <div className="usage-instructions">
@@ -62,6 +147,22 @@ const ConfigForm = ({
             <strong>모비노기 PC버전을 재시작하면 최적화 설정이 적용됩니다.</strong>
           </li>
         </ol>
+      </div>
+
+      <div className="config-preview-section">
+        <div className="preview-header">
+          <h3 className="preview-title">설정 파일 상세 내용</h3>
+          <button
+            className="toggle-button"
+            onClick={() => setShowFullConfig(!showFullConfig)}
+          >
+            {showFullConfig ? '간략히 보기' : '전체 보기'}
+          </button>
+        </div>
+
+        <pre className={`config-preview ${showFullConfig ? 'expanded' : ''}`}>
+          {configContent}
+        </pre>
       </div>
 
       <div className="terms-agreement">

@@ -14,6 +14,14 @@
 - Unity 버전별 설정 지원
 - Windows 및 Android 플랫폼 지원
 
+## 프로젝트 구조
+
+이 프로젝트는 Create React App 기반으로 리팩토링되었습니다:
+- `src/`: 소스 코드 디렉토리
+  - `components/`: 모든 React 컴포넌트
+  - `utils/`: 유틸리티 함수 (config generator 등)
+- `public/`: 정적 파일 디렉토리
+
 ## 주의사항
 
 이 도구는 마비노기 모바일의 비공식 최적화 도구로, 넥슨 및 게임 개발사와 무관합니다. 
@@ -33,6 +41,14 @@ npm start
 # 빌드
 npm run build
 ```
+
+## 배포
+
+이 프로젝트는 Vercel에 배포하도록 설정되어 있습니다:
+
+1. Vercel에 GitHub 저장소를 연결합니다.
+2. 프로젝트 설정은 `vercel.json`에 정의되어 있습니다.
+3. 메인 브랜치에 푸시하면 자동으로 배포가 시작됩니다.
 
 ## 라이선스
 

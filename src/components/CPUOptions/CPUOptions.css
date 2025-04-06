@@ -17,7 +17,7 @@
 }
 
 .option-button {
-  padding: 10px 12px;
+  padding: 14px 12px;
   background-color: var(--button-bg);
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -26,6 +26,9 @@
   font-size: 14px;
   text-align: center;
   color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .option-button:hover {
@@ -47,6 +50,58 @@
   border-color: #4f46e5;
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
   font-weight: 500;
+}
+
+.cpu-model {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 4px 0;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.intel {
+  color: #0071c5;
+  /* 인텔 브랜드 색상 */
+}
+
+.amd {
+  color: #ED1C24;
+  /* AMD 브랜드 색상 */
+}
+
+.option-button.active .intel,
+.option-button.active .amd {
+  color: white;
+}
+
+.dark .intel {
+  color: #00a2ff;
+  /* 다크 모드에서의 인텔 색상 */
+}
+
+.dark .amd {
+  color: #ff5c5c;
+  /* 다크 모드에서의 AMD 색상 */
+}
+
+.dark .option-button.active .intel,
+.dark .option-button.active .amd {
+  color: white;
+}
+
+.cpu-spec {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.dark .cpu-model {
+  color: #60a5fa;
+}
+
+.dark .cpu-spec {
+  color: #94a3b8;
 }
 
 @media (max-width: 768px) {

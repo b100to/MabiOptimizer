@@ -3,31 +3,26 @@
 // CPU 프리셋 적용 함수
 export const applyCpuPreset = (preset, setCpuCores, setCpuThreads) => {
   switch (preset) {
-    case "intel-i5":
+    case "entry-level":
+      setCpuCores(4);
+      setCpuThreads(8);
+      break;
+    case "mid-range":
       setCpuCores(6);
       setCpuThreads(12);
       break;
-    case "intel-i7":
+    case "high-end":
       setCpuCores(8);
       setCpuThreads(16);
       break;
-    case "intel-i9":
-      setCpuCores(12);
-      setCpuThreads(24);
-      break;
-    case "amd-r5":
-      setCpuCores(6);
-      setCpuThreads(12);
-      break;
-    case "amd-r7":
-      setCpuCores(8);
-      setCpuThreads(16);
-      break;
-    case "amd-r9":
+    case "premium":
       setCpuCores(12);
       setCpuThreads(24);
       break;
     default:
+      // 기본값으로 중간 사양 설정
+      setCpuCores(6);
+      setCpuThreads(12);
       break;
   }
 };

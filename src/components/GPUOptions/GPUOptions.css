@@ -1,0 +1,62 @@
+.gpu-options {
+  margin-bottom: 24px;
+}
+
+.option-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+.gpu-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gpu-category {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.category-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #374151;
+}
+
+.gpu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gpu-button {
+  padding: 10px 12px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  text-align: left;
+}
+
+.gpu-button:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+@media (min-width: 768px) {
+  .gpu-categories {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .gpu-category {
+    flex: 1;
+  }
+} 

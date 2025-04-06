@@ -1,0 +1,32 @@
+.ram-slider {
+  margin-bottom: 20px;
+}
+
+.ram-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.ram-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ram-button {
+  padding: 8px 16px;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ram-button-active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+} 

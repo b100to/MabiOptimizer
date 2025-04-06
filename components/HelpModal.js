@@ -1,73 +1,28 @@
-// 도움말 모달 컴포넌트
-const HelpModal = ({ onClose }) => (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1000
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "20px",
-          borderRadius: "8px",
-          width: "90%",
-          maxWidth: "700px",
-          maxHeight: "90vh",
-          overflowY: "auto"
-        }}
-      >
-        <h2
-          style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "15px" }}
-        >
-          PC 사양 확인 방법
-        </h2>
-  
+import React from 'react';
+import { styles } from '../styles/HelpModalStyles';
+import RamSlider from './RamSlider';
+
+const HelpModal = ({ onClose }) => {
+  const [ram, setRam] = React.useState(16);
+
+  return (
+    <div style={styles.modalOverlay}>
+      <div style={styles.modalContent}>
+        <h2 style={styles.title}>PC 사양 확인 방법</h2>
+
         <div style={{ marginBottom: "20px" }}>
-          <h3
-            style={{
-              fontSize: "16px",
-              fontWeight: "600",
-              marginBottom: "10px"
-            }}
-          >
-            Windows 10/11에서 사양 확인하기
-          </h3>
+          <h3 style={styles.sectionTitle}>Windows 10/11에서 사양 확인하기</h3>
           <ol style={{ paddingLeft: "20px" }}>
             <li style={{ marginBottom: "8px" }}>
               <strong>CPU 및 RAM 확인:</strong>
               <ol style={{ paddingLeft: "20px", marginTop: "5px" }}>
                 <li>
                   키보드에서{" "}
-                  <code
-                    style={{
-                      backgroundColor: "#f0f0f0",
-                      padding: "2px 4px",
-                      borderRadius: "3px"
-                    }}
-                  >
-                    Windows 키 + R
-                  </code>{" "}
+                  <code style={styles.code}>Windows 키 + R</code>{" "}
                   누르기
                 </li>
                 <li>
-                  <code
-                    style={{
-                      backgroundColor: "#f0f0f0",
-                      padding: "2px 4px",
-                      borderRadius: "3px"
-                    }}
-                  >
-                    dxdiag
-                  </code>{" "}
+                  <code style={styles.code}>dxdiag</code>{" "}
                   입력하고 Enter 누르기
                 </li>
                 <li>
@@ -85,25 +40,18 @@ const HelpModal = ({ onClose }) => (
             </li>
           </ol>
         </div>
-  
+
+        <RamSlider ram={ram} setRam={setRam} />
+
         <button
           onClick={onClose}
-          style={{
-            padding: "8px 15px",
-            backgroundColor: "#3b82f6",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            display: "block",
-            margin: "0 auto"
-          }}
+          style={styles.closeButton}
         >
           닫기
         </button>
       </div>
     </div>
   );
-  
-  // 다른 파일에서 사용할 수 있도록 글로벌 변수로 노출
-  window.HelpModal = HelpModal;
+};
+
+export default HelpModal;

@@ -1,0 +1,44 @@
+.cpu-options {
+  margin-bottom: 24px;
+}
+
+.option-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.option-button {
+  padding: 10px 12px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  text-align: center;
+}
+
+.option-button:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+@media (max-width: 768px) {
+  .option-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .option-grid {
+    grid-template-columns: 1fr;
+  }
+} 

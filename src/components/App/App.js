@@ -18,6 +18,7 @@ const App = () => {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showNotice, setShowNotice] = useState(true);
   const [theme, setTheme] = useState(() => {
     // 로컬 스토리지에서 테마 설정 불러오기 또는 시스템 기본 설정 확인
     const savedTheme = localStorage.getItem('theme');
@@ -59,6 +60,21 @@ const App = () => {
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
         </div>
+
+        {showNotice && (
+          <div className="notice-container">
+            <div className="notice-content">
+              <span className="notice-badge">공지사항</span>
+              <p>모비노기 PC버전 최적화 툴이 출시되었습니다! 현대화 디자인 변경, 이용약관 추가 등 편리하게 개선되었습니다. CPU 및 GPU 모델을 선택하여 게임 성능을 향상시켜보세요.</p>
+            </div>
+            <button
+              className="notice-close-button"
+              onClick={() => setShowNotice(false)}
+            >
+              ×
+            </button>
+          </div>
+        )}
 
         <div className="help-button-container">
           <button

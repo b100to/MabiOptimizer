@@ -279,3 +279,89 @@ body {
 .dark .text-link:hover {
   color: #93c5fd;
 }
+
+/* 공지사항 스타일 */
+.notice-container {
+  margin: 0 0 24px 0;
+  padding: 16px;
+  background-color: #fff8e1;
+  border-left: 4px solid #ffc107;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  animation: slideDown 0.3s ease-out forwards;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .notice-container {
+  background-color: #2d3748;
+  border-left: 4px solid #ecc94b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.notice-content {
+  flex: 1;
+}
+
+.notice-badge {
+  display: inline-block;
+  background-color: #ffc107;
+  color: #000000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.dark .notice-badge {
+  background-color: #ecc94b;
+  color: #1a202c;
+}
+
+.notice-content p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333333;
+}
+
+.dark .notice-content p {
+  color: #e2e8f0;
+}
+
+.notice-close-button {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 0 0 16px;
+  margin: 0;
+  line-height: 1;
+}
+
+.notice-close-button:hover {
+  color: #333;
+}
+
+.dark .notice-close-button {
+  color: #a0aec0;
+}
+
+.dark .notice-close-button:hover {
+  color: #e2e8f0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

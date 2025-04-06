@@ -692,22 +692,32 @@ memorysetup-temp-allocator-size-gfx=${Math.floor(
               color: "#333"
             }}
           >
-            RAM 용량 (GB)
+            RAM 용량 (GB): <span style={{ fontWeight: "bold" }}>{ram}GB</span>
           </label>
           <input
-            type="number"
+            type="range"
             min="4"
             max="256"
+            step="1"
             value={ram}
             onChange={(e) => setRam(parseInt(e.target.value))}
             style={{
               marginTop: "5px",
               width: "100%",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              padding: "8px"
+              cursor: "pointer"
             }}
           />
+          <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: "12px",
+            color: "#666",
+            marginTop: "2px"
+          }}>
+            <span>4GB</span>
+            <span>128GB</span>
+            <span>256GB</span>
+          </div>
         </div>
 
         <div>

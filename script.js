@@ -9,9 +9,16 @@ const UnityConfigGenerator = () => {
   const [platform, setPlatform] = React.useState("windows");
   const [configOutput, setConfigOutput] = React.useState("");
   const [showHelpModal, setShowHelpModal] = React.useState(false);
+  const [disclaimerAgreed, setDisclaimerAgreed] = React.useState(false);
 
   // 설정 생성 함수
   const generateConfig = () => {
+    // 면책조항에 동의하지 않았으면 경고
+    if (!disclaimerAgreed) {
+      alert("계속하시려면 면책조항에 동의해주세요.");
+      return;
+    }
+
     // 워커 수 계산 (보통 논리 코어/스레드 수의 3/4 정도가 최적)
     const workerCount = Math.max(1, Math.floor(cpuThreads * 0.75));
 
@@ -348,6 +355,49 @@ memorysetup-temp-allocator-size-gfx=${Math.floor(
       >
         Unity Boot Config Generator
       </h1>
+
+      {/* 면책조항 추가 */}
+      <div
+        style={{
+          marginBottom: "20px",
+          padding: "15px",
+          backgroundColor: "#fff5f5",
+          borderRadius: "6px",
+          border: "1px solid #feb2b2"
+        }}
+      >
+        <h3
+          style={{
+            fontWeight: "600",
+            color: "#c53030",
+            marginBottom: "10px"
+          }}
+        >
+          ⚠️ 주의사항
+        </h3>
+        <p style={{ fontSize: "14px", color: "#742a2a", marginBottom: "10px" }}>
+          이 도구는 마비노기 모바일의 비공식 최적화 도구로, 넥슨 및 게임 개발사와 무관합니다. 
+          게임 파일을 수정하는 행위는 게임 이용약관에 위배될 수 있으며 계정 제재의 원인이 될 수 있습니다.
+        </p>
+        <p style={{ fontSize: "14px", color: "#742a2a", marginBottom: "10px" }}>
+          사용으로 인해 발생할 수 있는 게임 크래시, 계정 제재, 데이터 손실 등 어떠한 문제에 대해서도 제작자는 책임을 지지 않습니다.
+        </p>
+        <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
+          <input
+            type="checkbox"
+            id="disclaimer-checkbox"
+            checked={disclaimerAgreed}
+            onChange={() => setDisclaimerAgreed(!disclaimerAgreed)}
+            style={{ marginRight: "10px" }}
+          />
+          <label
+            htmlFor="disclaimer-checkbox"
+            style={{ fontSize: "14px", color: "#742a2a", fontWeight: "500" }}
+          >
+            위 내용을 이해했으며, 모든 책임은 본인에게 있음에 동의합니다.
+          </label>
+        </div>
+      </div>
 
       <div style={{ textAlign: "center", marginBottom: "20px" }}>
         <button
@@ -806,12 +856,12 @@ memorysetup-temp-allocator-size-gfx=${Math.floor(
       <button
         style={{
           width: "100%",
-          backgroundColor: "#22c55e",
+          backgroundColor: disclaimerAgreed ? "#22c55e" : "#9ca3af",
           color: "white",
           padding: "12px",
           borderRadius: "6px",
           border: "none",
-          cursor: "pointer",
+          cursor: disclaimerAgreed ? "pointer" : "not-allowed",
           marginBottom: "20px"
         }}
         onClick={generateConfig}
@@ -930,6 +980,20 @@ memorysetup-temp-allocator-size-gfx=${Math.floor(
                 마비노기 모바일을 재시작하면 최적화 설정이 적용됩니다.
               </li>
             </ol>
+            
+            <div
+              style={{
+                marginTop: "15px",
+                padding: "10px",
+                backgroundColor: "#fffbeb",
+                borderRadius: "4px",
+                border: "1px solid #fbd38d"
+              }}
+            >
+              <p style={{ fontSize: "13px", color: "#723b13" }}>
+                <strong>참고:</strong> 문제가 발생하면 백업한 원본 파일로 복원하세요. 이 설정은 모든 PC 환경에서 동일한 성능 향상을 보장하지 않습니다.
+              </p>
+            </div>
           </div>
         </div>
       )}

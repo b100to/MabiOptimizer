@@ -36,8 +36,76 @@
 .section-title {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   color: #374151;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.spec-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.spec-item {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.spec-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.spec-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #e0e7ff;
+  border-radius: 6px;
+  margin-right: 12px;
+  color: #4f46e5;
+}
+
+.spec-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.spec-steps {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.spec-steps li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+.keyboard-shortcut {
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 14px;
+  color: #111827;
+}
+
+.command {
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 14px;
+  color: #111827;
 }
 
 .instruction-list {
@@ -61,6 +129,21 @@
   font-size: 0.9em;
 }
 
+.empty-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.empty-content p {
+  color: #6b7280;
+  font-size: 16px;
+}
+
 .close-button {
   padding: 10px 20px;
   background-color: #3b82f6;
@@ -76,4 +159,4 @@
 
 .close-button:hover {
   background-color: #2563eb;
-} 
+}

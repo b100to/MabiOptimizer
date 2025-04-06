@@ -1,162 +1,236 @@
 .config-form {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 600;
   font-size: 16px;
   color: var(--text-primary);
-  transition: color 0.3s ease;
+  transition: color var(--transition-speed) ease;
 }
 
 .form-select {
   width: 100%;
-  padding: 10px 12px;
+  padding: 14px 16px;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: var(--border-radius-input);
   font-size: 16px;
   background-color: var(--card-bg);
   color: var(--text-primary);
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
+  background-position: right 16px center;
   background-size: 16px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 }
 
 /* 다크 모드에서 드롭다운 화살표 아이콘 색상 변경 */
 .dark .form-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d1d5db'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23cbd5e1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   border: 1px solid var(--border-color);
-  background-color: #1e293b;
-  /* 더 밝은 색상으로 변경 */
-  color: white;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.form-select:hover,
+.form-select:hover {
+  border-color: var(--accent-color);
+}
+
 .form-select:focus {
   border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  outline: none;
 }
 
 /* 사용 방법 스타일 */
 .usage-instructions {
-  margin: 30px 0;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: rgba(96, 165, 250, 0.1);
-  border: 1px solid rgba(96, 165, 250, 0.3);
+  margin: 40px 0;
+  padding: 24px;
+  border-radius: var(--border-radius-input);
+  background-color: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.05);
+  transition: all 0.3s ease;
+}
+
+.usage-instructions:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.08);
+  transform: translateY(-2px);
 }
 
 .dark .usage-instructions {
-  background-color: rgba(96, 165, 250, 0.05);
-  border: 1px solid rgba(96, 165, 250, 0.2);
+  background-color: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .usage-instructions h3 {
   margin-top: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.usage-instructions h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), transparent);
+  border-radius: 2px;
 }
 
 .usage-instructions ol {
   padding-left: 20px;
   margin: 0;
+  counter-reset: item;
 }
 
 .usage-instructions li {
-  margin-bottom: 15px;
-  line-height: 1.5;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 8px;
 }
 
 .usage-instructions li:last-child {
   margin-bottom: 0;
 }
 
+.usage-instructions li strong {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
 .code-path {
-  font-family: monospace;
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 6px 10px;
-  border-radius: 4px;
-  margin: 8px 0;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 10px 0;
   display: inline-block;
+  font-size: 14px;
+  line-height: 1.4;
+  border-left: 3px solid var(--accent-color);
 }
 
 .dark .code-path {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.07);
+  border-left: 3px solid var(--accent-color);
 }
 
 .path-note {
   font-size: 14px;
   color: var(--text-secondary);
-  margin-top: 4px;
+  margin-top: 6px;
+  font-style: italic;
 }
 
 .backup-example {
-  font-family: monospace;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   display: inline-block;
-  margin: 8px 0;
+  margin: 10px 0;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.dark .backup-example {
+  background-color: rgba(255, 255, 255, 0.07);
 }
 
 .generate-button {
   width: 100%;
-  padding: 16px;
-  background-color: var(--accent-color);
+  padding: 18px 20px;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
   color: white;
   font-weight: 600;
   font-size: 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-button);
   cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 15px;
-  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 30px;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.2);
   letter-spacing: 0.5px;
-  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.generate-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .generate-button:hover {
-  background-color: #2563eb;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+}
+
+.generate-button:hover::before {
   opacity: 1;
-  /* 호버 시 투명도 재정의 */
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(59, 130, 246, 0.3);
+}
+
+.generate-button:active {
+  transform: translateY(-1px);
 }
 
 .dark .generate-button {
-  background-color: #6366f1;
-  /* 더 밝은 보라색으로 변경 */
-  color: white;
-  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
-  border: 1px solid rgba(147, 197, 253, 0.3);
-  /* 밝은 테두리 추가 */
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 }
 
-.dark .generate-button:hover {
-  background-color: #818cf8;
-  /* 호버 시 더 밝은 색상 */
-  opacity: 1;
-  box-shadow: 0 6px 12px rgba(99, 102, 241, 0.5);
-  border: 1px solid rgba(147, 197, 253, 0.5);
+.dark .generate-button::before {
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
 }
 
 .generate-button:disabled {
-  background-color: #94a3b8;
+  background: #94a3b8;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
 .dark .generate-button:disabled {
-  background-color: #4b5563;
+  background: #475569;
   box-shadow: none;
-  border: 1px solid rgba(147, 197, 253, 0.1);
+}
+
+@media (max-width: 768px) {
+  .generate-button {
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .usage-instructions {
+    padding: 20px;
+  }
+
+  .usage-instructions h3 {
+    font-size: 18px;
+  }
 }

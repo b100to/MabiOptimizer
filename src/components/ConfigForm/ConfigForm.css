@@ -248,22 +248,47 @@
 
 /* 고정된 설정 정보 스타일 */
 .fixed-settings-info {
-  background-color: rgba(255, 237, 213, 0.5);
-  border: 1px solid #fb923c;
-  padding: 16px;
-  border-radius: 8px;
-  margin-top: 20px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .fixed-settings-info p {
-  margin: 0 0 8px 0;
+  margin: 0;
   font-size: 14px;
-  color: #92400e;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .fixed-settings-info strong {
   font-weight: 600;
-  color: #9a3412;
+  color: #334155;
+}
+
+.fixed-settings-info p::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.fixed-settings-info p:first-child::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.fixed-settings-info p:last-child::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'%3E%3C/path%3E%3C/svg%3E");
 }
 
 /* 프리뷰 및 설명 스타일 */

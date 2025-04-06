@@ -99,6 +99,10 @@ const ConfigForm = ({
 
   return (
     <div className="config-form">
+      <div className="form-group">
+        <RamSlider ram={ram} setRam={setRam} />
+      </div>
+
       <div className="fixed-settings-info">
         <p>
           <strong>Unity 버전:</strong> Unity 2021.3 (모비노기 PC버전 전용)
@@ -107,11 +111,6 @@ const ConfigForm = ({
           <strong>플랫폼:</strong> Windows
         </p>
       </div>
-
-      <div className="form-group">
-        <RamSlider ram={ram} setRam={setRam} />
-      </div>
-
       <div className="settings-summary">
         <h3 className="summary-title">현재 최적화 설정 요약</h3>
         <div className="summary-grid">

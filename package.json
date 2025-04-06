@@ -1,7 +1,7 @@
 {
-  "name": "unity-boot-config-generator",
+  "name": "mobinogi-pc-optimizer",
   "version": "1.0.0",
-  "description": "마비노기 모바일 최적화를 위한 Unity Boot Config 생성기",
+  "description": "모비노기 PC버전 최적화를 위한 설정 생성기",
   "main": "src/index.js",
   "scripts": {
     "start": "react-scripts start",

@@ -1,6 +1,6 @@
 {
-  "short_name": "Config Generator",
-  "name": "Unity Boot Config Generator",
+  "short_name": "모비노기 최적화",
+  "name": "모비노기 PC버전 최적화",
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,4 +22,4 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
-} 
+}

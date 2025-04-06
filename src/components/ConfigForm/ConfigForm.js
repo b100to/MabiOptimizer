@@ -17,7 +17,7 @@ const ConfigForm = ({
   const handleGenerateConfig = () => {
     // 면책조항에 동의하지 않았으면 경고
     if (!disclaimerAgreed) {
-      alert("계속하시려면 면책조항에 동의해주세요.");
+      alert("계속하시려면 이용약관에 동의해주세요.");
       return;
     }
 

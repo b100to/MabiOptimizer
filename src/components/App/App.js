@@ -62,28 +62,6 @@ const App = () => {
           </div>
         </div>
 
-        <div className="terms-agreement">
-          <div className="checkbox-container">
-            <input
-              type="checkbox"
-              id="terms-checkbox"
-              checked={termsAgreed}
-              onChange={() => setTermsAgreed(!termsAgreed)}
-            />
-            <label htmlFor="terms-checkbox">
-              <span className="terms-text">
-                <button
-                  className="text-link"
-                  onClick={(e) => { e.preventDefault(); setShowTermsModal(true); }}
-                >
-                  이용약관
-                </button>
-                에 동의합니다. (필수)
-              </span>
-            </label>
-          </div>
-        </div>
-
         <div className="help-button-container">
           <button
             onClick={() => setShowHelpModal(true)}
@@ -118,6 +96,8 @@ const App = () => {
           platform={platform}
           setPlatform={setPlatform}
           termsAgreed={termsAgreed}
+          setTermsAgreed={setTermsAgreed}
+          onShowTerms={() => setShowTermsModal(true)}
         />
 
         <footer className="app-footer">

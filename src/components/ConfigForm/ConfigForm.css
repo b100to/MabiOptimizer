@@ -234,3 +234,67 @@
     font-size: 18px;
   }
 }
+
+/* 이용약관 동의 체크박스 스타일 */
+.terms-agreement {
+  margin: 24px 0;
+  padding: 16px;
+  border-radius: var(--border-radius-input);
+  background-color: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+  margin-top: 3px;
+}
+
+.terms-text {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.text-link {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s;
+  text-decoration: underline;
+}
+
+.text-link:hover {
+  color: #2563eb;
+}
+
+.dark .text-link {
+  color: #60a5fa;
+}
+
+.dark .text-link:hover {
+  color: #93c5fd;
+}
+
+.terms-notice {
+  margin-top: 12px;
+  color: #ef4444;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  background-color: rgba(239, 68, 68, 0.08);
+  border-radius: var(--border-radius-input);
+}
+
+.dark .terms-notice {
+  color: #f87171;
+  background-color: rgba(239, 68, 68, 0.05);
+}

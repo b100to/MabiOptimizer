@@ -12,11 +12,13 @@ const ConfigForm = ({
   setUnityVersion,
   platform,
   setPlatform,
-  disclaimerAgreed
+  termsAgreed,
+  setTermsAgreed,
+  onShowTerms
 }) => {
   const handleGenerateConfig = () => {
-    // 면책조항에 동의하지 않았으면 경고
-    if (!disclaimerAgreed) {
+    // 이용약관에 동의하지 않았으면 경고
+    if (!termsAgreed) {
       alert("계속하시려면 이용약관에 동의해주세요.");
       return;
     }
@@ -69,7 +71,7 @@ const ConfigForm = ({
         <ol>
           <li>
             <strong>게임 Data 폴더에 접근하세요:</strong>
-            <div className="code-path">C:\Nexon\MabinogiMobile\MabinogiMobile_Data</div>
+            <div className="code-path">C:\Nexon\MobinogiPC\MobinogiPC_Data</div>
             <div className="path-note">(일반적으로 게임 설치 폴더 내의 [게임이름]_Data 폴더입니다)</div>
           </li>
           <li>
@@ -80,18 +82,46 @@ const ConfigForm = ({
             <strong>다운로드한 boot.config 파일을 Data 폴더에 넣으세요.</strong>
           </li>
           <li>
-            <strong>마비노기 모바일을 재시작하면 최적화 설정이 적용됩니다.</strong>
+            <strong>모비노기 PC버전을 재시작하면 최적화 설정이 적용됩니다.</strong>
           </li>
         </ol>
+      </div>
+
+      <div className="terms-agreement">
+        <div className="checkbox-container">
+          <input
+            type="checkbox"
+            id="terms-checkbox"
+            checked={termsAgreed}
+            onChange={() => setTermsAgreed(!termsAgreed)}
+          />
+          <label htmlFor="terms-checkbox">
+            <span className="terms-text">
+              <button
+                className="text-link"
+                onClick={(e) => { e.preventDefault(); onShowTerms(); }}
+              >
+                이용약관
+              </button>
+              에 동의합니다. (필수)
+            </span>
+          </label>
+        </div>
       </div>
 
       <button
         onClick={handleGenerateConfig}
         className="generate-button"
-        disabled={!disclaimerAgreed}
+        disabled={!termsAgreed}
       >
         설정 파일 생성하기
       </button>
+
+      {!termsAgreed && (
+        <div className="terms-notice">
+          설정 파일을 생성하려면 이용약관에 동의해주세요.
+        </div>
+      )}
     </div>
   );
 };

@@ -14,8 +14,6 @@ const App = () => {
   const [cpuThreads, setCpuThreads] = useState(12);
   const [ram, setRam] = useState(16);
   const [gpuTier, setGpuTier] = useState("mid");
-  const [unityVersion, setUnityVersion] = useState("2021.3");
-  const [platform, setPlatform] = useState("windows");
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
@@ -91,10 +89,6 @@ const App = () => {
           gpuTier={gpuTier}
           ram={ram}
           setRam={setRam}
-          unityVersion={unityVersion}
-          setUnityVersion={setUnityVersion}
-          platform={platform}
-          setPlatform={setPlatform}
           termsAgreed={termsAgreed}
           setTermsAgreed={setTermsAgreed}
           onShowTerms={() => setShowTermsModal(true)}

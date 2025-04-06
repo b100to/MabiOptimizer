@@ -8,10 +8,6 @@ const ConfigForm = ({
   gpuTier,
   ram,
   setRam,
-  unityVersion,
-  setUnityVersion,
-  platform,
-  setPlatform,
   termsAgreed,
   setTermsAgreed,
   onShowTerms
@@ -23,7 +19,9 @@ const ConfigForm = ({
       return;
     }
 
-    // 설정 생성
+    // 설정 생성 - Unity 버전과 플랫폼 고정값 사용
+    const unityVersion = "2021.3";
+    const platform = "windows";
     const config = generateConfig(cpuThreads, gpuTier, ram, unityVersion, platform);
 
     // 파일 다운로드
@@ -32,34 +30,13 @@ const ConfigForm = ({
 
   return (
     <div className="config-form">
-      <div className="form-group">
-        <label className="form-label">
-          Unity 버전:
-        </label>
-        <select
-          value={unityVersion}
-          onChange={(e) => setUnityVersion(e.target.value)}
-          className="form-select"
-        >
-          <option value="2019.4">Unity 2019.4</option>
-          <option value="2020.3">Unity 2020.3</option>
-          <option value="2021.3">Unity 2021.3</option>
-          <option value="2022.3">Unity 2022.3</option>
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label className="form-label">
-          플랫폼:
-        </label>
-        <select
-          value={platform}
-          onChange={(e) => setPlatform(e.target.value)}
-          className="form-select"
-        >
-          <option value="windows">Windows</option>
-          <option value="android">Android</option>
-        </select>
+      <div className="fixed-settings-info">
+        <p>
+          <strong>Unity 버전:</strong> Unity 2021.3 (모비노기 PC버전 전용)
+        </p>
+        <p>
+          <strong>플랫폼:</strong> Windows
+        </p>
       </div>
 
       <div className="form-group">

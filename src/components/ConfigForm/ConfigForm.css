@@ -298,3 +298,29 @@
   color: #f87171;
   background-color: rgba(239, 68, 68, 0.05);
 }
+
+/* 고정된 설정 정보 스타일 */
+.fixed-settings-info {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-input);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.fixed-settings-info p {
+  margin: 8px 0;
+  color: var(--text-color);
+  font-size: 15px;
+}
+
+.fixed-settings-info strong {
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+/* 다크 모드 스타일 */
+.dark .fixed-settings-info {
+  background-color: #1e293b;
+  border-color: #374151;
+}

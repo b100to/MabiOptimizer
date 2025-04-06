@@ -22,7 +22,7 @@ const HelpModal = ({ onClose }) => {
               </div>
               <ol className="spec-steps">
                 <li>키보드에서 <span className="keyboard-shortcut">Windows 키 + R</span> 누르기</li>
-                <li><span className="command">dxdiag</span> 입력하고 Enter 누르기</li>
+                <li><span className="keyboard-shortcut">dxdiag</span> 입력하고 Enter 누르기</li>
                 <li>첫 번째 탭(시스템)에서 프로세서(CPU) 정보와 메모리(RAM) 용량 확인 가능</li>
               </ol>
             </div>
@@ -38,7 +38,7 @@ const HelpModal = ({ onClose }) => {
                 <span className="spec-title">그래픽 카드(GPU) 확인하기</span>
               </div>
               <ol className="spec-steps">
-                <li>동일한 dxdiag 창에서 "디스플레이" 탭 클릭</li>
+                <li>동일한 <code className="command">dxdiag</code> 창에서 "디스플레이" 탭 클릭</li>
                 <li>"이름" 항목에서 그래픽 카드 모델 확인 가능</li>
               </ol>
             </div>

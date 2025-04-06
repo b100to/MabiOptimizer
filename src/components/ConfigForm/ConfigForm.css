@@ -667,3 +667,154 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* 설정 파일 상세 내용 리팩토링 스타일 */
+.config-preview-tabs {
+  margin-bottom: 15px;
+}
+
+.tabs-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tab-category {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 30px;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-category:hover {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.tab-category.active {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+}
+
+.dark .tab-category {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.dark .tab-category:hover {
+  background-color: rgba(59, 130, 246, 0.25);
+}
+
+.dark .tab-category.active {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.tab-info {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: rgba(59, 130, 246, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.dark .tab-info {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #e5e7eb;
+}
+
+/* 설정 파일 구문 강조 스타일 */
+.config-preview .highlight {
+  display: block;
+  padding: 2px 0;
+  border-radius: 3px;
+}
+
+.config-preview .cpu-gpu-setting {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.1);
+  padding-left: 8px;
+}
+
+.config-preview .memory-setting {
+  color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.1);
+  padding-left: 8px;
+}
+
+.config-preview .rendering-setting {
+  color: #8b5cf6;
+  background-color: rgba(139, 92, 246, 0.1);
+  padding-left: 8px;
+}
+
+.config-preview .other-setting {
+  color: #64748b;
+  background-color: rgba(100, 116, 139, 0.1);
+  padding-left: 8px;
+}
+
+.dark .config-preview .cpu-gpu-setting {
+  color: #34d399;
+  background-color: rgba(16, 185, 129, 0.15);
+}
+
+.dark .config-preview .memory-setting {
+  color: #fbbf24;
+  background-color: rgba(245, 158, 11, 0.15);
+}
+
+.dark .config-preview .rendering-setting {
+  color: #a78bfa;
+  background-color: rgba(139, 92, 246, 0.15);
+}
+
+.dark .config-preview .other-setting {
+  color: #94a3b8;
+  background-color: rgba(100, 116, 139, 0.15);
+}
+
+/* 설정 파일 줄 바꿈 스타일 */
+.config-preview span {
+  display: inline-block;
+  white-space: pre;
+}
+
+.config-preview br {
+  line-height: 1.5;
+}
+
+/* 스크롤바 스타일 개선 */
+.config-preview::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.config-preview::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.config-preview::-webkit-scrollbar-thumb {
+  background-color: #4a5568;
+  border-radius: 6px;
+  border: 2px solid #2d3748;
+}
+
+.dark .config-preview::-webkit-scrollbar-thumb {
+  background-color: #60a5fa;
+  border: 2px solid #2d3748;
+}
+
+.config-preview::-webkit-scrollbar-thumb:hover {
+  background-color: #3b82f6;
+}

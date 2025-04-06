@@ -13,7 +13,8 @@ const ConfigForm = ({
   onShowTerms
 }) => {
   const [configContent, setConfigContent] = useState('');
-  const [showFullConfig, setShowFullConfig] = useState(false);
+  const [showFullConfig, setShowFullConfig] = useState(true);
+  const [activeTab, setActiveTab] = useState('all'); // 'all', 'cpu-gpu', 'memory', 'rendering'
 
   // GPU 티어에 따른 텍스트 반환
   const getGpuTierText = (tier) => {
@@ -57,30 +58,43 @@ const ConfigForm = ({
   const maxChunksPerShader = gpuTier === "high" ? 12 : gpuTier === "mid" ? 8 : 4;
   const hdrEnabled = gpuTier === "low" ? 0 : 1;
 
-  // 설정 항목 설명
-  const getConfigExplanation = () => {
-    return [
-      {
-        key: 'job-worker-count',
-        name: '작업 스레드 수',
-        desc: 'CPU 스레드 수에 맞춰 게임 작업을 병렬 처리할 스레드 수를 최적화합니다.'
-      },
-      {
-        key: 'max-chunks-per-shader',
-        name: '셰이더 청크 제한',
-        desc: 'GPU 성능에 따라 셰이더 컴파일 시 처리할 수 있는 최대 청크 수를 조절합니다.'
-      },
-      {
-        key: 'hdr-display-enabled',
-        name: 'HDR 디스플레이',
-        desc: 'GPU 성능에 따라 HDR 기능 사용 여부를 결정합니다. 저사양 GPU에서는 비활성화됩니다.'
-      },
-      {
-        key: 'memorysetup',
-        name: '메모리 할당 설정',
-        desc: 'RAM 용량에 맞춰 게임에서 사용할 메모리 블록 크기와 할당 방식을 최적화합니다.'
-      }
-    ];
+  // 설정 라인이 현재 탭에 해당하는지 확인하는 함수
+  const shouldShowLine = (line) => {
+    if (activeTab === 'all') return true;
+
+    if (activeTab === 'cpu-gpu' && (
+      line.includes('gfx-enable') ||
+      line.includes('job-worker-count') ||
+      line.includes('max-chunks-per-shader')
+    )) {
+      return true;
+    }
+
+    if (activeTab === 'memory' && line.includes('memorysetup')) {
+      return true;
+    }
+
+    if (activeTab === 'rendering' && (
+      line.includes('batch') ||
+      line.includes('renderthread') ||
+      line.includes('hdr-display-enabled')
+    )) {
+      return true;
+    }
+
+    if (activeTab === 'other' && !(
+      line.includes('gfx-enable') ||
+      line.includes('job-worker-count') ||
+      line.includes('max-chunks-per-shader') ||
+      line.includes('memorysetup') ||
+      line.includes('batch') ||
+      line.includes('renderthread') ||
+      line.includes('hdr-display-enabled')
+    )) {
+      return true;
+    }
+
+    return false;
   };
 
   return (
@@ -152,17 +166,93 @@ const ConfigForm = ({
       <div className="config-preview-section">
         <div className="preview-header">
           <h3 className="preview-title">설정 파일 상세 내용</h3>
-          <button
-            className="toggle-button"
-            onClick={() => setShowFullConfig(!showFullConfig)}
-          >
-            {showFullConfig ? '간략히 보기' : '전체 보기'}
-          </button>
+          {configContent.length > 500 && (
+            <button
+              className="toggle-button"
+              onClick={() => setShowFullConfig(!showFullConfig)}
+            >
+              {showFullConfig ? '일부만 보기' : '전체 보기'}
+            </button>
+          )}
+        </div>
+
+        <div className="config-preview-tabs">
+          <div className="tabs-header">
+            <button
+              className={`tab-category ${activeTab === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveTab('all')}
+            >
+              전체 설정
+            </button>
+            <button
+              className={`tab-category ${activeTab === 'cpu-gpu' ? 'active' : ''}`}
+              onClick={() => setActiveTab('cpu-gpu')}
+            >
+              CPU/GPU 최적화
+            </button>
+            <button
+              className={`tab-category ${activeTab === 'memory' ? 'active' : ''}`}
+              onClick={() => setActiveTab('memory')}
+            >
+              메모리 설정
+            </button>
+            <button
+              className={`tab-category ${activeTab === 'rendering' ? 'active' : ''}`}
+              onClick={() => setActiveTab('rendering')}
+            >
+              렌더링 옵션
+            </button>
+            <button
+              className={`tab-category ${activeTab === 'other' ? 'active' : ''}`}
+              onClick={() => setActiveTab('other')}
+            >
+              기타 설정
+            </button>
+          </div>
         </div>
 
         <pre className={`config-preview ${showFullConfig ? 'expanded' : ''}`}>
-          {configContent}
+          {configContent.split('\n').map((line, index) => {
+            // 현재 탭에 해당하는 설정만 보여주기
+            if (!shouldShowLine(line)) {
+              return null;
+            }
+
+            // CPU/GPU 관련 설정에 강조 표시
+            if (line.includes('gfx-enable') ||
+              line.includes('job-worker-count') ||
+              line.includes('max-chunks-per-shader')) {
+              return <span key={index} className="highlight cpu-gpu-setting">{line}</span>;
+            }
+            // 메모리 관련 설정에 강조 표시
+            else if (line.includes('memorysetup')) {
+              return <span key={index} className="highlight memory-setting">{line}</span>;
+            }
+            // 렌더링 관련 설정에 강조 표시
+            else if (line.includes('batch') ||
+              line.includes('renderthread') ||
+              line.includes('hdr-display-enabled')) {
+              return <span key={index} className="highlight rendering-setting">{line}</span>;
+            }
+            // 일반 설정
+            else {
+              return <span key={index} className="highlight other-setting">{line}</span>;
+            }
+          }).filter(Boolean).reduce((prev, curr, i) =>
+            prev.length === 0 ? [curr] : [prev, <br key={`br-${i}`} />, curr], []
+          )}
         </pre>
+
+        {activeTab !== 'all' && (
+          <div className="tab-info">
+            <p>
+              {activeTab === 'cpu-gpu' && '현재 CPU/GPU 최적화 관련 설정만 표시하고 있습니다.'}
+              {activeTab === 'memory' && '현재 메모리 관련 설정만 표시하고 있습니다.'}
+              {activeTab === 'rendering' && '현재 렌더링 관련 설정만 표시하고 있습니다.'}
+              {activeTab === 'other' && '현재 기타 설정만 표시하고 있습니다.'}
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="terms-agreement">

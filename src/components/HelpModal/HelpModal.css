@@ -160,3 +160,22 @@
 .close-button:hover {
   background-color: #2563eb;
 }
+
+.method-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.method {
+  flex: 1;
+  background: var(--background-secondary);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.method h4 {
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  font-size: 1rem;
+}

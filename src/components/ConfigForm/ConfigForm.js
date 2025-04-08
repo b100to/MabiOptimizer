@@ -149,8 +149,8 @@ const ConfigForm = ({
             <div className="step-content">
               <h4>게임 Data 폴더 접근</h4>
               <div className="path-container">
-                <code className="file-path">C:\Nexon\MobinogiPC\MobinogiPC_Data</code>
-                <button className="copy-button" onClick={() => { navigator.clipboard.writeText('C:\\Nexon\\MobinogiPC\\MobinogiPC_Data') }}>
+                <code className="file-path">C:\Nexon\MabinogiMobile\MabinogiMobile_Data</code>
+                <button className="copy-button" onClick={() => { navigator.clipboard.writeText('C:\\Nexon\\MabinogiMobile\\MabinogiMobile_Data') }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 4v12a2 2 0 002 2h8a2 2 0 002-2V7.242a2 2 0 00-.602-1.43L16.083 2.57A2 2 0 0014.685 2H10a2 2 0 00-2 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M16 18v2a2 2 0 01-2 2H6a2 2 0 01-2-2V9a2 2 0 012-2h2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

@@ -1,13 +1,95 @@
 .cpu-options {
-  margin-bottom: 24px;
+  margin: 1rem 0;
 }
 
 .option-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #0f172a;
-  transition: color 0.3s ease;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.cpu-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cpu-group {
+  width: 100%;
+}
+
+.group-button {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.group-button:hover {
+  background: var(--background-hover);
+}
+
+.group-button.active {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background: var(--primary-color);
+  color: white;
+}
+
+.cpu-models {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
+}
+
+.model-button {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--background-secondary);
+  border: none;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.model-button:hover {
+  background: var(--background-hover);
+}
+
+.model-button.selected {
+  background: var(--primary-light);
+  color: var(--primary-color);
+}
+
+.model-name {
+  font-weight: 500;
+}
+
+.model-spec {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.arrow {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
 }
 
 /* CPU에만 적용되는 그리드 스타일 */

@@ -35,6 +35,10 @@ export const applyCpuPreset = (cpuType, setCpuCores, setCpuThreads) => {
       setCpuCores(12);
       setCpuThreads(24);
       break;
+    case "hybrid-14c20t":
+      setCpuCores(14);
+      setCpuThreads(20);
+      break;
     default:
       // 기본값으로 중간 사양 설정
       setCpuCores(6);

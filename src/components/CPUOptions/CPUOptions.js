@@ -29,10 +29,20 @@ const CPUOptions = ({ setCpuCores, setCpuThreads }) => {
           <span className="cpu-spec">(4코어/8스레드)</span>
         </button>
         <button
+          onClick={() => handleCpuSelect("mid-range-6c6t")}
+          className={`option-button ${selectedCpu === "mid-range-6c6t" ? "active" : ""}`}
+        >
+          중간 사양 CPU (6스레드)<br />
+          <span className="cpu-model">
+            <span className="intel">Intel i5</span> / <span className="amd">AMD Ryzen 5</span>
+          </span><br />
+          <span className="cpu-spec">(6코어/6스레드)</span>
+        </button>
+        <button
           onClick={() => handleCpuSelect("mid-range")}
           className={`option-button ${selectedCpu === "mid-range" ? "active" : ""}`}
         >
-          중간 사양 CPU<br />
+          중간 사양 CPU (12스레드)<br />
           <span className="cpu-model">
             <span className="intel">Intel i5</span> / <span className="amd">AMD Ryzen 5</span>
           </span><br />

@@ -1,11 +1,15 @@
 // 설정 생성 관련 유틸리티 함수들
 
 // CPU 프리셋 적용 함수
-export const applyCpuPreset = (preset, setCpuCores, setCpuThreads) => {
-  switch (preset) {
+export const applyCpuPreset = (cpuType, setCpuCores, setCpuThreads) => {
+  switch (cpuType) {
     case "entry-level":
       setCpuCores(4);
       setCpuThreads(8);
+      break;
+    case "mid-range-6c6t":
+      setCpuCores(6);
+      setCpuThreads(6);
       break;
     case "mid-range":
       setCpuCores(6);
@@ -184,4 +188,4 @@ memorysetup-temp-allocator-size-cloud-worker=${Math.floor(
 memorysetup-temp-allocator-size-gfx=${Math.floor(
     baseBlockSize * 0.25 * memoryMultiplier
   )}`;
-}; 
+};

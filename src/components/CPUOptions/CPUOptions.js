@@ -29,10 +29,20 @@ const CPUOptions = ({ setCpuCores, setCpuThreads }) => {
           <span className="cpu-spec">(4코어/8스레드)</span>
         </button>
         <button
+          onClick={() => handleCpuSelect("mid-range-4c4t")}
+          className={`option-button ${selectedCpu === "mid-range-4c4t" ? "active" : ""}`}
+        >
+          중간 사양 CPU<br />
+          <span className="cpu-model">
+            <span className="intel">Intel i5</span> / <span className="amd">AMD Ryzen 5</span>
+          </span><br />
+          <span className="cpu-spec">(4코어/4스레드)</span>
+        </button>
+        <button
           onClick={() => handleCpuSelect("mid-range-6c6t")}
           className={`option-button ${selectedCpu === "mid-range-6c6t" ? "active" : ""}`}
         >
-          중간 사양 CPU (6스레드)<br />
+          중간 사양 CPU<br />
           <span className="cpu-model">
             <span className="intel">Intel i5</span> / <span className="amd">AMD Ryzen 5</span>
           </span><br />
@@ -42,11 +52,21 @@ const CPUOptions = ({ setCpuCores, setCpuThreads }) => {
           onClick={() => handleCpuSelect("mid-range")}
           className={`option-button ${selectedCpu === "mid-range" ? "active" : ""}`}
         >
-          중간 사양 CPU (12스레드)<br />
+          중간 사양 CPU<br />
           <span className="cpu-model">
             <span className="intel">Intel i5</span> / <span className="amd">AMD Ryzen 5</span>
           </span><br />
           <span className="cpu-spec">(6코어/12스레드)</span>
+        </button>
+        <button
+          onClick={() => handleCpuSelect("high-end-8c8t")}
+          className={`option-button ${selectedCpu === "high-end-8c8t" ? "active" : ""}`}
+        >
+          고성능 CPU<br />
+          <span className="cpu-model">
+            <span className="intel">Intel i7</span> / <span className="amd">AMD Ryzen 7</span>
+          </span><br />
+          <span className="cpu-spec">(8코어/8스레드)</span>
         </button>
         <button
           onClick={() => handleCpuSelect("high-end")}
@@ -57,6 +77,16 @@ const CPUOptions = ({ setCpuCores, setCpuThreads }) => {
             <span className="intel">Intel i7</span> / <span className="amd">AMD Ryzen 7</span>
           </span><br />
           <span className="cpu-spec">(8코어/16스레드)</span>
+        </button>
+        <button
+          onClick={() => handleCpuSelect("premium-12c12t")}
+          className={`option-button ${selectedCpu === "premium-12c12t" ? "active" : ""}`}
+        >
+          프리미엄 CPU<br />
+          <span className="cpu-model">
+            <span className="intel">Intel i9</span> / <span className="amd">AMD Ryzen 9</span>
+          </span><br />
+          <span className="cpu-spec">(12코어/12스레드)</span>
         </button>
         <button
           onClick={() => handleCpuSelect("premium")}

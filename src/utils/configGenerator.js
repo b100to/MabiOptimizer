@@ -7,6 +7,10 @@ export const applyCpuPreset = (cpuType, setCpuCores, setCpuThreads) => {
       setCpuCores(4);
       setCpuThreads(8);
       break;
+    case "mid-range-4c4t":
+      setCpuCores(4);
+      setCpuThreads(4);
+      break;
     case "mid-range-6c6t":
       setCpuCores(6);
       setCpuThreads(6);
@@ -15,9 +19,17 @@ export const applyCpuPreset = (cpuType, setCpuCores, setCpuThreads) => {
       setCpuCores(6);
       setCpuThreads(12);
       break;
+    case "high-end-8c8t":
+      setCpuCores(8);
+      setCpuThreads(8);
+      break;
     case "high-end":
       setCpuCores(8);
       setCpuThreads(16);
+      break;
+    case "premium-12c12t":
+      setCpuCores(12);
+      setCpuThreads(12);
       break;
     case "premium":
       setCpuCores(12);
@@ -119,6 +131,10 @@ memorysetup-bucket-allocator-granularity=16
 memorysetup-bucket-allocator-bucket-count=8
 memorysetup-bucket-allocator-block-size=${Math.floor(
     baseBlockSize * memoryMultiplier
+  )}
+memorysetup-bucket-allocator-block-count=${ram >= 16 ? 2 : 1}
+memorysetup-bucket-allocator-block-size=${Math.floor(
+    baseMainAllocatorSize * memoryMultiplier
   )}
 memorysetup-bucket-allocator-block-count=${ram >= 16 ? 2 : 1}
 memorysetup-main-allocator-block-size=${Math.floor(

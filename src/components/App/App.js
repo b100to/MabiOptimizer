@@ -26,6 +26,16 @@ const App = () => {
           <h1 className="app-title">모비노기 PC버전 최적화</h1>
         </div>
 
+        <div className="donation-notice">
+          <h3>광고 수익 기부 안내</h3>
+          <p>
+            이 웹사이트의 광고 수익은 서버 운영비를 제외하고
+            어려운 이웃을 돕기 위해 기부됩니다.
+            <br />
+            <small>수익금 사용 내역은 정기적으로 공개됩니다.</small>
+          </p>
+        </div>
+
         {showNotice && (
           <div className="notice-container">
             <div className="notice-content">
@@ -36,7 +46,7 @@ const App = () => {
               className="notice-close-button"
               onClick={() => setShowNotice(false)}
             >
-              ×
+              닫기
             </button>
           </div>
         )}

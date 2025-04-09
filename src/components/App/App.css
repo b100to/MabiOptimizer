@@ -257,3 +257,43 @@ body {
     transform: translateY(0);
   }
 }
+
+.donation-notice {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.donation-notice h3 {
+  color: #2563eb;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.donation-notice p {
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.donation-notice a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.donation-notice a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.donation-notice small {
+  color: #94a3b8;
+  font-size: 14px;
+}

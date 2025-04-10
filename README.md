@@ -1,8 +1,7 @@
-# 마비노기 PC버전 최적화 도구
+# 모비노기 PC버전 최적화 도구
 
-<p align="center">
-  <img src="./public/logo192.png" alt="마비노기 PC버전 최적화 도구 로고" width="100" height="100" />
-</p>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e0b53577-f1c5-4cdf-8c5c-a1b5c3c0c0c0/deploy-status)](https://app.netlify.com/sites/mabioptimizer/deploys)
+<img src="./public/logo192.png" alt="모비노기 PC버전 최적화 도구 로고" width="100" height="100" />
 
 <p align="center">
   <b>PC 사양에 최적화된 Unity Boot Config 생성기</b><br/>
@@ -74,7 +73,7 @@
 
 ## 🚀 사용 방법
 
-1. [마비노기 PC버전 최적화 도구](https://mabioptimizer.com)에 접속합니다.
+1. [모비노기 PC버전 최적화 도구](https://mabioptimizer.com)에 접속합니다.
 2. 자신의 PC 사양에 맞게 CPU와 GPU 모델을 선택합니다.
 3. RAM 용량을 설정합니다.
 4. "설정 파일 생성하기" 버튼을 클릭하여 `boot.config` 파일을 다운로드합니다.
@@ -90,7 +89,7 @@
 ### 프로젝트 구조
 
 ```
-마비노기PC최적화/
+모비노기PC최적화/
 ├── public/            # 정적 자산
 ├── src/               # 소스 코드
 │   ├── components/    # React 컴포넌트
@@ -103,8 +102,8 @@
 
 ```bash
 # 저장소 복제
-git clone https://github.com/yourusername/mabinogi-pc-optimizer.git
-cd mabinogi-pc-optimizer
+git clone https://github.com/yourusername/mobinogi-pc-optimizer.git
+cd mobinogi-pc-optimizer
 
 # 의존성 설치
 npm install
@@ -126,7 +125,7 @@ npm run build
 
 ## ⚠️ 주의사항
 
-- 이 도구는 마비노기 PC버전의 비공식 최적화 도구로, 넥슨 및 게임 개발사와 무관합니다.
+- 이 도구는 모비노기 PC버전의 비공식 최적화 도구로, 넥슨 및 게임 개발사와 무관합니다.
 - 게임 파일을 수정하는 행위는 게임 이용약관에 위배될 수 있으며 계정 제재의 원인이 될 수 있습니다.
 - 사용으로 인해 발생할 수 있는 게임 크래시, 계정 제재, 데이터 손실 등 어떠한 문제에 대해서도 제작자는 책임을 지지 않습니다.
 - 게임 내 룬 합성, 아이템 사라짐 등의 버그는 게임 자체 이슈이니 주의하세요.

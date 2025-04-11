@@ -43,8 +43,8 @@ const App = () => {
             <div className="notice-content">
               <span className="notice-badge">공지사항</span>
               <p>
-                <span className="notice-date">2024.03.11</span>
-                모비노기 PC버전 최적화 툴이 업데이트 되었습니다!
+                <span className="notice-date">2025.04.11</span>
+                모비노기 PC버전 최적화 툴 업데이트: 사양별 최적화 강화, 메모리 관리 개선, 배칭 시스템 최적화
                 <button
                   onClick={() => setShowAnnouncementModal(true)}
                   className="notice-link"

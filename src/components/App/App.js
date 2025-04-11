@@ -13,7 +13,7 @@ const App = () => {
   const [cores, setCores] = useState(8);
   const [threads, setThreads] = useState(16);
   const [ram, setRam] = useState(16);
-  const [gpuTier, setGpuTier] = useState("mid");
+  const [gpuTier, setGpuTier] = useState("medium");
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);

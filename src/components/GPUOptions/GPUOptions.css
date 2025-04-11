@@ -5,24 +5,24 @@
 .option-title {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   color: #0f172a;
   transition: color 0.3s ease;
 }
 
 .option-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
 }
 
 .option-button {
-  padding: 18px 16px;
-  background-color: #f1f5f9;
+  padding: 16px 14px;
+  background-color: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
   font-size: 14px;
   text-align: left;
   color: #0f172a;
@@ -32,7 +32,7 @@
 }
 
 .option-button:hover {
-  background-color: #e2e8f0;
+  background-color: #f1f5f9;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
@@ -41,7 +41,7 @@
 .option-button.active {
   background-color: #3b82f6;
   color: white;
-  border-color: #3b82f6;
+  border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
@@ -56,58 +56,70 @@
 }
 
 .option-title-main {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 4px;
 }
 
 .option-subtitle {
-  font-size: 13px;
+  font-size: 12px;
   color: #64748b;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 .option-button.active .option-subtitle {
-  color: #e2e8f0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .option-examples {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 12px;
+  gap: 4px;
+  font-size: 11px;
 }
 
 .brand {
-  padding: 4px 0;
+  padding: 3px 0;
   display: flex;
   align-items: center;
   color: #475569;
+  line-height: 1.4;
 }
 
 .brand:before {
   content: '•';
-  margin-right: 6px;
-  font-size: 14px;
+  margin-right: 4px;
+  font-size: 12px;
   color: #64748b;
 }
 
 .option-button.active .brand {
-  color: #f1f5f9;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .option-button.active .brand:before {
-  color: #f1f5f9;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 1200px) {
+  .option-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
   .option-grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 480px) {
   .option-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+  }
+
+  .option-button {
+    padding: 14px 12px;
   }
 }

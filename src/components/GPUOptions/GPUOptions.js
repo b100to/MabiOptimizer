@@ -3,10 +3,10 @@ import './GPUOptions.css';
 import { applyGpuPreset } from '../../utils/configGenerator';
 
 const GPUOptions = ({ setGpuTier }) => {
-  const [selectedGpu, setSelectedGpu] = useState("mid");
+  const [selectedGpu, setSelectedGpu] = useState("medium");
 
   useEffect(() => {
-    applyGpuPreset("mid", setGpuTier);
+    applyGpuPreset("medium", setGpuTier);
   }, [setGpuTier]);
 
   const handleGpuSelect = (gpuType) => {
@@ -19,29 +19,44 @@ const GPUOptions = ({ setGpuTier }) => {
       <h3 className="option-title">GPU 성능 선택:</h3>
       <div className="option-grid">
         <button
-          onClick={() => handleGpuSelect("low")}
-          className={`option-button ${selectedGpu === "low" ? "active" : ""}`}
+          onClick={() => handleGpuSelect("minimum")}
+          className={`option-button ${selectedGpu === "minimum" ? "active" : ""}`}
         >
           <div className="option-content">
-            <div className="option-title-main">저사양 GPU</div>
-            <div className="option-subtitle">올드 모델 / 내장 그래픽</div>
+            <div className="option-title-main">매우 낮은 사양</div>
+            <div className="option-subtitle">내장 그래픽 / 구형 그래픽카드</div>
             <div className="option-examples">
-              <div className="brand nvidia">NVIDIA: GT 1030, GTX 1050</div>
-              <div className="brand amd">AMD: RX 550, RX 560, Vega 8</div>
-              <div className="brand etc">Intel: UHD/Iris 그래픽</div>
+              <div className="brand">Intel HD/UHD Graphics</div>
+              <div className="brand">AMD Vega 3/6</div>
+              <div className="brand">NVIDIA GT 710/730</div>
             </div>
           </div>
         </button>
         <button
-          onClick={() => handleGpuSelect("mid")}
-          className={`option-button ${selectedGpu === "mid" ? "active" : ""}`}
+          onClick={() => handleGpuSelect("low")}
+          className={`option-button ${selectedGpu === "low" ? "active" : ""}`}
         >
           <div className="option-content">
-            <div className="option-title-main">중간사양 GPU</div>
-            <div className="option-subtitle">메인스트림 모델</div>
+            <div className="option-title-main">낮은 사양</div>
+            <div className="option-subtitle">엔트리급 전용 그래픽</div>
             <div className="option-examples">
-              <div className="brand nvidia">NVIDIA: GTX 1060-1660, RTX 2060, RTX 3050</div>
-              <div className="brand amd">AMD: RX 570-590, RX 5500, RX 6500</div>
+              <div className="brand">NVIDIA GTX 1050/1630</div>
+              <div className="brand">AMD RX 550/560</div>
+              <div className="brand">Intel Arc A380</div>
+            </div>
+          </div>
+        </button>
+        <button
+          onClick={() => handleGpuSelect("medium")}
+          className={`option-button ${selectedGpu === "medium" ? "active" : ""}`}
+        >
+          <div className="option-content">
+            <div className="option-title-main">중간 사양</div>
+            <div className="option-subtitle">메인스트림 게이밍</div>
+            <div className="option-examples">
+              <div className="brand">NVIDIA GTX 1060-1660, RTX 2060</div>
+              <div className="brand">AMD RX 5500 XT, RX 6600</div>
+              <div className="brand">NVIDIA RTX 3050</div>
             </div>
           </div>
         </button>
@@ -50,11 +65,26 @@ const GPUOptions = ({ setGpuTier }) => {
           className={`option-button ${selectedGpu === "high" ? "active" : ""}`}
         >
           <div className="option-content">
-            <div className="option-title-main">고사양 GPU</div>
-            <div className="option-subtitle">하이엔드 모델</div>
+            <div className="option-title-main">높은 사양</div>
+            <div className="option-subtitle">고성능 게이밍</div>
             <div className="option-examples">
-              <div className="brand nvidia">NVIDIA: RTX 2070 이상, RTX 3060 Ti 이상</div>
-              <div className="brand amd">AMD: RX 5700 이상, RX 6600 이상</div>
+              <div className="brand">NVIDIA RTX 2070/2080</div>
+              <div className="brand">NVIDIA RTX 3060 Ti/3070</div>
+              <div className="brand">AMD RX 6700 XT, RX 7600</div>
+            </div>
+          </div>
+        </button>
+        <button
+          onClick={() => handleGpuSelect("ultra")}
+          className={`option-button ${selectedGpu === "ultra" ? "active" : ""}`}
+        >
+          <div className="option-content">
+            <div className="option-title-main">최고 사양</div>
+            <div className="option-subtitle">프리미엄 게이밍</div>
+            <div className="option-examples">
+              <div className="brand">NVIDIA RTX 3080/3090</div>
+              <div className="brand">NVIDIA RTX 4070/4080/4090</div>
+              <div className="brand">AMD RX 6800 XT/6900 XT</div>
             </div>
           </div>
         </button>

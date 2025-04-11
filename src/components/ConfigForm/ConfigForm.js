@@ -19,10 +19,12 @@ const ConfigForm = ({
   // GPU 티어에 따른 텍스트 반환
   const getGpuTierText = (tier) => {
     switch (tier) {
-      case 'low': return '저사양';
-      case 'mid': return '중간사양';
-      case 'high': return '고사양';
-      default: return '중간사양';
+      case 'minimum': return '매우 낮은 사양';
+      case 'low': return '낮은 사양';
+      case 'medium': return '중간 사양';
+      case 'high': return '높은 사양';
+      case 'ultra': return '최고 사양';
+      default: return '중간 사양';
     }
   };
 
@@ -55,8 +57,18 @@ const ConfigForm = ({
   const workerCount = Math.max(1, Math.floor(cpuThreads * 0.75));
 
   // GPU 티어에 따른 설정 변경
-  const maxChunksPerShader = gpuTier === "high" ? 12 : gpuTier === "mid" ? 8 : 4;
-  const hdrEnabled = gpuTier === "low" ? 0 : 1;
+  const maxChunksPerShader = (() => {
+    switch (gpuTier) {
+      case 'minimum': return 4;
+      case 'low': return 8;
+      case 'medium': return 12;
+      case 'high': return 16;
+      case 'ultra': return 24;
+      default: return 12;
+    }
+  })();
+
+  const hdrEnabled = gpuTier === "minimum" || gpuTier === "low" ? 0 : 1;
 
   // 설정 라인이 현재 탭에 해당하는지 확인하는 함수
   const shouldShowLine = (line) => {

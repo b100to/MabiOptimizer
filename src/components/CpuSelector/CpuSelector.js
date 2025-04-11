@@ -103,6 +103,7 @@ const CpuSelector = ({ cores, threads, setCores, setThreads }) => {
 
     return (
         <div className="cpu-selector">
+            <h3 className="option-title">CPU 성능 선택:</h3>
             <div className="preset-buttons">
                 {Object.entries(CPU_PRESETS).map(([key, preset]) => (
                     <button

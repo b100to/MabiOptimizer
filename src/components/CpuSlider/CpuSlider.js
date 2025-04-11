@@ -28,7 +28,7 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
     function sliderToCores(value) {
         const normalizedValue = value / 100;
         const coreValue = MIN_CORES * Math.pow(MAX_CORES / MIN_CORES, normalizedValue);
-        // 2의 단위로 반올림
+        // 일반적인 짝수로 반올림
         return Math.max(MIN_CORES, Math.min(MAX_CORES, Math.round(coreValue / 2) * 2));
     }
 
@@ -36,7 +36,7 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
     function sliderToThreads(value) {
         const normalizedValue = value / 100;
         const threadValue = MIN_THREADS * Math.pow(MAX_THREADS / MIN_THREADS, normalizedValue);
-        // 2의 단위로 반올림
+        // 일반적인 짝수로 반올림
         return Math.max(MIN_THREADS, Math.min(MAX_THREADS, Math.round(threadValue / 2) * 2));
     }
 

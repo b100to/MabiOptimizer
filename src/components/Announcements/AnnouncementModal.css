@@ -1,0 +1,93 @@
+.announcement-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.announcement-modal {
+    background-color: white;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 48rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.announcement-modal-content {
+    padding: 1.5rem;
+}
+
+.announcement-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.announcement-modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.announcement-modal-close {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.announcement-modal-close:hover {
+    color: #333;
+}
+
+.announcement-modal-body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Markdown 스타일 */
+.announcement-modal-body h1 {
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 0.8em;
+}
+
+.announcement-modal-body h2 {
+    font-size: 1.5em;
+    margin-top: 1.6em;
+    margin-bottom: 0.8em;
+}
+
+.announcement-modal-body h3 {
+    font-size: 1.25em;
+    margin-top: 1.3em;
+    margin-bottom: 0.6em;
+}
+
+.announcement-modal-body ul {
+    margin: 1em 0;
+    padding-left: 2em;
+}
+
+.announcement-modal-body li {
+    margin: 0.5em 0;
+}
+
+.announcement-modal-body p {
+    margin: 1em 0;
+}
+
+.announcement-modal-body strong {
+    font-weight: 600;
+}

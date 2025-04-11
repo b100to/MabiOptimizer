@@ -297,3 +297,80 @@ body {
   color: #94a3b8;
   font-size: 14px;
 }
+
+/* 공지사항 모달 스타일 */
+.prose {
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.prose h1 {
+  font-size: 2em;
+  margin-top: 0;
+  margin-bottom: 0.8em;
+  line-height: 1.3;
+}
+
+.prose h2 {
+  font-size: 1.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.3;
+}
+
+.prose h3 {
+  font-size: 1.25em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.3;
+}
+
+.prose ul {
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.prose p {
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+
+.text-link.ml-2 {
+  margin-left: 8px;
+}
+
+.notice-link {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 8px;
+  text-decoration: none;
+}
+
+.notice-link:hover {
+  text-decoration: underline;
+  color: #2563eb;
+}
+
+.notice-date {
+  display: inline-block;
+  color: #666;
+  font-size: 13px;
+  margin-right: 8px;
+  font-weight: 500;
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ConfigForm.css';
-import RamSlider from '../RamSlider/RamSlider';
+import RamSelector from '../RamSelector/RamSelector';
 import { generateConfig, downloadConfigFile } from '../../utils/configGenerator';
 
 const ConfigForm = ({
@@ -100,7 +100,7 @@ const ConfigForm = ({
   return (
     <div className="config-form">
       <div className="form-group">
-        <RamSlider ram={ram} setRam={setRam} />
+        <RamSelector ram={ram} setRam={setRam} />
       </div>
 
       <div className="fixed-settings-info">

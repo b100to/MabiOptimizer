@@ -89,123 +89,120 @@ export const downloadConfigFile = (content) => {
 
 // 설정 생성 함수
 export const generateConfig = (cpuThreads, gpuTier, ram, unityVersion, platform) => {
-  // 워커 수 계산 (보통 논리 코어/스레드 수의 3/4 정도가 최적)
-  const workerCount = Math.max(1, Math.floor(cpuThreads * 0.75));
+  // 워커 수 계산 (CPU 스레드의 80%를 활용)
+  const workerCount = Math.max(1, Math.floor(cpuThreads * 0.8));
 
   // GPU 티어에 따른 설정 변경
-  const maxChunksPerShader =
-    gpuTier === "high" ? 12 : gpuTier === "mid" ? 8 : 4;
+  const maxChunksPerShader = gpuTier === "high" ? 16 : gpuTier === "mid" ? 12 : 8;
   const hdrEnabled = gpuTier === "low" ? 0 : 1;
+  const gfxJobs = gpuTier === "low" ? 0 : 1;
 
-  // RAM에 따른 메모리 블록 크기 계산
-  const memoryMultiplier = ram >= 32 ? 2 : ram >= 16 ? 1.5 : 1;
-  const baseBlockSize = 4194304;
-  const baseMainAllocatorSize = 33554432;
+  // RAM에 따른 메모리 설정 계산
+  const getMemoryMultiplier = (ram) => {
+    if (ram >= 64) return 3;
+    if (ram >= 32) return 2.5;
+    if (ram >= 16) return 1.75;
+    if (ram >= 8) return 1.25;
+    return 1;
+  };
+
+  const getBucketCount = (ram) => {
+    if (ram >= 32) return 32;
+    if (ram >= 16) return 16;
+    return 8;
+  };
+
+  const getBlockCount = (ram) => {
+    if (ram >= 32) return 4;
+    if (ram >= 16) return 2;
+    return 1;
+  };
+
+  const memoryMultiplier = getMemoryMultiplier(ram);
+  const baseBlockSize = 4194304;  // 4MB
+  const baseMainAllocatorSize = 33554432;  // 32MB
 
   // Unity 버전별 특수 설정
-  const versionSpecificSettings =
-    unityVersion.startsWith("2021") || unityVersion.startsWith("2022")
-      ? `use-static-batch=true
+  const versionSpecificSettings = unityVersion.startsWith("2021") || unityVersion.startsWith("2022")
+    ? `use-static-batch=true
 use-dynamic-batch=true
 use-incremental-gc=true
 dynamic-batching=true
-renderthread=1`
-      : "";
+renderthread=${gpuTier === "low" ? 0 : 1}
+gc-max-time-slice=${gpuTier === "low" ? 1 : 3}`
+    : "";
 
   // 모바일 플랫폼 특수 설정
-  const androidSettings =
-    platform === "android"
-      ? `androidStartInFullscreen=1
+  const androidSettings = platform === "android"
+    ? `androidStartInFullscreen=1
 androidRenderOutsideSafeArea=1
 adaptive-performance-samsung-boost-launch=1`
-      : "";
+    : "";
+
+  // 메모리 설정 생성
+  const generateMemorySettings = () => {
+    const settings = {
+      bucket: {
+        blockSize: Math.floor(baseBlockSize * memoryMultiplier),
+        mainAllocSize: Math.floor(baseMainAllocatorSize * memoryMultiplier),
+        bucketCount: getBucketCount(ram),
+        blockCount: getBlockCount(ram)
+      },
+      temp: {
+        mainSize: Math.floor(baseMainAllocatorSize * 0.5 * memoryMultiplier),
+        workerSize: Math.floor(baseBlockSize * 0.25 * memoryMultiplier),
+        backgroundSize: Math.floor(65536 * memoryMultiplier),
+        navMeshSize: Math.floor(131072 * memoryMultiplier),
+        audioSize: Math.floor(131072 * memoryMultiplier),
+        cloudSize: Math.floor(65536 * memoryMultiplier),
+        gfxSize: Math.floor(baseBlockSize * 0.25 * memoryMultiplier)
+      }
+    };
+
+    return `memorysetup-bucket-allocator-granularity=16
+memorysetup-bucket-allocator-bucket-count=${settings.bucket.bucketCount}
+memorysetup-bucket-allocator-block-size=${settings.bucket.blockSize}
+memorysetup-bucket-allocator-block-count=${settings.bucket.blockCount}
+memorysetup-main-allocator-block-size=${settings.bucket.mainAllocSize}
+memorysetup-thread-allocator-block-size=${settings.bucket.mainAllocSize}
+memorysetup-gfx-main-allocator-block-size=${settings.bucket.mainAllocSize}
+memorysetup-gfx-thread-allocator-block-size=${settings.bucket.mainAllocSize}
+memorysetup-cache-allocator-block-size=${settings.bucket.blockSize}
+memorysetup-typetree-allocator-block-size=${Math.floor(settings.bucket.blockSize * 0.5)}
+memorysetup-profiler-bucket-allocator-granularity=16
+memorysetup-profiler-bucket-allocator-bucket-count=${settings.bucket.bucketCount}
+memorysetup-profiler-bucket-allocator-block-size=${settings.bucket.blockSize}
+memorysetup-profiler-bucket-allocator-block-count=${settings.bucket.blockCount}
+memorysetup-profiler-allocator-block-size=${settings.bucket.mainAllocSize}
+memorysetup-profiler-editor-allocator-block-size=${Math.floor(settings.bucket.blockSize * 0.25)}
+memorysetup-temp-allocator-size-main=${settings.temp.mainSize}
+memorysetup-temp-allocator-size-worker=${settings.temp.workerSize}
+memorysetup-temp-allocator-size-background-worker=${settings.temp.backgroundSize}
+memorysetup-temp-allocator-size-nav-mesh-worker=${settings.temp.navMeshSize}
+memorysetup-temp-allocator-size-audio-worker=${settings.temp.audioSize}
+memorysetup-temp-allocator-size-cloud-worker=${settings.temp.cloudSize}
+memorysetup-temp-allocator-size-gfx=${settings.temp.gfxSize}
+memorysetup-job-temp-allocator-block-size=${Math.floor(settings.bucket.mainAllocSize * 2)}
+memorysetup-job-temp-allocator-block-size-background=${Math.floor(settings.bucket.blockSize * 0.5)}
+memorysetup-job-temp-allocator-reduction-small-platforms=262144
+memorysetup-allocator-temp-initial-block-size-main=${settings.temp.workerSize}
+memorysetup-allocator-temp-initial-block-size-worker=${settings.temp.workerSize}`;
+  };
 
   // 최종 설정 생성
-  return `gfx-enable-gfx-jobs=1
-gfx-enable-native-gfx-jobs=1
+  return `gfx-enable-gfx-jobs=${gfxJobs}
+gfx-enable-native-gfx-jobs=${gfxJobs}
 max-chunks-per-shader=${maxChunksPerShader}
 wait-for-native-debugger=0
 vr-enabled=0
 hdr-display-enabled=${hdrEnabled}
 job-worker-count=${workerCount}
-gc-max-time-slice=3
+gc-max-time-slice=${gpuTier === "low" ? 1 : 3}
 ${androidSettings}
 ${versionSpecificSettings}
-memorysetup-bucket-allocator-granularity=16
-memorysetup-bucket-allocator-bucket-count=8
-memorysetup-bucket-allocator-block-size=${Math.floor(
-    baseBlockSize * memoryMultiplier
-  )}
-memorysetup-bucket-allocator-block-count=${ram >= 16 ? 2 : 1}
-memorysetup-bucket-allocator-block-size=${Math.floor(
-    baseMainAllocatorSize * memoryMultiplier
-  )}
-memorysetup-bucket-allocator-block-count=${ram >= 16 ? 2 : 1}
-memorysetup-main-allocator-block-size=${Math.floor(
-    baseMainAllocatorSize * memoryMultiplier
-  )}
-memorysetup-thread-allocator-block-size=${Math.floor(
-    baseMainAllocatorSize * memoryMultiplier
-  )}
-memorysetup-gfx-main-allocator-block-size=${Math.floor(
-    baseMainAllocatorSize * memoryMultiplier
-  )}
-memorysetup-gfx-thread-allocator-block-size=${Math.floor(
-    baseMainAllocatorSize * memoryMultiplier
-  )}
-memorysetup-cache-allocator-block-size=${Math.floor(
-    baseBlockSize * memoryMultiplier
-  )}
-memorysetup-typetree-allocator-block-size=${Math.floor(
-    baseBlockSize * 0.5 * memoryMultiplier
-  )}
-memorysetup-profiler-bucket-allocator-granularity=16
-memorysetup-profiler-bucket-allocator-bucket-count=8
-memorysetup-profiler-bucket-allocator-block-size=${Math.floor(
-    baseBlockSize * memoryMultiplier
-  )}
-memorysetup-profiler-bucket-allocator-block-count=${ram >= 16 ? 2 : 1}
-memorysetup-profiler-allocator-block-size=${Math.floor(
-    baseMainAllocatorSize * memoryMultiplier
-  )}
-memorysetup-profiler-editor-allocator-block-size=${Math.floor(
-    baseBlockSize * 0.25 * memoryMultiplier
-  )}
-memorysetup-job-temp-allocator-block-size=${Math.floor(
-    baseMainAllocatorSize * 2 * memoryMultiplier
-  )}
-memorysetup-job-temp-allocator-block-size-background=${Math.floor(
-    baseBlockSize * 0.5 * memoryMultiplier
-  )}
-memorysetup-job-temp-allocator-reduction-small-platforms=262144
-memorysetup-allocator-temp-initial-block-size-main=${Math.floor(
-    baseBlockSize * 0.25 * memoryMultiplier
-  )}
-memorysetup-allocator-temp-initial-block-size-worker=${Math.floor(
-    baseBlockSize * 0.25 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-main=${Math.floor(
-    baseMainAllocatorSize * 0.5 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-preload-manager=${Math.floor(
-    baseBlockSize * 0.25 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-background-worker=${Math.floor(
-    65536 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-job-worker=${Math.floor(
-    baseBlockSize * 0.25 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-nav-mesh-worker=${Math.floor(
-    131072 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-audio-worker=${Math.floor(
-    131072 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-cloud-worker=${Math.floor(
-    65536 * memoryMultiplier
-  )}
-memorysetup-temp-allocator-size-gfx=${Math.floor(
-    baseBlockSize * 0.25 * memoryMultiplier
-  )}`;
+${generateMemorySettings()}
+use-optimized-mesh-data=1
+use-shader-cache=1
+use-job-worker-for-mesh-data=${gpuTier === "low" ? 0 : 1}
+optimize-mesh-data-jobs=${gpuTier === "low" ? 0 : 1}`;
 };

@@ -1,0 +1,100 @@
+.cpu-slider {
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.cpu-section {
+    margin-bottom: 20px;
+}
+
+.cpu-section:last-child {
+    margin-bottom: 0;
+}
+
+/* 헤더 영역 */
+.cpu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.cpu-label {
+    font-size: 16px;
+    color: #0f172a;
+}
+
+/* 슬라이더 컨테이너 */
+.slider-container {
+    position: relative;
+    padding: 10px 0 20px;
+    width: 100%;
+}
+
+/* 슬라이더 스타일 */
+.cpu-range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* 슬라이더 썸(핸들) 스타일 */
+.cpu-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background: #3b82f6;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+}
+
+.cpu-range-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: #3b82f6;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    border: none;
+}
+
+/* 썸 호버 효과 */
+.cpu-range-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    transform: scale(1.1);
+}
+
+.cpu-range-slider::-moz-range-thumb:hover {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    transform: scale(1.1);
+}
+
+/* 최소/최대 레이블 스타일 */
+.slider-range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.min-label,
+.max-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+@media (max-width: 640px) {
+    .cpu-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}

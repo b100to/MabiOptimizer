@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
-import CPUOptions from '../CPUOptions/CPUOptions';
+import CpuSelector from '../CpuSelector/CpuSelector';
 import GPUOptions from '../GPUOptions/GPUOptions';
 import ConfigForm from '../ConfigForm/ConfigForm';
 import HelpModal from '../HelpModal/HelpModal';
 import TermsModal from '../TermsModal/TermsModal';
 import PrivacyModal from '../PrivacyModal/PrivacyModal';
+import AnnouncementModal from '../Announcements/AnnouncementModal';
 
 const App = () => {
   // 상태 관리
-  const [cpuCores, setCpuCores] = useState(6);
-  const [cpuThreads, setCpuThreads] = useState(12);
+  const [cores, setCores] = useState(8);
+  const [threads, setThreads] = useState(16);
   const [ram, setRam] = useState(16);
   const [gpuTier, setGpuTier] = useState("mid");
   const [showHelpModal, setShowHelpModal] = useState(false);
@@ -18,6 +19,7 @@ const App = () => {
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showNotice, setShowNotice] = useState(true);
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
 
   return (
     <div className="app-container">
@@ -40,7 +42,16 @@ const App = () => {
           <div className="notice-container">
             <div className="notice-content">
               <span className="notice-badge">공지사항</span>
-              <p>모비노기 PC버전 최적화 툴이 출시되었습니다! 현대화 디자인 변경, 이용약관 추가 등 편리하게 개선되었습니다. CPU 및 GPU 모델을 선택하여 게임 성능을 향상시켜보세요.</p>
+              <p>
+                <span className="notice-date">2024.03.11</span>
+                모비노기 PC버전 최적화 툴이 업데이트 되었습니다!
+                <button
+                  onClick={() => setShowAnnouncementModal(true)}
+                  className="notice-link"
+                >
+                  자세히 보기
+                </button>
+              </p>
             </div>
             <button
               className="notice-close-button"
@@ -67,7 +78,12 @@ const App = () => {
 
         <div className="section-divider"></div>
 
-        <CPUOptions setCpuCores={setCpuCores} setCpuThreads={setCpuThreads} />
+        <CpuSelector
+          cores={cores}
+          threads={threads}
+          setCores={setCores}
+          setThreads={setThreads}
+        />
 
         <div className="section-divider"></div>
 
@@ -76,7 +92,7 @@ const App = () => {
         <div className="section-divider"></div>
 
         <ConfigForm
-          cpuThreads={cpuThreads}
+          cpuThreads={threads}
           gpuTier={gpuTier}
           ram={ram}
           setRam={setRam}
@@ -109,6 +125,10 @@ const App = () => {
       {showPrivacyModal && (
         <PrivacyModal onClose={() => setShowPrivacyModal(false)} />
       )}
+      <AnnouncementModal
+        isOpen={showAnnouncementModal}
+        onClose={() => setShowAnnouncementModal(false)}
+      />
     </div>
   );
 };

@@ -27,21 +27,19 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
     // 슬라이더 값을 코어 값으로 변환
     function sliderToCores(value) {
         // 0-100 값을 MIN_CORES-MAX_CORES 사이의 짝수로 변환
-        const step = 2; // 2단위로 증가
-        const range = MAX_CORES - MIN_CORES;
-        const steps = range / step;
-        const stepValue = Math.round((value / 100) * steps) * step;
-        return Math.max(MIN_CORES, Math.min(MAX_CORES, MIN_CORES + stepValue));
+        const normalizedValue = value / 100;
+        const coreValue = MIN_CORES + Math.round(normalizedValue * (MAX_CORES - MIN_CORES));
+        // 가장 가까운 짝수로 반올림
+        return Math.max(MIN_CORES, Math.min(MAX_CORES, coreValue % 2 === 0 ? coreValue : coreValue + 1));
     }
 
     // 슬라이더 값을 스레드 값으로 변환
     function sliderToThreads(value) {
         // 0-100 값을 MIN_THREADS-MAX_THREADS 사이의 짝수로 변환
-        const step = 2; // 2단위로 증가
-        const range = MAX_THREADS - MIN_THREADS;
-        const steps = range / step;
-        const stepValue = Math.round((value / 100) * steps) * step;
-        return Math.max(MIN_THREADS, Math.min(MAX_THREADS, MIN_THREADS + stepValue));
+        const normalizedValue = value / 100;
+        const threadValue = MIN_THREADS + Math.round(normalizedValue * (MAX_THREADS - MIN_THREADS));
+        // 가장 가까운 짝수로 반올림
+        return Math.max(MIN_THREADS, Math.min(MAX_THREADS, threadValue % 2 === 0 ? threadValue : threadValue + 1));
     }
 
     // 코어 슬라이더 변경 핸들러

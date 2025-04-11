@@ -58,13 +58,13 @@ const GPU_SETTINGS = {
       "NVIDIA GeForce GT 710/730"
     ],
     settings: {
-      maxChunksPerShader: 4,
+      maxChunksPerShader: 2,        // 감소: 최소 부하
       hdrEnabled: 0,
       gfxJobs: 0,
       renderThread: 0,
       textureQuality: "quarter",
-      shadowDistance: 25,
-      shadowCascades: 1,
+      shadowDistance: 15,           // 감소: 최소 그림자 거리
+      shadowCascades: 0,           // 비활성화: 그림자 캐스케이드
       particleQuality: 0,
       reflections: 0,
       antiAliasing: 0
@@ -79,16 +79,16 @@ const GPU_SETTINGS = {
       "Intel Arc A380"
     ],
     settings: {
-      maxChunksPerShader: 8,
+      maxChunksPerShader: 6,       // 감소: 적정 부하
       hdrEnabled: 0,
-      gfxJobs: 0,
+      gfxJobs: 0,                  // 비활성화: 그래픽 작업
       renderThread: 0,
       textureQuality: "half",
-      shadowDistance: 50,
-      shadowCascades: 2,
-      particleQuality: 1,
+      shadowDistance: 35,          // 감소: 적정 그림자 거리
+      shadowCascades: 1,          // 감소: 최소 캐스케이드
+      particleQuality: 0,         // 감소: 파티클 비활성화
       reflections: 0,
-      antiAliasing: 0
+      antiAliasing: 0            // 비활성화: AA
     }
   },
   "medium": {
@@ -101,13 +101,13 @@ const GPU_SETTINGS = {
       "AMD Radeon RX 6600"
     ],
     settings: {
-      maxChunksPerShader: 12,
+      maxChunksPerShader: 16,
       hdrEnabled: 1,
       gfxJobs: 1,
       renderThread: 1,
       textureQuality: "full",
       shadowDistance: 100,
-      shadowCascades: 2,
+      shadowCascades: 3,
       particleQuality: 2,
       reflections: 1,
       antiAliasing: 1
@@ -123,15 +123,15 @@ const GPU_SETTINGS = {
       "AMD Radeon RX 7600"
     ],
     settings: {
-      maxChunksPerShader: 16,
+      maxChunksPerShader: 20,
       hdrEnabled: 1,
       gfxJobs: 1,
       renderThread: 1,
       textureQuality: "full",
       shadowDistance: 150,
-      shadowCascades: 3,
+      shadowCascades: 4,
       particleQuality: 3,
-      reflections: 1,
+      reflections: 2,
       antiAliasing: 2
     }
   },
@@ -144,7 +144,7 @@ const GPU_SETTINGS = {
       "AMD Radeon RX 7700 XT/7800 XT/7900 XTX"
     ],
     settings: {
-      maxChunksPerShader: 24,
+      maxChunksPerShader: 32,
       hdrEnabled: 1,
       gfxJobs: 1,
       renderThread: 1,
@@ -213,28 +213,38 @@ export const generateConfig = (cpuThreads, gpuTier, ram, unityVersion, platform)
 
   // RAM에 따른 메모리 설정 계산
   const getMemoryMultiplier = (ram) => {
-    if (ram >= 64) return 3;
-    if (ram >= 32) return 2.5;
-    if (ram >= 16) return 1.75;
-    if (ram >= 8) return 1.25;
+    if (ram >= 256) return 5;      // 256GB 지원
+    if (ram >= 128) return 4;
+    if (ram >= 64) return 3.5;
+    if (ram >= 32) return 2.75;
+    if (ram >= 16) return 2;
+    if (ram >= 8) return 1.5;
     return 1;
   };
 
   const getBucketCount = (ram) => {
+    if (ram >= 256) return 128;    // 256GB 지원
+    if (ram >= 128) return 96;     // 128GB 버킷 수 증가
+    if (ram >= 64) return 64;
     if (ram >= 32) return 32;
-    if (ram >= 16) return 16;
+    if (ram >= 16) return 24;
+    if (ram >= 8) return 16;
     return 8;
   };
 
   const getBlockCount = (ram) => {
-    if (ram >= 32) return 4;
-    if (ram >= 16) return 2;
+    if (ram >= 256) return 16;     // 256GB 지원
+    if (ram >= 128) return 12;     // 128GB 블록 수 증가
+    if (ram >= 64) return 8;
+    if (ram >= 32) return 6;
+    if (ram >= 16) return 4;
+    if (ram >= 8) return 2;
     return 1;
   };
 
   const memoryMultiplier = getMemoryMultiplier(ram);
-  const baseBlockSize = 4194304;  // 4MB
-  const baseMainAllocatorSize = 33554432;  // 32MB
+  const baseBlockSize = ram >= 128 ? 8388608 : 4194304;  // 8MB for high RAM
+  const baseMainAllocatorSize = ram >= 128 ? 67108864 : 33554432;  // 64MB for high RAM
 
   // Unity 버전별 특수 설정
   const versionSpecificSettings = unityVersion.startsWith("2021") || unityVersion.startsWith("2022")
@@ -243,14 +253,24 @@ use-dynamic-batch=true
 use-incremental-gc=true
 dynamic-batching=true
 renderthread=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}
-gc-max-time-slice=${gpuTier === "minimum" || gpuTier === "low" ? 1 : 3}`
+gc-max-time-slice=${gpuTier === "minimum" || gpuTier === "low" ? 1 : 3}
+use-compressed-mesh-data=1
+use-compressed-texture-data=1
+use-optimized-frame-pacing=1
+use-fast-tier-swap=1
+use-minimal-gc=1`
     : "";
 
   // 모바일 플랫폼 특수 설정
   const androidSettings = platform === "android"
     ? `androidStartInFullscreen=1
 androidRenderOutsideSafeArea=1
-adaptive-performance-samsung-boost-launch=1`
+adaptive-performance-samsung-boost-launch=1
+use-frame-timing=1
+use-job-worker-for-load-balancing=1
+android-force-hard-shader-compression=1
+android-enable-etw-profiling=0
+android-shader-cache=1`
     : "";
 
   // 메모리 설정 생성
@@ -263,13 +283,13 @@ adaptive-performance-samsung-boost-launch=1`
         blockCount: getBlockCount(ram)
       },
       temp: {
-        mainSize: Math.floor(baseMainAllocatorSize * 0.5 * memoryMultiplier),
-        workerSize: Math.floor(baseBlockSize * 0.25 * memoryMultiplier),
-        backgroundSize: Math.floor(65536 * memoryMultiplier),
-        navMeshSize: Math.floor(131072 * memoryMultiplier),
-        audioSize: Math.floor(131072 * memoryMultiplier),
-        cloudSize: Math.floor(65536 * memoryMultiplier),
-        gfxSize: Math.floor(baseBlockSize * 0.25 * memoryMultiplier)
+        mainSize: Math.floor(baseMainAllocatorSize * 0.75 * memoryMultiplier),
+        workerSize: Math.floor(baseBlockSize * 0.5 * memoryMultiplier),
+        backgroundSize: Math.floor(131072 * memoryMultiplier),
+        navMeshSize: Math.floor(262144 * memoryMultiplier),
+        audioSize: Math.floor(262144 * memoryMultiplier),
+        cloudSize: Math.floor(131072 * memoryMultiplier),
+        gfxSize: Math.floor(baseBlockSize * 0.5 * memoryMultiplier)
       }
     };
 
@@ -300,7 +320,10 @@ memorysetup-job-temp-allocator-block-size=${Math.floor(settings.bucket.mainAlloc
 memorysetup-job-temp-allocator-block-size-background=${Math.floor(settings.bucket.blockSize * 0.5)}
 memorysetup-job-temp-allocator-reduction-small-platforms=262144
 memorysetup-allocator-temp-initial-block-size-main=${settings.temp.workerSize}
-memorysetup-allocator-temp-initial-block-size-worker=${settings.temp.workerSize}`;
+memorysetup-allocator-temp-initial-block-size-worker=${settings.temp.workerSize}
+memorysetup-temp-allocator-size-ui-worker=${Math.floor(settings.temp.workerSize * 0.5)}
+memorysetup-temp-allocator-size-shared-worker=${Math.floor(settings.temp.workerSize * 0.25)}
+memorysetup-temp-allocator-size-job-worker=${Math.floor(settings.temp.workerSize * 0.75)}`;
   };
 
   // 최종 설정 생성
@@ -325,5 +348,13 @@ ${generateMemorySettings()}
 use-optimized-mesh-data=1
 use-shader-cache=1
 use-job-worker-for-mesh-data=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}
-optimize-mesh-data-jobs=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}`;
+optimize-mesh-data-jobs=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}
+use-incremental-build-roi=1
+use-shader-compiler-cache=1
+use-async-compilation=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}
+use-multi-threaded-compilation=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}
+use-load-time-texture-compression=1
+use-background-job-worker=${gpuTier === "minimum" ? 0 : 1}
+use-job-graph-recording=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}
+use-optimized-window-mode=1`;
 };

@@ -4,14 +4,14 @@
   "installCommand": "npm install",
   "framework": "create-react-app",
   "devCommand": null,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/ads.txt",
-      "destination": "/ads.txt"
+      "src": "/ads.txt",
+      "dest": "/public/ads.txt"
     },
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "/(.*)",
+      "dest": "/"
     }
   ]
 }

@@ -14,32 +14,40 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
 
     // 코어 값을 슬라이더 값(0-100)으로 변환
     function valueToCoreSlider(value) {
-        const percentage = Math.log(value / MIN_CORES) / Math.log(MAX_CORES / MIN_CORES) * 100;
-        return Math.max(0, Math.min(100, percentage));
+        // 선형 스케일로 변환
+        return (value - MIN_CORES) / (MAX_CORES - MIN_CORES) * 100;
     }
 
     // 스레드 값을 슬라이더 값(0-100)으로 변환
     function valueToThreadSlider(value) {
-        const percentage = Math.log(value / MIN_THREADS) / Math.log(MAX_THREADS / MIN_THREADS) * 100;
-        return Math.max(0, Math.min(100, percentage));
+        // 선형 스케일로 변환
+        return (value - MIN_THREADS) / (MAX_THREADS - MIN_THREADS) * 100;
     }
 
     // 슬라이더 값을 코어 값으로 변환
     function sliderToCores(value) {
         // 0-100 값을 MIN_CORES-MAX_CORES 사이의 짝수로 변환
         const normalizedValue = value / 100;
-        const coreValue = MIN_CORES + Math.round(normalizedValue * (MAX_CORES - MIN_CORES));
+        const rawValue = MIN_CORES + normalizedValue * (MAX_CORES - MIN_CORES);
         // 가장 가까운 짝수로 반올림
-        return Math.max(MIN_CORES, Math.min(MAX_CORES, coreValue % 2 === 0 ? coreValue : coreValue + 1));
+        let coreValue = Math.round(rawValue);
+        if (coreValue % 2 !== 0) {
+            coreValue += 1; // 홀수면 다음 짝수로
+        }
+        return Math.max(MIN_CORES, Math.min(MAX_CORES, coreValue));
     }
 
     // 슬라이더 값을 스레드 값으로 변환
     function sliderToThreads(value) {
         // 0-100 값을 MIN_THREADS-MAX_THREADS 사이의 짝수로 변환
         const normalizedValue = value / 100;
-        const threadValue = MIN_THREADS + Math.round(normalizedValue * (MAX_THREADS - MIN_THREADS));
+        const rawValue = MIN_THREADS + normalizedValue * (MAX_THREADS - MIN_THREADS);
         // 가장 가까운 짝수로 반올림
-        return Math.max(MIN_THREADS, Math.min(MAX_THREADS, threadValue % 2 === 0 ? threadValue : threadValue + 1));
+        let threadValue = Math.round(rawValue);
+        if (threadValue % 2 !== 0) {
+            threadValue += 1; // 홀수면 다음 짝수로
+        }
+        return Math.max(MIN_THREADS, Math.min(MAX_THREADS, threadValue));
     }
 
     // 코어 슬라이더 변경 핸들러

@@ -4,16 +4,16 @@ import './CpuSelector.css';
 // CPU 프리셋 정의
 const CPU_PRESETS = {
     BASIC: { name: '일반 사양', cores: 4, threads: 8 },
-    MEDIUM: { name: '중간 사양', cores: 8, threads: 16 },
-    HIGH: { name: '고성능', cores: 16, threads: 32 },
-    EXTREME: { name: '프리미엄', cores: 32, threads: 64 },
+    MEDIUM: { name: '중간 사양', cores: 6, threads: 12 },
+    HIGH: { name: '고성능', cores: 8, threads: 16 },
+    EXTREME: { name: '프리미엄', cores: 12, threads: 24 },
     CUSTOM: { name: '직접 설정', cores: null, threads: null }
 };
 
 // 기본 값과 범위 설정
 const MIN_CORES = 2;
 const MAX_CORES = 64;
-const MIN_THREADS = 4;
+const MIN_THREADS = 2;
 const MAX_THREADS = 128;
 
 const CpuSelector = ({ cores, threads, setCores, setThreads }) => {
@@ -51,18 +51,18 @@ const CpuSelector = ({ cores, threads, setCores, setThreads }) => {
     // 슬라이더 값을 실제 값으로 변환하는 함수들
     function sliderToCores(value) {
         const normalizedValue = value / 100;
-        const coreValue = MIN_CORES * Math.pow(MAX_CORES / MIN_CORES, normalizedValue);
-        // 2의 배수로 반올림
-        const powerOfTwo = Math.round(Math.log2(coreValue));
-        return Math.max(MIN_CORES, Math.min(MAX_CORES, Math.pow(2, powerOfTwo)));
+        const coreValue = MIN_CORES + normalizedValue * (MAX_CORES - MIN_CORES);
+        // 짝수로 반올림
+        const evenCoreValue = Math.round(coreValue / 2) * 2;
+        return Math.max(MIN_CORES, Math.min(MAX_CORES, evenCoreValue));
     }
 
     function sliderToThreads(value) {
         const normalizedValue = value / 100;
-        const threadValue = MIN_THREADS * Math.pow(MAX_THREADS / MIN_THREADS, normalizedValue);
-        // 코어 수의 배수로 반올림
-        const multiplier = Math.round(threadValue / cores);
-        return Math.max(MIN_THREADS, Math.min(MAX_THREADS, cores * multiplier));
+        const threadValue = MIN_THREADS + normalizedValue * (MAX_THREADS - MIN_THREADS);
+        // 짝수로 반올림
+        const evenThreadValue = Math.round(threadValue / 2) * 2;
+        return Math.max(MIN_THREADS, Math.min(MAX_THREADS, evenThreadValue));
     }
 
     // 프리셋 변경 핸들러

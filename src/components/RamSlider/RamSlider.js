@@ -3,7 +3,7 @@ import './RamSlider.css';
 
 // 기본 값과 범위 설정
 const MIN_RAM = 4;
-const MAX_RAM = 64;
+const MAX_RAM = 256;
 
 const RamSlider = ({ ram, setRam }) => {
   // 슬라이더 값 상태
@@ -21,8 +21,9 @@ const RamSlider = ({ ram, setRam }) => {
     // 로그 스케일 역변환
     const normalizedValue = value / 100;
     const ramValue = MIN_RAM * Math.pow(MAX_RAM / MIN_RAM, normalizedValue);
-    // 정수값으로 반올림
-    return Math.max(MIN_RAM, Math.min(MAX_RAM, Math.round(ramValue)));
+    // 짝수값으로 반올림
+    const evenRamValue = Math.round(ramValue / 2) * 2;
+    return Math.max(MIN_RAM, Math.min(MAX_RAM, evenRamValue));
   }
 
   // 슬라이더 변경 시 실시간으로 RAM 값 업데이트

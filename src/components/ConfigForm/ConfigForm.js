@@ -74,34 +74,72 @@ const ConfigForm = ({
   const shouldShowLine = (line) => {
     if (activeTab === 'all') return true;
 
+    // CPU/GPU 설정
     if (activeTab === 'cpu-gpu' && (
       line.includes('gfx-enable') ||
       line.includes('job-worker-count') ||
-      line.includes('max-chunks-per-shader')
+      line.includes('max-chunks-per-shader') ||
+      line.includes('use-job-worker') ||
+      line.includes('use-multi-threaded') ||
+      line.includes('gc-max-time-slice') ||
+      line.includes('use-job-graph')
     )) {
       return true;
     }
 
-    if (activeTab === 'memory' && line.includes('memorysetup')) {
+    // 메모리 설정
+    if (activeTab === 'memory' && (
+      line.includes('memorysetup') ||
+      line.includes('use-incremental-gc') ||
+      line.includes('use-minimal-gc') ||
+      line.includes('allocator')
+    )) {
       return true;
     }
 
+    // 렌더링 설정
     if (activeTab === 'rendering' && (
       line.includes('batch') ||
       line.includes('renderthread') ||
-      line.includes('hdr-display-enabled')
+      line.includes('hdr-display-enabled') ||
+      line.includes('shadow') ||
+      line.includes('texture-quality') ||
+      line.includes('particle-quality') ||
+      line.includes('reflection-quality') ||
+      line.includes('anti-aliasing') ||
+      line.includes('use-compressed-mesh') ||
+      line.includes('use-compressed-texture') ||
+      line.includes('use-shader') ||
+      line.includes('optimize-mesh')
     )) {
       return true;
     }
 
+    // 기타 설정 (위 카테고리에 포함되지 않은 설정들)
     if (activeTab === 'other' && !(
       line.includes('gfx-enable') ||
       line.includes('job-worker-count') ||
       line.includes('max-chunks-per-shader') ||
+      line.includes('use-job-worker') ||
+      line.includes('use-multi-threaded') ||
+      line.includes('gc-max-time-slice') ||
+      line.includes('use-job-graph') ||
       line.includes('memorysetup') ||
+      line.includes('use-incremental-gc') ||
+      line.includes('use-minimal-gc') ||
+      line.includes('allocator') ||
       line.includes('batch') ||
       line.includes('renderthread') ||
-      line.includes('hdr-display-enabled')
+      line.includes('hdr-display-enabled') ||
+      line.includes('shadow') ||
+      line.includes('texture-quality') ||
+      line.includes('particle-quality') ||
+      line.includes('reflection-quality') ||
+      line.includes('anti-aliasing') ||
+      line.includes('use-compressed-mesh') ||
+      line.includes('use-compressed-texture') ||
+      line.includes('use-shader') ||
+      line.includes('optimize-mesh')
     )) {
       return true;
     }
@@ -221,13 +259,17 @@ const ConfigForm = ({
 
       <div className="config-preview-section">
         <div className="preview-header">
-          <h3 className="preview-title">설정 파일 상세 내용</h3>
-          <button
-            className={`toggle-button ${showFullConfig ? 'expanded' : 'collapsed'}`}
-            onClick={() => setShowFullConfig(!showFullConfig)}
-          >
-            {showFullConfig ? '접기' : '펼치기'}
-          </button>
+          <h3 className="preview-title">🛠️ 최적화 설정 상세</h3>
+          <div className="preview-controls">
+            <span className="preview-info">설정값을 확인하고 수정할 수 있습니다</span>
+            <button
+              className={`toggle-button ${showFullConfig ? 'expanded' : 'collapsed'}`}
+              onClick={() => setShowFullConfig(!showFullConfig)}
+            >
+              {showFullConfig ? '설정 접기' : '설정 펼치기'}
+              <span className="toggle-icon">{showFullConfig ? '▼' : '▶'}</span>
+            </button>
+          </div>
         </div>
 
         <div className="config-preview-tabs">
@@ -236,31 +278,31 @@ const ConfigForm = ({
               className={`tab-category ${activeTab === 'all' ? 'active' : ''}`}
               onClick={() => setActiveTab('all')}
             >
-              전체 설정
+              📋 모든 설정
             </button>
             <button
               className={`tab-category ${activeTab === 'cpu-gpu' ? 'active' : ''}`}
               onClick={() => setActiveTab('cpu-gpu')}
             >
-              CPU/GPU 최적화
+              💻 CPU/GPU
             </button>
             <button
               className={`tab-category ${activeTab === 'memory' ? 'active' : ''}`}
               onClick={() => setActiveTab('memory')}
             >
-              메모리 설정
+              💾 메모리
             </button>
             <button
               className={`tab-category ${activeTab === 'rendering' ? 'active' : ''}`}
               onClick={() => setActiveTab('rendering')}
             >
-              렌더링 옵션
+              🎨 그래픽
             </button>
             <button
               className={`tab-category ${activeTab === 'other' ? 'active' : ''}`}
               onClick={() => setActiveTab('other')}
             >
-              기타 설정
+              ⚙️ 기타
             </button>
           </div>
         </div>

@@ -252,8 +252,6 @@ export const generateConfig = (cpuThreads, gpuTier, ram, unityVersion, platform)
 use-dynamic-batch=true
 use-incremental-gc=true
 dynamic-batching=true
-renderthread=${gpuTier === "minimum" || gpuTier === "low" ? 0 : 1}
-gc-max-time-slice=${gpuTier === "minimum" || gpuTier === "low" ? 1 : 3}
 use-compressed-mesh-data=1
 use-compressed-texture-data=1
 use-optimized-frame-pacing=1

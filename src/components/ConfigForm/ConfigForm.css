@@ -386,46 +386,105 @@
 
 /* 설정 파일 구문 강조 스타일 */
 .config-preview .highlight {
-  padding: 4px 0;
-  margin: 1px 0;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  padding: 6px 12px;
+  margin: 2px 0;
+  border-radius: 6px;
+  transition: all 0.2s ease;
   width: 100%;
   display: block;
   overflow-x: visible;
   white-space: pre;
+  border-left: 3px solid transparent;
 }
 
 .config-preview .highlight:hover {
-  background-color: rgba(203, 213, 225, 0.3);
+  background-color: rgba(241, 245, 249, 0.7);
 }
 
+/* CPU/GPU 설정 스타일 */
 .config-preview .cpu-gpu-setting {
   color: #2563eb;
-  font-weight: 500;
-  border-left: 3px solid #2563eb;
-  padding-left: 12px;
+  background-color: rgba(37, 99, 235, 0.03);
+  border-left-color: #2563eb;
 }
 
+.config-preview .cpu-gpu-setting:hover {
+  background-color: rgba(37, 99, 235, 0.08);
+}
+
+/* 메모리 설정 스타일 */
 .config-preview .memory-setting {
-  color: #047857;
-  font-weight: 500;
-  border-left: 3px solid #047857;
-  padding-left: 12px;
+  color: #059669;
+  background-color: rgba(5, 150, 105, 0.03);
+  border-left-color: #059669;
 }
 
+.config-preview .memory-setting:hover {
+  background-color: rgba(5, 150, 105, 0.08);
+}
+
+/* 렌더링 설정 스타일 */
 .config-preview .rendering-setting {
-  color: #b45309;
-  font-weight: 500;
-  border-left: 3px solid #b45309;
-  padding-left: 12px;
+  color: #d97706;
+  background-color: rgba(217, 119, 6, 0.03);
+  border-left-color: #d97706;
 }
 
+.config-preview .rendering-setting:hover {
+  background-color: rgba(217, 119, 6, 0.08);
+}
+
+/* 기타 설정 스타일 */
 .config-preview .other-setting {
   color: #6b7280;
-  font-weight: 500;
-  border-left: 3px solid #6b7280;
-  padding-left: 12px;
+  background-color: rgba(107, 114, 128, 0.03);
+  border-left-color: #6b7280;
+}
+
+.config-preview .other-setting:hover {
+  background-color: rgba(107, 114, 128, 0.08);
+}
+
+/* 탭 카테고리 버튼 활성화 상태 색상 */
+.tab-category.active[onclick*="cpu-gpu"] {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.tab-category.active[onclick*="memory"] {
+  background-color: #059669;
+  border-color: #059669;
+}
+
+.tab-category.active[onclick*="rendering"] {
+  background-color: #d97706;
+  border-color: #d97706;
+}
+
+.tab-category.active[onclick*="other"] {
+  background-color: #6b7280;
+  border-color: #6b7280;
+}
+
+/* 탭 카테고리 호버 상태 색상 */
+.tab-category:not(.active)[onclick*="cpu-gpu"]:hover {
+  color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+.tab-category:not(.active)[onclick*="memory"]:hover {
+  color: #059669;
+  background-color: rgba(5, 150, 105, 0.1);
+}
+
+.tab-category:not(.active)[onclick*="rendering"]:hover {
+  color: #d97706;
+  background-color: rgba(217, 119, 6, 0.1);
+}
+
+.tab-category:not(.active)[onclick*="other"]:hover {
+  color: #6b7280;
+  background-color: rgba(107, 114, 128, 0.1);
 }
 
 /* 프리뷰 스타일 */
@@ -595,7 +654,85 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.preview-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.preview-info {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.preview-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f8fafc;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-button:hover {
+  background-color: #f1f5f9;
+  color: #334155;
+}
+
+.toggle-icon {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.tab-category {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  padding: 0.6rem 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .preview-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .preview-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .preview-info {
+    display: none;
+  }
+
+  .tab-category {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
 }
 
 /* PC 사양 확인 탭 스타일 */

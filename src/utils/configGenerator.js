@@ -248,10 +248,10 @@ export const generateConfig = (cpuThreads, gpuTier, ram, unityVersion, platform)
 
   // Unity 버전별 특수 설정
   const versionSpecificSettings = unityVersion.startsWith("2021") || unityVersion.startsWith("2022")
-    ? `use-static-batch=true
-use-dynamic-batch=true
+    ? `use-static-batch=${gpuTier === "minimum" || gpuTier === "low" ? "false" : "true"}
+use-dynamic-batch=${gpuTier === "minimum" || gpuTier === "low" ? "false" : "true"}
 use-incremental-gc=true
-dynamic-batching=true
+dynamic-batching=${gpuTier === "minimum" || gpuTier === "low" ? "false" : "true"}
 use-compressed-mesh-data=1
 use-compressed-texture-data=1
 use-optimized-frame-pacing=1
@@ -287,7 +287,8 @@ android-shader-cache=1`
         navMeshSize: Math.floor(262144 * memoryMultiplier),
         audioSize: Math.floor(262144 * memoryMultiplier),
         cloudSize: Math.floor(131072 * memoryMultiplier),
-        gfxSize: Math.floor(baseBlockSize * 0.5 * memoryMultiplier)
+        gfxSize: Math.floor(baseBlockSize * 0.5 * memoryMultiplier),
+        initialMainSize: Math.floor(baseBlockSize * memoryMultiplier)
       }
     };
 
@@ -317,7 +318,7 @@ memorysetup-temp-allocator-size-gfx=${settings.temp.gfxSize}
 memorysetup-job-temp-allocator-block-size=${Math.floor(settings.bucket.mainAllocSize * 2)}
 memorysetup-job-temp-allocator-block-size-background=${Math.floor(settings.bucket.blockSize * 0.5)}
 memorysetup-job-temp-allocator-reduction-small-platforms=262144
-memorysetup-allocator-temp-initial-block-size-main=${settings.temp.workerSize}
+memorysetup-allocator-temp-initial-block-size-main=${settings.temp.initialMainSize}
 memorysetup-allocator-temp-initial-block-size-worker=${settings.temp.workerSize}
 memorysetup-temp-allocator-size-ui-worker=${Math.floor(settings.temp.workerSize * 0.5)}
 memorysetup-temp-allocator-size-shared-worker=${Math.floor(settings.temp.workerSize * 0.25)}

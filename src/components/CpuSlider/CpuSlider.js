@@ -26,27 +26,21 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
 
     // 슬라이더 값을 코어 값으로 변환
     function sliderToCores(value) {
-        // 0-100 값을 MIN_CORES-MAX_CORES 사이의 짝수로 변환
+        // 0-100 값을 MIN_CORES-MAX_CORES 사이의 값으로 변환
         const normalizedValue = value / 100;
         const rawValue = MIN_CORES + normalizedValue * (MAX_CORES - MIN_CORES);
-        // 가장 가까운 짝수로 반올림
-        let coreValue = Math.round(rawValue);
-        if (coreValue % 2 !== 0) {
-            coreValue += 1; // 홀수면 다음 짝수로
-        }
+        // 가장 가까운 정수로 반올림
+        const coreValue = Math.round(rawValue);
         return Math.max(MIN_CORES, Math.min(MAX_CORES, coreValue));
     }
 
     // 슬라이더 값을 스레드 값으로 변환
     function sliderToThreads(value) {
-        // 0-100 값을 MIN_THREADS-MAX_THREADS 사이의 짝수로 변환
+        // 0-100 값을 MIN_THREADS-MAX_THREADS 사이의 값으로 변환
         const normalizedValue = value / 100;
         const rawValue = MIN_THREADS + normalizedValue * (MAX_THREADS - MIN_THREADS);
-        // 가장 가까운 짝수로 반올림
-        let threadValue = Math.round(rawValue);
-        if (threadValue % 2 !== 0) {
-            threadValue += 1; // 홀수면 다음 짝수로
-        }
+        // 가장 가까운 정수로 반올림
+        const threadValue = Math.round(rawValue);
         return Math.max(MIN_THREADS, Math.min(MAX_THREADS, threadValue));
     }
 

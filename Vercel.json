@@ -3,5 +3,15 @@
   "outputDirectory": "build",
   "installCommand": "npm install",
   "framework": "create-react-app",
-  "devCommand": null
+  "devCommand": null,
+  "rewrites": [
+    {
+      "source": "/ads.txt",
+      "destination": "/ads.txt"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }

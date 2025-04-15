@@ -1,0 +1,43 @@
+.ad-banner {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+    min-height: 90px;
+    /* 최소 높이 설정 */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.ad-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 2px 5px;
+    font-size: 10px;
+    color: #666;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0 0 4px 0;
+    z-index: 1;
+}
+
+/* 광고 로딩 중 표시 */
+.ad-banner:empty::before {
+    content: "광고 로딩 중...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    color: #999;
+}
+
+/* 반응형 광고 크기 */
+@media (max-width: 768px) {
+    .ad-banner {
+        min-height: 60px;
+    }
+}

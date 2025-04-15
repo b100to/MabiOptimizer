@@ -7,6 +7,8 @@ import HelpModal from '../HelpModal/HelpModal';
 import TermsModal from '../TermsModal/TermsModal';
 import PrivacyModal from '../PrivacyModal/PrivacyModal';
 import AnnouncementModal from '../Announcements/AnnouncementModal';
+import AdBanner from '../Ads/AdBanner';
+import AdSideBanner from '../Ads/AdSideBanner';
 
 const App = () => {
   // 상태 관리
@@ -23,6 +25,12 @@ const App = () => {
 
   return (
     <div className="app-container">
+      {/* 좌측 사이드 광고 */}
+      <AdSideBanner slot="6457823914" position="left" format="vertical" />
+
+      {/* 우측 사이드 광고 */}
+      <AdSideBanner slot="9138675421" position="right" format="vertical" />
+
       <div className="app-card">
         <div className="app-header">
           <h1 className="app-title">모비노기 PC버전 최적화</h1>
@@ -101,6 +109,9 @@ const App = () => {
           onShowTerms={() => setShowTermsModal(true)}
         />
 
+        {/* 하단 광고 배너 */}
+        <AdBanner slot="1973645182" className="bottom-ad-banner" />
+
         <footer className="app-footer">
           <button
             className="text-button"
@@ -133,4 +144,4 @@ const App = () => {
   );
 };
 
-export default App; 
+export default App;

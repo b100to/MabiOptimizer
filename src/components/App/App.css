@@ -27,12 +27,27 @@ body {
   line-height: 1.5;
 }
 
-.app-container {
-  padding: 24px;
-  max-width: 1024px;
-  margin: 0 auto;
-  transition: all var(--transition-speed) ease;
-  position: relative;
+/* 사이드 광고 공간 확보를 위한 여백 */
+@media (min-width: 1281px) {
+  .app-container {
+    padding: 24px 190px;
+    /* 양쪽 사이드 광고를 위한 여백 */
+    max-width: 1024px;
+    margin: 0 auto;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+  }
+}
+
+/* 화면이 작을 때는 사이드 광고가 없으므로 여백 줄이기 */
+@media (max-width: 1280px) {
+  .app-container {
+    padding: 24px;
+    max-width: 1024px;
+    margin: 0 auto;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+  }
 }
 
 .app-header {
@@ -373,4 +388,29 @@ body {
   font-size: 13px;
   margin-right: 8px;
   font-weight: 500;
+}
+
+/* 광고 배너 스타일 */
+.top-ad-banner {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.middle-ad-banner {
+  margin: 1.5rem 0;
+}
+
+.bottom-ad-banner {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 모바일 환경에서 광고 배너 조정 */
+@media (max-width: 768px) {
+
+  .top-ad-banner,
+  .middle-ad-banner,
+  .bottom-ad-banner {
+    margin: 1rem 0;
+  }
 }

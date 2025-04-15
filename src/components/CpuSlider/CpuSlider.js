@@ -14,33 +14,37 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
 
     // 코어 값을 슬라이더 값(0-100)으로 변환
     function valueToCoreSlider(value) {
-        // 선형 스케일로 변환
-        return (value - MIN_CORES) / (MAX_CORES - MIN_CORES) * 100;
+        // 로그 스케일로 변환
+        const percentage = Math.log(value / MIN_CORES) / Math.log(MAX_CORES / MIN_CORES) * 100;
+        return Math.max(0, Math.min(100, percentage));
     }
 
     // 스레드 값을 슬라이더 값(0-100)으로 변환
     function valueToThreadSlider(value) {
-        // 선형 스케일로 변환
-        return (value - MIN_THREADS) / (MAX_THREADS - MIN_THREADS) * 100;
+        // 로그 스케일로 변환
+        const percentage = Math.log(value / MIN_THREADS) / Math.log(MAX_THREADS / MIN_THREADS) * 100;
+        return Math.max(0, Math.min(100, percentage));
     }
 
     // 슬라이더 값을 코어 값으로 변환
     function sliderToCores(value) {
-        // 0-100 값을 MIN_CORES-MAX_CORES 사이의 값으로 변환
+        // 로그 스케일로 변환
         const normalizedValue = value / 100;
-        const rawValue = MIN_CORES + normalizedValue * (MAX_CORES - MIN_CORES);
-        // 가장 가까운 정수로 반올림
-        const coreValue = Math.round(rawValue);
+        // 지수 함수를 사용하여 로그 스케일 변환
+        const rawValue = MIN_CORES * Math.pow(MAX_CORES / MIN_CORES, normalizedValue);
+        // 가장 가까운 짝수로 반올림
+        const coreValue = Math.round(rawValue / 2) * 2;
         return Math.max(MIN_CORES, Math.min(MAX_CORES, coreValue));
     }
 
     // 슬라이더 값을 스레드 값으로 변환
     function sliderToThreads(value) {
-        // 0-100 값을 MIN_THREADS-MAX_THREADS 사이의 값으로 변환
+        // 로그 스케일로 변환
         const normalizedValue = value / 100;
-        const rawValue = MIN_THREADS + normalizedValue * (MAX_THREADS - MIN_THREADS);
-        // 가장 가까운 정수로 반올림
-        const threadValue = Math.round(rawValue);
+        // 지수 함수를 사용하여 로그 스케일 변환
+        const rawValue = MIN_THREADS * Math.pow(MAX_THREADS / MIN_THREADS, normalizedValue);
+        // 가장 가까운 짝수로 반올림
+        const threadValue = Math.round(rawValue / 2) * 2;
         return Math.max(MIN_THREADS, Math.min(MAX_THREADS, threadValue));
     }
 
@@ -52,9 +56,12 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
         setCores(newCoreValue);
 
         // 코어가 변경되면 스레드도 자동으로 조정
-        const newThreadValue = Math.max(newCoreValue * 2, threads);
-        setThreads(newThreadValue);
-        setThreadSliderValue(valueToThreadSlider(newThreadValue));
+        // 스레드 수는 항상 코어 수보다 크거나 같아야 함
+        if (threads < newCoreValue) {
+            const newThreadValue = newCoreValue;
+            setThreads(newThreadValue);
+            setThreadSliderValue(valueToThreadSlider(newThreadValue));
+        }
     };
 
     // 스레드 슬라이더 변경 핸들러
@@ -123,6 +130,14 @@ const CpuSlider = ({ cores, threads, setCores, setThreads }) => {
                         <span className="max-label">{MAX_THREADS}개</span>
                     </div>
                 </div>
+            </div>
+
+            {/* 도움말 정보 */}
+            <div className="cpu-info">
+                <p className="info-text">
+                    일반적으로 CPU 스레드 수는 코어 수의 2배입니다.
+                    하이퍼스레딩이 없는 CPU의 경우 코어 수와 스레드 수가 동일합니다.
+                </p>
             </div>
         </div>
     );

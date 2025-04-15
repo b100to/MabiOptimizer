@@ -36,7 +36,7 @@ const CpuSelector = ({ cores, threads, setCores, setThreads, autoDetected = fals
             setSelectedPreset('CUSTOM');
             setShowSliders(true);
         }
-    }, []);
+    }, [cores, threads]);
 
     // 값을 슬라이더 값(0-100)으로 변환하는 함수들
     function valueToCoreSlider(value) {
@@ -104,7 +104,27 @@ const CpuSelector = ({ cores, threads, setCores, setThreads, autoDetected = fals
 
     // CPU 프리셋 적용 함수
     const applyCpuPresetHandler = (presetType) => {
-        applyCpuPreset(presetType, setCores, setThreads);
+        // configGenerator.js의 applyCpuPreset 함수와 매핑
+        const presetMap = {
+            'basic': 'entry-level',
+            'medium': 'mid-range',
+            'high': 'high-end',
+            'extreme': 'premium',
+            'custom': 'custom'
+        };
+
+        // 매핑된 값으로 프리셋 적용
+        if (presetType === 'custom') {
+            setShowSliders(true);
+        } else {
+            applyCpuPreset(presetMap[presetType], setCores, setThreads);
+            setShowSliders(false);
+            // 슬라이더 값도 업데이트
+            setTimeout(() => {
+                setCoreSliderValue(valueToCoreSlider(cores));
+                setThreadSliderValue(valueToThreadSlider(threads));
+            }, 10);
+        }
     };
 
     return (
@@ -152,7 +172,7 @@ const CpuSelector = ({ cores, threads, setCores, setThreads, autoDetected = fals
                 </button>
 
                 <button
-                    className={`cpu-preset-button custom-button ${!['basic', 'medium', 'high', 'extreme'].includes(getCpuPresetType(cores, threads)) ? 'active' : ''}`}
+                    className={`cpu-preset-button custom-button ${!isPresetMatch(cores, threads) ? 'active' : ''}`}
                     onClick={() => applyCpuPresetHandler('custom')}
                     disabled={autoDetected}
                 >
@@ -220,13 +240,12 @@ const CpuSelector = ({ cores, threads, setCores, setThreads, autoDetected = fals
     );
 };
 
-// 현재 코어/스레드 값에 따라 프리셋 타입 반환
-const getCpuPresetType = (cores, threads) => {
-    if (cores === 4 && threads === 8) return 'basic';
-    if (cores === 6 && threads === 12) return 'medium';
-    if (cores === 8 && threads === 16) return 'high';
-    if (cores === 12 && threads === 24) return 'extreme';
-    return 'custom';
+// 현재 코어/스레드 값이 미리 정의된 프리셋 중 하나와 일치하는지 확인
+const isPresetMatch = (cores, threads) => {
+    return (cores === 4 && threads === 8) ||
+        (cores === 6 && threads === 12) ||
+        (cores === 8 && threads === 16) ||
+        (cores === 12 && threads === 24);
 };
 
 export default CpuSelector; 

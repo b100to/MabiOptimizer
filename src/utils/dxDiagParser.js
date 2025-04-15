@@ -420,13 +420,29 @@ const determineGpuTier = (cardName) => {
 
     // NVIDIA 그래픽 카드
     if (model.includes('nvidia') || model.includes('geforce')) {
+        // RTX 5000 시리즈
+        if (model.includes('rtx 50')) {
+            if (model.includes('5090') || model.includes('5080')) {
+                return 'ultra';
+            } else if (model.includes('5070 ti')) {
+                return 'ultra';
+            } else if (model.includes('5070')) {
+                return 'ultra';
+            } else if (model.includes('5060')) {
+                return 'high';
+            } else if (model.includes('5050')) {
+                return 'high';
+            }
+        }
         // RTX 4000 시리즈
-        if (model.includes('rtx 40')) {
-            if (model.includes('4090') || model.includes('4080')) {
+        else if (model.includes('rtx 40')) {
+            if (model.includes('4090') || model.includes('4080 super') || model.includes('4080')) {
+                return 'ultra';
+            } else if (model.includes('4070 ti super') || model.includes('4070 ti') || model.includes('4070 super')) {
                 return 'ultra';
             } else if (model.includes('4070')) {
-                return 'ultra';
-            } else if (model.includes('4060')) {
+                return 'high';
+            } else if (model.includes('4060 ti') || model.includes('4060')) {
                 return 'high';
             } else if (model.includes('4050')) {
                 return 'medium';
@@ -492,16 +508,34 @@ const determineGpuTier = (cardName) => {
     }
     // AMD 그래픽 카드
     else if (model.includes('amd') || model.includes('radeon') || model.includes('ati')) {
+        // Radeon RX 9000 시리즈
+        if (model.includes('rx 9') || model.includes('rx9')) {
+            if (model.includes('9070 xt') || model.includes('9070')) {
+                return 'ultra';
+            } else if (model.includes('9060') || model.includes('9050')) {
+                return 'high';
+            }
+        }
+        // Radeon RX 8000 시리즈
+        else if (model.includes('rx 8') || model.includes('rx8')) {
+            if (model.includes('8800 xt') || model.includes('8800')) {
+                return 'ultra';
+            } else if (model.includes('8700 xt') || model.includes('8700')) {
+                return 'high';
+            } else if (model.includes('8600')) {
+                return 'high';
+            }
+        }
         // Radeon RX 7000 시리즈
-        if (model.includes('rx 7') || model.includes('rx7')) {
-            if (model.includes('7900')) {
+        else if (model.includes('rx 7') || model.includes('rx7')) {
+            if (model.includes('7900 xtx') || model.includes('7900 xt') || model.includes('7900 gre')) {
                 return 'ultra';
-            } else if (model.includes('7800')) {
-                return 'ultra';
-            } else if (model.includes('7700')) {
+            } else if (model.includes('7800 xt') || model.includes('7800')) {
                 return 'high';
-            } else if (model.includes('7600')) {
+            } else if (model.includes('7700 xt') || model.includes('7700')) {
                 return 'high';
+            } else if (model.includes('7600 xt') || model.includes('7600')) {
+                return 'medium';
             } else if (model.includes('7500')) {
                 return 'medium';
             }

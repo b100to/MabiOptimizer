@@ -67,7 +67,7 @@ const GPUOptions = ({ setGpuTier, currentTier = "medium", autoDetected = false }
             <div className="option-subtitle">메인스트림 게이밍</div>
             <div className="option-examples">
               <div className="brand">NVIDIA GTX 1060-1660, RTX 2060</div>
-              <div className="brand">AMD RX 5500 XT, RX 6600</div>
+              <div className="brand">AMD RX 5500 XT/5600, RX 6600</div>
               <div className="brand">NVIDIA RTX 3050</div>
             </div>
           </div>

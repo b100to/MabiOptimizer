@@ -14,6 +14,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
+  overflow-x: hidden;
 }
 
 .option-button {
@@ -26,14 +27,16 @@
   font-size: 14px;
   text-align: left;
   color: #0f172a;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 230px;
+  height: auto;
+  overflow: visible;
 }
 
 .option-button:hover {
   background-color: #f1f5f9;
-  transform: translateY(-2px);
+  transform: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -77,12 +80,16 @@
   flex-direction: column;
   gap: 4px;
   font-size: 11px;
+  flex: 1;
+  overflow: visible;
 }
 
 .option-examples .brand {
   margin: 4px 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #666;
+  line-height: 1.2;
+  word-break: break-word;
 }
 
 /* 자동 감지 배지 스타일 */
@@ -122,18 +129,20 @@
 }
 
 .brand {
-  padding: 3px 0;
+  padding: 2px 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   color: #475569;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .brand:before {
   content: '•';
   margin-right: 4px;
-  font-size: 12px;
+  font-size: 10px;
   color: #64748b;
+  position: relative;
+  top: 0.1em;
 }
 
 .option-button.active .brand {

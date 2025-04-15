@@ -79,6 +79,48 @@
   font-size: 11px;
 }
 
+.option-examples .brand {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* 자동 감지 배지 스타일 */
+.auto-detected-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 12px;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* 비활성화된 버튼 스타일 */
+.option-button:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
+/* 자동 감지되었을 때 active 버튼 강조 */
+.option-button.active:disabled {
+  border: 2px solid #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+/* 자동 감지 메시지 */
+.auto-detected-note {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f1f8e9;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  text-align: center;
+}
+
 .brand {
   padding: 3px 0;
   display: flex;
@@ -111,6 +153,16 @@
 @media (max-width: 768px) {
   .option-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .auto-detected-badge {
+    display: block;
+    margin: 5px 0 0 0;
+    font-size: 0.7rem;
+  }
+
+  .auto-detected-note {
+    font-size: 0.8rem;
   }
 }
 

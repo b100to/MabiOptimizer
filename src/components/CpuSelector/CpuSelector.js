@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CpuSelector.css';
+import { applyCpuPreset } from '../../utils/configGenerator';
 
 // CPU 프리셋 정의
 const CPU_PRESETS = {
@@ -16,7 +17,7 @@ const MAX_CORES = 64;
 const MIN_THREADS = 2;
 const MAX_THREADS = 128;
 
-const CpuSelector = ({ cores, threads, setCores, setThreads }) => {
+const CpuSelector = ({ cores, threads, setCores, setThreads, autoDetected = false }) => {
     const [selectedPreset, setSelectedPreset] = useState('MEDIUM');
     const [showSliders, setShowSliders] = useState(false);
     const [coreSliderValue, setCoreSliderValue] = useState(valueToCoreSlider(cores));
@@ -101,25 +102,70 @@ const CpuSelector = ({ cores, threads, setCores, setThreads }) => {
         setThreads(Math.max(cores, newThreadValue));
     };
 
+    // CPU 프리셋 적용 함수
+    const applyCpuPresetHandler = (presetType) => {
+        applyCpuPreset(presetType, setCores, setThreads);
+    };
+
     return (
         <div className="cpu-selector">
-            <h3 className="option-title">CPU 성능 선택:</h3>
-            <div className="preset-buttons">
-                {Object.entries(CPU_PRESETS).map(([key, preset]) => (
-                    <button
-                        key={key}
-                        className={`preset-button ${selectedPreset === key ? 'active' : ''}`}
-                        onClick={() => handlePresetChange(key)}
-                    >
-                        <div className="preset-name">{preset.name}</div>
-                        {key !== 'CUSTOM' && (
-                            <div className="preset-specs">
-                                {preset.cores}코어 / {preset.threads}스레드
-                            </div>
-                        )}
-                    </button>
-                ))}
+            <h3 className="cpu-selector-title">
+                CPU 코어/스레드 선택:
+                {autoDetected && <span className="auto-detected-badge">자동 감지됨</span>}
+            </h3>
+
+            <div className="cpu-preset-grid">
+                <button
+                    className={`cpu-preset-button ${cores === 4 && threads === 8 ? 'active' : ''}`}
+                    onClick={() => applyCpuPresetHandler('basic')}
+                    disabled={autoDetected}
+                >
+                    <div className="preset-name">일반 사양</div>
+                    <div className="preset-value">4코어 / 8스레드</div>
+                </button>
+
+                <button
+                    className={`cpu-preset-button ${cores === 6 && threads === 12 ? 'active' : ''}`}
+                    onClick={() => applyCpuPresetHandler('medium')}
+                    disabled={autoDetected}
+                >
+                    <div className="preset-name">중간 사양</div>
+                    <div className="preset-value">6코어 / 12스레드</div>
+                </button>
+
+                <button
+                    className={`cpu-preset-button ${cores === 8 && threads === 16 ? 'active' : ''}`}
+                    onClick={() => applyCpuPresetHandler('high')}
+                    disabled={autoDetected}
+                >
+                    <div className="preset-name">고성능</div>
+                    <div className="preset-value">8코어 / 16스레드</div>
+                </button>
+
+                <button
+                    className={`cpu-preset-button ${cores === 12 && threads === 24 ? 'active' : ''}`}
+                    onClick={() => applyCpuPresetHandler('extreme')}
+                    disabled={autoDetected}
+                >
+                    <div className="preset-name">프리미엄</div>
+                    <div className="preset-value">12코어 / 24스레드</div>
+                </button>
+
+                <button
+                    className={`cpu-preset-button custom-button ${!['basic', 'medium', 'high', 'extreme'].includes(getCpuPresetType(cores, threads)) ? 'active' : ''}`}
+                    onClick={() => applyCpuPresetHandler('custom')}
+                    disabled={autoDetected}
+                >
+                    <div className="preset-name">직접 설정</div>
+                    <div className="preset-value">사용자 지정</div>
+                </button>
             </div>
+
+            {autoDetected && (
+                <div className="auto-detected-note">
+                    <span>자동으로 감지된 CPU 코어/스레드 수에 맞게 설정되었습니다. 변경하려면 위의 '초기화' 버튼을 클릭하세요.</span>
+                </div>
+            )}
 
             {showSliders && (
                 <div className="sliders-container">
@@ -172,6 +218,15 @@ const CpuSelector = ({ cores, threads, setCores, setThreads }) => {
             )}
         </div>
     );
+};
+
+// 현재 코어/스레드 값에 따라 프리셋 타입 반환
+const getCpuPresetType = (cores, threads) => {
+    if (cores === 4 && threads === 8) return 'basic';
+    if (cores === 6 && threads === 12) return 'medium';
+    if (cores === 8 && threads === 16) return 'high';
+    if (cores === 12 && threads === 24) return 'extreme';
+    return 'custom';
 };
 
 export default CpuSelector; 

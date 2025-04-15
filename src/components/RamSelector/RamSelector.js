@@ -37,7 +37,7 @@ const RAM_PRESETS = {
 const MIN_RAM = 4;
 const MAX_RAM = 256;
 
-const RamSelector = ({ ram, setRam }) => {
+const RamSelector = ({ ram, setRam, autoDetected = false }) => {
     const [selectedPreset, setSelectedPreset] = useState('CUSTOM');
     const [showSlider, setShowSlider] = useState(false);
     const [sliderValue, setSliderValue] = useState(ramToSlider(ram));
@@ -55,7 +55,7 @@ const RamSelector = ({ ram, setRam }) => {
             setSelectedPreset('CUSTOM');
             setShowSlider(true);
         }
-    }, []);
+    }, [ram]);
 
     // RAM 값을 슬라이더 값(0-100)으로 변환
     function ramToSlider(ramValue) {
@@ -74,6 +74,8 @@ const RamSelector = ({ ram, setRam }) => {
 
     // 프리셋 변경 핸들러
     const handlePresetChange = (presetKey) => {
+        if (autoDetected) return;
+
         setSelectedPreset(presetKey);
         const preset = RAM_PRESETS[presetKey];
 
@@ -88,26 +90,44 @@ const RamSelector = ({ ram, setRam }) => {
 
     // 슬라이더 변경 핸들러
     const handleSliderChange = (e) => {
+        if (autoDetected) return;
+
         const value = Number(e.target.value);
         setSliderValue(value);
         const newRamValue = sliderToRam(value);
         setRam(newRamValue);
     };
 
+    // 현재 RAM 값에 따른 프리셋 선택 상태
+    const getRamPresetType = (ramValue) => {
+        if (ramValue === 4) return 'LOW';
+        if (ramValue === 8) return 'BASIC';
+        if (ramValue === 16) return 'MEDIUM';
+        if (ramValue === 32) return 'HIGH';
+        if (ramValue === 64) return 'ULTRA';
+        if (ramValue === 128) return 'EXTREME';
+        return 'CUSTOM';
+    };
+
     return (
         <div className="ram-selector">
-            <h3 className="option-title">메모리(RAM) 선택:</h3>
-            <div className="preset-buttons">
+            <h3 className="ram-selector-title">
+                메모리(RAM) 선택:
+                {autoDetected && <span className="auto-detected-badge">자동 감지됨</span>}
+            </h3>
+
+            <div className="ram-preset-grid">
                 {Object.entries(RAM_PRESETS).map(([key, preset]) => (
                     <button
                         key={key}
-                        className={`preset-button ${selectedPreset === key ? 'active' : ''}`}
+                        className={`ram-preset-button ${getRamPresetType(ram) === key ? 'active' : ''}`}
                         onClick={() => handlePresetChange(key)}
+                        disabled={autoDetected}
                     >
                         <div className="preset-content">
                             <div className="preset-name">{preset.name}</div>
                             {key !== 'CUSTOM' && (
-                                <div className="preset-specs">
+                                <div className="preset-value">
                                     {preset.size}GB
                                 </div>
                             )}
@@ -116,7 +136,13 @@ const RamSelector = ({ ram, setRam }) => {
                 ))}
             </div>
 
-            {showSlider && (
+            {autoDetected && (
+                <div className="auto-detected-note">
+                    <span>자동으로 감지된 메모리(RAM) 용량에 맞게 설정되었습니다. 변경하려면 위의 '초기화' 버튼을 클릭하세요.</span>
+                </div>
+            )}
+
+            {showSlider && !autoDetected && (
                 <div className="slider-container">
                     <div className="slider-header">
                         <label className="slider-label">

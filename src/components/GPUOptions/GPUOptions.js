@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './GPUOptions.css';
 import { applyGpuPreset } from '../../utils/configGenerator';
 
-const GPUOptions = ({ setGpuTier }) => {
-  const [selectedGpu, setSelectedGpu] = useState("medium");
+const GPUOptions = ({ setGpuTier, currentTier = "medium", autoDetected = false }) => {
+  const [selectedGpu, setSelectedGpu] = useState(currentTier);
 
+  // currentTier가 변경되면 UI에 반영
   useEffect(() => {
-    applyGpuPreset("medium", setGpuTier);
-  }, [setGpuTier]);
+    setSelectedGpu(currentTier);
+  }, [currentTier]);
+
+  // 컴포넌트 마운트 시 GPU 프리셋 적용
+  useEffect(() => {
+    applyGpuPreset(currentTier, setGpuTier);
+  }, [currentTier, setGpuTier]);
 
   const handleGpuSelect = (gpuType) => {
     applyGpuPreset(gpuType, setGpuTier);
@@ -16,11 +22,15 @@ const GPUOptions = ({ setGpuTier }) => {
 
   return (
     <div className="gpu-options">
-      <h3 className="option-title">GPU 성능 선택:</h3>
+      <h3 className="option-title">
+        GPU 성능 선택:
+        {autoDetected && <span className="auto-detected-badge">자동 감지됨</span>}
+      </h3>
       <div className="option-grid">
         <button
           onClick={() => handleGpuSelect("minimum")}
           className={`option-button ${selectedGpu === "minimum" ? "active" : ""}`}
+          disabled={autoDetected}
         >
           <div className="option-content">
             <div className="option-title-main">매우 낮은 사양</div>
@@ -35,6 +45,7 @@ const GPUOptions = ({ setGpuTier }) => {
         <button
           onClick={() => handleGpuSelect("low")}
           className={`option-button ${selectedGpu === "low" ? "active" : ""}`}
+          disabled={autoDetected}
         >
           <div className="option-content">
             <div className="option-title-main">낮은 사양</div>
@@ -49,6 +60,7 @@ const GPUOptions = ({ setGpuTier }) => {
         <button
           onClick={() => handleGpuSelect("medium")}
           className={`option-button ${selectedGpu === "medium" ? "active" : ""}`}
+          disabled={autoDetected}
         >
           <div className="option-content">
             <div className="option-title-main">중간 사양</div>
@@ -63,6 +75,7 @@ const GPUOptions = ({ setGpuTier }) => {
         <button
           onClick={() => handleGpuSelect("high")}
           className={`option-button ${selectedGpu === "high" ? "active" : ""}`}
+          disabled={autoDetected}
         >
           <div className="option-content">
             <div className="option-title-main">높은 사양</div>
@@ -77,6 +90,7 @@ const GPUOptions = ({ setGpuTier }) => {
         <button
           onClick={() => handleGpuSelect("ultra")}
           className={`option-button ${selectedGpu === "ultra" ? "active" : ""}`}
+          disabled={autoDetected}
         >
           <div className="option-content">
             <div className="option-title-main">최고 사양</div>
@@ -89,6 +103,11 @@ const GPUOptions = ({ setGpuTier }) => {
           </div>
         </button>
       </div>
+      {autoDetected && (
+        <div className="auto-detected-note">
+          <span>자동으로 감지된 그래픽 카드 성능에 맞게 설정되었습니다. 변경하려면 위의 '초기화' 버튼을 클릭하세요.</span>
+        </div>
+      )}
     </div>
   );
 };

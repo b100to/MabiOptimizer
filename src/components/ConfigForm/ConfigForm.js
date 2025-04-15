@@ -11,7 +11,8 @@ const ConfigForm = ({
   termsAgreed,
   setTermsAgreed,
   onShowTerms,
-  onConfigGeneration
+  onConfigGeneration,
+  autoDetected
 }) => {
   const [configContent, setConfigContent] = useState('');
   const [showFullConfig, setShowFullConfig] = useState(false);
@@ -156,7 +157,7 @@ const ConfigForm = ({
   return (
     <div className="config-form">
       <div className="form-group">
-        <RamSelector ram={ram} setRam={setRam} />
+        <RamSelector ram={ram} setRam={setRam} autoDetected={autoDetected} />
       </div>
 
       <div className="fixed-settings-info">

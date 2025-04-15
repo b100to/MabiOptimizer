@@ -10,7 +10,8 @@ const ConfigForm = ({
   setRam,
   termsAgreed,
   setTermsAgreed,
-  onShowTerms
+  onShowTerms,
+  onConfigGeneration
 }) => {
   const [configContent, setConfigContent] = useState('');
   const [showFullConfig, setShowFullConfig] = useState(false);
@@ -48,6 +49,11 @@ const ConfigForm = ({
     const unityVersion = "2021.3";
     const platform = "windows";
     const config = generateConfig(cpuThreads, gpuTier, ram, unityVersion, platform);
+
+    // 이벤트 추적 호출
+    if (onConfigGeneration) {
+      onConfigGeneration();
+    }
 
     // 파일 다운로드
     downloadConfigFile(config);

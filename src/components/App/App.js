@@ -9,6 +9,7 @@ import PrivacyModal from '../PrivacyModal/PrivacyModal';
 import AnnouncementModal from '../Announcements/AnnouncementModal';
 import AdBanner from '../Ads/AdBanner';
 import AdSideBanner from '../Ads/AdSideBanner';
+import ReactGA from 'react-ga4';
 
 const App = () => {
   // 상태 관리
@@ -22,6 +23,22 @@ const App = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showNotice, setShowNotice] = useState(true);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
+
+  // 이벤트 추적 함수들
+  const trackConfigGeneration = (config) => {
+    ReactGA.event({
+      category: '최적화',
+      action: '설정 생성',
+      label: `CPU스레드:${config.cpuThreads}_GPU:${config.gpuTier}_RAM:${config.ram}GB`
+    });
+  };
+
+  const trackHelpModalOpen = () => {
+    ReactGA.event({
+      category: '사용자 행동',
+      action: '도움말 모달 열기'
+    });
+  };
 
   return (
     <div className="app-container">
@@ -72,7 +89,10 @@ const App = () => {
 
         <div className="help-button-container">
           <button
-            onClick={() => setShowHelpModal(true)}
+            onClick={() => {
+              trackHelpModalOpen();
+              setShowHelpModal(true);
+            }}
             className="help-button"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,6 +127,9 @@ const App = () => {
           termsAgreed={termsAgreed}
           setTermsAgreed={setTermsAgreed}
           onShowTerms={() => setShowTermsModal(true)}
+          onConfigGeneration={() => {
+            trackConfigGeneration({ cpuThreads: threads, gpuTier, ram });
+          }}
         />
 
         {/* 하단 광고 배너 */}

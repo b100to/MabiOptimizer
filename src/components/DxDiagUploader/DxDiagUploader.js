@@ -113,7 +113,11 @@ const DxDiagUploader = ({ onSystemInfoDetected }) => {
 
     return (
         <div className="dxdiag-uploader-container">
-            <h3 className="dxdiag-uploader-title">DxDiag 파일로 자동 분석하기</h3>
+            <h3 className="dxdiag-uploader-title">DxDiag 파일로 자동 분석하기 <span className="beta-tag">BETA</span></h3>
+
+            <div className="beta-notice">
+                <p>⚠️ 본 자동 분석 기능은 현재 베타 서비스로, 일부 하드웨어에서는 정확하지 않을 수 있습니다. 분석 결과를 참고용으로만 활용하시기 바랍니다.</p>
+            </div>
 
             <div className="dxdiag-feature-description">
                 <p>

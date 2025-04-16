@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import CpuSelector from '../CpuSelector/CpuSelector';
+import CpuSlider from '../CpuSlider/CpuSlider';
 import GPUOptions from '../GPUOptions/GPUOptions';
 import ConfigForm from '../ConfigForm/ConfigForm';
 import HelpModal from '../HelpModal/HelpModal';
@@ -27,6 +28,7 @@ const App = () => {
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   const [autoDetected, setAutoDetected] = useState(false);
   const [systemInfo, setSystemInfo] = useState(null);
+  const [useCpuSlider, setUseCpuSlider] = useState(false);  // 슬라이더 사용 여부 상태
 
   // GPU 또는 RAM 정보가 변경되면 UI에 반영하기 위한 Effect
   useEffect(() => {
@@ -101,6 +103,16 @@ const App = () => {
     });
   };
 
+  // CPU 선택기 토글 함수
+  const toggleCpuControl = () => {
+    setUseCpuSlider(!useCpuSlider);
+
+    ReactGA.event({
+      category: '사용자 행동',
+      action: `CPU ${useCpuSlider ? '프리셋' : '슬라이더'} 전환`
+    });
+  };
+
   return (
     <div className="app-container">
       {/* 좌측 사이드 광고 */}
@@ -113,17 +125,7 @@ const App = () => {
         <div className="app-header">
           <h1 className="app-title">모비노기 PC버전 최적화</h1>
         </div>
-
-        <div className="donation-notice">
-          <h3>광고 수익 기부 안내</h3>
-          <p>
-            이 웹사이트의 광고 수익은 서버 운영비를 제외하고
-            어려운 이웃을 돕기 위해 기부됩니다.
-            <br />
-            <small>수익금 사용 내역은 정기적으로 공개됩니다.</small>
-          </p>
-        </div>
-
+        
         {showNotice && (
           <div className="notice-container">
             <div className="notice-content">
@@ -243,32 +245,32 @@ const App = () => {
           </div>
         )}
 
-        <div className="help-button-container">
+        {/* CPU 선택 토글 버튼 */}
+        <div className="toggle-container">
           <button
-            onClick={() => {
-              trackHelpModalOpen();
-              setShowHelpModal(true);
-            }}
-            className="help-button"
+            className="toggle-button"
+            onClick={toggleCpuControl}
+            disabled={autoDetected}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M12 17H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            내 PC 사양 확인하는 방법
+            {useCpuSlider ? "CPU 프리셋으로 전환" : "CPU 스레드 직접 설정으로 전환"}
           </button>
         </div>
 
-        <div className="section-divider"></div>
-
-        <CpuSelector
-          cores={cores}
-          threads={threads}
-          setCores={setCores}
-          setThreads={setThreads}
-          autoDetected={autoDetected}
-        />
+        {/* CPU 설정 (프리셋 또는 슬라이더) */}
+        {useCpuSlider ? (
+          <CpuSlider
+            threads={threads}
+            setThreads={setThreads}
+          />
+        ) : (
+          <CpuSelector
+            cores={cores}
+            threads={threads}
+            setCores={setCores}
+            setThreads={setThreads}
+            autoDetected={autoDetected}
+          />
+        )}
 
         <div className="section-divider"></div>
 

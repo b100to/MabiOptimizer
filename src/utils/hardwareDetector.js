@@ -132,28 +132,24 @@ export const detectGPU = () => {
                 return cardPattern(model).test(lowerRenderer) || (extractedModel && cardPattern(model).test(extractedModel));
             };
 
-            // Ultra 티어: 30K+ 벤치마크 점수 그래픽카드
+            // Ultra 티어: 상위 고성능 그래픽카드
             if (checkModel('rtx 5090') ||
                 checkModel('rtx 5080') ||
                 checkModel('rtx 4090') ||
                 checkModel('rtx 4080') ||
-                checkModel('rtx 3090 ti') ||
-                checkModel('rtx 3090')) {
-                tier = 'ultra';
-            }
-            // High 티어: 19K-30K 벤치마크 점수 그래픽카드
-            else if (checkModel('rtx 5070') ||
-                checkModel('rtx 5060') ||
                 checkModel('rtx 4070') ||
                 checkModel('rtx 4070 ti') ||
+                checkModel('rtx 3090 ti') ||
+                checkModel('rtx 3090') ||
                 checkModel('rtx 3080') ||
                 checkModel('rtx 3070') ||
                 checkModel('rtx 3060 ti') ||
                 checkModel('rtx 2080 ti')) {
-                tier = 'high';
+                tier = 'ultra';
             }
-            // Medium 티어: 12K-19K 벤치마크 점수 그래픽카드
-            else if (checkModel('rtx 5050') ||
+            // High 티어: 중상위 성능 그래픽카드
+            else if (checkModel('rtx 5060') ||
+                checkModel('rtx 5050') ||
                 checkModel('rtx 4060') ||
                 checkModel('rtx 3060') ||
                 checkModel('rtx 3050') ||
@@ -161,38 +157,60 @@ export const detectGPU = () => {
                 checkModel('rtx 2070') ||
                 checkModel('gtx 1660') ||
                 checkModel('gtx 1080')) {
+                tier = 'high';
+            }
+            // Medium 티어: 중하위 성능 그래픽카드
+            else if (checkModel('rtx 2060') ||
+                checkModel('gtx 1650') ||
+                checkModel('gtx 1060') ||
+                checkModel('gtx 1050 ti')) {
                 tier = 'medium';
             }
-            // Low 티어: 8K-12K 벤치마크 점수 그래픽카드
-            else if (checkModel('rtx 40')) {
-                // RTX 40 시리즈 분류
-                if (checkModel('4090') || checkModel('4080')) {
+            // Low 티어: 하위 성능 그래픽카드
+            else if (checkModel('gtx 1050') ||
+                checkModel('mx') ||
+                checkModel('gtx 9')) {
+                tier = 'low';
+            }
+            // 위 조건에 해당하지 않는 경우 모델 번호로 예상
+            else if (checkModel('rtx 50')) {
+                // RTX 50 시리즈 번호 기반 분류
+                if (checkModel('5090') || checkModel('5080') || checkModel('5070')) {
                     tier = 'ultra';
                 }
-                else if (checkModel('4070')) {
+                else if (checkModel('5060') || checkModel('5050')) {
                     tier = 'high';
                 }
+                else {
+                    tier = 'high';
+                }
+            }
+            else if (checkModel('rtx 40')) {
+                // RTX 40 시리즈 분류
+                if (checkModel('4090') || checkModel('4080') || checkModel('4070')) {
+                    tier = 'ultra';
+                }
                 else if (checkModel('4060') || checkModel('4050')) {
-                    tier = 'medium';  // 4060은 medium 티어
+                    tier = 'high';
                 }
                 else {
-                    tier = 'high'; // 기타 알 수 없는 40 시리즈
+                    tier = 'high';
                 }
             }
             else if (checkModel('rtx 30')) {
-                tier = 'high';
+                tier = 'ultra';
             }
             else if (checkModel('rtx 20')) {
-                tier = 'medium';
+                tier = 'high';
             }
             else if (checkModel('gtx 16')) {
-                tier = 'medium';
+                tier = 'high';
             }
             else if (checkModel('gtx 10')) {
-                tier = 'low';
+                tier = 'medium';
             }
             else {
-                tier = 'minimum';
+                tier = 'low';
             }
         }
         // AMD 카드 감지
@@ -202,53 +220,50 @@ export const detectGPU = () => {
                 return cardPattern(model).test(lowerRenderer) || (extractedModel && cardPattern(model).test(extractedModel));
             };
 
-            // Ultra 티어: 30K+ 벤치마크 점수 그래픽카드
+            // Ultra 티어: 상위 고성능 그래픽카드
             if (checkModel('rx 7900 xtx') ||
-                checkModel('rx 7900 xt')) {
-                tier = 'ultra';
-            }
-            // High 티어: 19K-30K 벤치마크 점수 그래픽카드
-            else if (checkModel('rx 7800 xt') ||
+                checkModel('rx 7900 xt') ||
+                checkModel('rx 7800 xt') ||
                 checkModel('rx 7700 xt') ||
                 checkModel('rx 6950 xt') ||
                 checkModel('rx 6900 xt') ||
                 checkModel('rx 6800 xt')) {
-                tier = 'high';
+                tier = 'ultra';
             }
-            // Medium 티어: 12K-19K 벤치마크 점수 그래픽카드
+            // High 티어: 중상위 성능 그래픽카드
             else if (checkModel('rx 6800') ||
                 checkModel('rx 7600 xt') ||
                 checkModel('rx 6750 xt') ||
                 checkModel('rx 6700 xt') ||
                 checkModel('rx 6650 xt') ||
-                checkModel('rx 7600')) {
-                tier = 'medium';
+                checkModel('rx 7600') ||
+                checkModel('rx 6600')) {
+                tier = 'high';
             }
-            // Low 티어: 8K-12K 벤치마크 점수 그래픽카드
-            else if (checkModel('rx 6600') ||
-                checkModel('rx 6500') ||
+            // Medium 티어: 중하위 성능 그래픽카드
+            else if (checkModel('rx 6500') ||
                 checkModel('rx 5700') ||
                 checkModel('rx 5600')) {
-                tier = 'low';
+                tier = 'medium';
             }
-            // Minimum 티어: 8K 미만 벤치마크 점수 그래픽카드
+            // Low 티어: 하위 성능 그래픽카드
             else if (checkModel('rx 5500') ||
                 checkModel('rx 550') ||
                 checkModel('rx 560')) {
-                tier = 'minimum';
+                tier = 'low';
             }
             // 시리즈로 예상
             else if (checkModel('rx 7')) {
-                tier = 'high';
+                tier = 'ultra';
             }
             else if (checkModel('rx 6')) {
-                tier = 'medium';
+                tier = 'high';
             }
             else if (checkModel('rx 5')) {
-                tier = 'low';
+                tier = 'medium';
             }
             else {
-                tier = 'minimum';
+                tier = 'low';
             }
         }
         // Intel 그래픽 감지
@@ -260,29 +275,29 @@ export const detectGPU = () => {
 
             if (checkModel('arc a770') ||
                 checkModel('arc a750')) {
-                tier = 'medium';
+                tier = 'high';
             }
             else if (checkModel('arc a580') ||
                 checkModel('arc a380')) {
-                tier = 'low';
+                tier = 'medium';
             }
             else if (checkModel('arc')) {
-                tier = 'low';
+                tier = 'medium';
             }
             else if (checkModel('iris')) {
-                tier = 'minimum';
+                tier = 'low';
             }
             else {
-                tier = 'minimum';
+                tier = 'low';
             }
         }
 
         // 모델명에서 직접 RTX 4060 감지
         if (lowerRenderer.includes('4060') ||
             (extractedModel && extractedModel.includes('rtx 4060'))) {
-            // RTX 4060은 벤치마크 점수가 19,789점으로 medium 티어로 강제 설정
-            console.log('RTX 4060 감지됨 - medium 티어로 분류');
-            tier = 'medium';
+            // RTX 4060을 high 티어로 강제 설정
+            console.log('RTX 4060 감지됨 - high 티어로 분류');
+            tier = 'high';
             return {
                 model: gpuModel,
                 vendor: vendor,

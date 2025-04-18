@@ -326,6 +326,7 @@ const App = () => {
           <CpuSlider
             threads={threads}
             setThreads={setThreads}
+            autoDetected={autoDetected}
           />
 
           <div className="sub-divider"></div>

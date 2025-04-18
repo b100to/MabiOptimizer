@@ -5,7 +5,7 @@ import './CpuSlider.css';
 const MIN_THREADS = 4;
 const MAX_THREADS = 128;
 
-const CpuSlider = ({ threads, setThreads }) => {
+const CpuSlider = ({ threads, setThreads, autoDetected }) => {
     // 슬라이더 값 상태
     const [threadSliderValue, setThreadSliderValue] = useState(valueToThreadSlider(threads));
 
@@ -50,6 +50,7 @@ const CpuSlider = ({ threads, setThreads }) => {
                 <div className="cpu-header">
                     <label className="cpu-label">
                         CPU 스레드: <strong>{threads}개</strong>
+                        {autoDetected && <span className="auto-detected-badge">자동 감지됨</span>}
                     </label>
                 </div>
                 <div className="slider-container">
@@ -61,6 +62,7 @@ const CpuSlider = ({ threads, setThreads }) => {
                         value={threadSliderValue}
                         onChange={handleThreadSliderChange}
                         className="cpu-range-slider"
+                        disabled={autoDetected}
                     />
                     <div className="slider-range-labels">
                         <span className="min-label">{MIN_THREADS}개</span>
@@ -68,6 +70,13 @@ const CpuSlider = ({ threads, setThreads }) => {
                     </div>
                 </div>
             </div>
+
+            {/* 자동 감지 안내 메시지 */}
+            {autoDetected && (
+                <div className="auto-detected-note">
+                    <span>자동으로 감지된 CPU 스레드 수에 맞게 설정되었습니다. 변경하려면 상단의 '초기화' 버튼을 클릭하세요.</span>
+                </div>
+            )}
 
             {/* 워커 수 정보 표시 */}
             <div className="worker-info">
@@ -91,4 +100,4 @@ const CpuSlider = ({ threads, setThreads }) => {
     );
 };
 
-export default CpuSlider; 
+export default CpuSlider;

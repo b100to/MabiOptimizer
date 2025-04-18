@@ -113,8 +113,8 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
 
             <div className="ram-notice">
                 <p>
-                    <strong>참고:</strong> 브라우저 보안 제한으로 인해 RAM은 자동으로 감지되지 않습니다.
-                    PC에 설치된 RAM 용량에 맞게 아래 옵션에서 직접 선택해주세요.
+                    <strong>중요:</strong> 브라우저 보안 제한으로 인해 RAM은 자동으로 감지되지 않습니다.
+                    PC에 설치된 RAM 용량에 맞게 아래 옵션에서 <strong>반드시 직접 선택해주세요.</strong>
                 </p>
             </div>
 
@@ -129,7 +129,7 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
                             <div className="preset-name">{preset.name}</div>
                             {key !== 'CUSTOM' && (
                                 <div className="preset-value">
-                                    {preset.size}GB
+                                    {preset.size}GB {ram === preset.size && <span className="ram-check-icon">✓</span>}
                                 </div>
                             )}
                         </div>

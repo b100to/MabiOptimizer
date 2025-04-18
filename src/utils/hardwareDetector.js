@@ -103,33 +103,162 @@ export const detectGPU = () => {
 
         // NVIDIA 카드 감지
         if (lowerRenderer.includes('nvidia')) {
-            if (lowerRenderer.includes('rtx 30') || lowerRenderer.includes('rtx 40')) {
+            // Ultra 티어: 30K+ 벤치마크 점수 그래픽카드
+            if (lowerRenderer.includes('rtx 5090') ||
+                lowerRenderer.includes('rtx 5080') ||
+                lowerRenderer.includes('geforce rtx 5090') ||
+                lowerRenderer.includes('geforce rtx 5080') ||
+                lowerRenderer.includes('rtx 4090') ||
+                lowerRenderer.includes('rtx 4080') ||
+                lowerRenderer.includes('rtx 3090 ti') ||
+                lowerRenderer.includes('rtx 3090')) {
                 tier = 'ultra';
-            } else if (lowerRenderer.includes('rtx 20') || lowerRenderer.includes('gtx 1080')) {
+            }
+            // High 티어: 19K-30K 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('rtx 5070') ||
+                lowerRenderer.includes('geforce rtx 5070') ||
+                lowerRenderer.includes('rtx 5060') ||
+                lowerRenderer.includes('geforce rtx 5060') ||
+                lowerRenderer.includes('rtx 4070') ||
+                lowerRenderer.includes('rtx 4060') ||
+                lowerRenderer.includes('rtx 3080') ||
+                lowerRenderer.includes('rtx 3070') ||
+                lowerRenderer.includes('rtx 3060 ti') ||
+                lowerRenderer.includes('rtx 2080 ti')) {
                 tier = 'high';
-            } else if (lowerRenderer.includes('gtx 10') || lowerRenderer.includes('gtx 16')) {
+            }
+            // Medium 티어: 12K-19K 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('rtx 5050') ||
+                lowerRenderer.includes('geforce rtx 5050') ||
+                lowerRenderer.includes('rtx 3060') ||
+                lowerRenderer.includes('rtx 3050') ||
+                lowerRenderer.includes('rtx 2080') ||
+                lowerRenderer.includes('rtx 2070') ||
+                lowerRenderer.includes('gtx 1660') ||
+                lowerRenderer.includes('gtx 1080')) {
                 tier = 'medium';
-            } else {
+            }
+            // Low 티어: 8K-12K 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('gtx 1650') ||
+                lowerRenderer.includes('gtx 1060') ||
+                lowerRenderer.includes('rtx 2060') ||
+                lowerRenderer.includes('gtx 1050 ti')) {
                 tier = 'low';
+            }
+            // Minimum 티어: 8K 미만 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('gtx 1050') ||
+                lowerRenderer.includes('mx') ||
+                lowerRenderer.includes('gtx 9')) {
+                tier = 'minimum';
+            }
+            // 위 조건에 해당하지 않는 경우 모델 번호로 예상
+            else if (lowerRenderer.includes('rtx 50')) {
+                // RTX 50 시리즈 번호 기반 분류
+                if (lowerRenderer.includes('5090') || lowerRenderer.includes('5080')) {
+                    tier = 'ultra';
+                }
+                else if (lowerRenderer.includes('5070') || lowerRenderer.includes('5060')) {
+                    tier = 'high';
+                }
+                else if (lowerRenderer.includes('5050')) {
+                    tier = 'medium';
+                }
+                else {
+                    tier = 'high'; // 알 수 없는 RTX 50 시리즈는 기본적으로 high로 분류
+                }
+            }
+            else if (lowerRenderer.includes('rtx 40')) {
+                // 예외적으로 4050은 미디엄 티어로 분류
+                if (lowerRenderer.includes('4050')) {
+                    tier = 'medium';
+                } else {
+                    tier = 'high'; // 기본적으로 40 시리즈는 high로 간주
+                }
+            }
+            else if (lowerRenderer.includes('rtx 30')) {
+                tier = 'high';
+            }
+            else if (lowerRenderer.includes('rtx 20')) {
+                tier = 'medium';
+            }
+            else if (lowerRenderer.includes('gtx 16')) {
+                tier = 'medium';
+            }
+            else if (lowerRenderer.includes('gtx 10')) {
+                tier = 'low';
+            }
+            else {
+                tier = 'minimum';
             }
         }
         // AMD 카드 감지
         else if (lowerRenderer.includes('amd') || lowerRenderer.includes('radeon')) {
-            if (lowerRenderer.includes('rx 6') || lowerRenderer.includes('rx 7')) {
+            // Ultra 티어: 30K+ 벤치마크 점수 그래픽카드
+            if (lowerRenderer.includes('rx 7900 xtx') ||
+                lowerRenderer.includes('rx 7900 xt')) {
+                tier = 'ultra';
+            }
+            // High 티어: 19K-30K 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('rx 7800 xt') ||
+                lowerRenderer.includes('rx 7700 xt') ||
+                lowerRenderer.includes('rx 6950 xt') ||
+                lowerRenderer.includes('rx 6900 xt') ||
+                lowerRenderer.includes('rx 6800 xt')) {
                 tier = 'high';
-            } else if (lowerRenderer.includes('rx 5')) {
+            }
+            // Medium 티어: 12K-19K 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('rx 6800') ||
+                lowerRenderer.includes('rx 7600 xt') ||
+                lowerRenderer.includes('rx 6750 xt') ||
+                lowerRenderer.includes('rx 6700 xt') ||
+                lowerRenderer.includes('rx 6650 xt') ||
+                lowerRenderer.includes('rx 7600')) {
                 tier = 'medium';
-            } else {
+            }
+            // Low 티어: 8K-12K 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('rx 6600') ||
+                lowerRenderer.includes('rx 6500') ||
+                lowerRenderer.includes('rx 5700') ||
+                lowerRenderer.includes('rx 5600')) {
                 tier = 'low';
             }
-        }
-        // Intel 통합 그래픽 감지
-        else if (lowerRenderer.includes('intel')) {
-            if (lowerRenderer.includes('arc')) {
+            // Minimum 티어: 8K 미만 벤치마크 점수 그래픽카드
+            else if (lowerRenderer.includes('rx 5500') ||
+                lowerRenderer.includes('rx 550') ||
+                lowerRenderer.includes('rx 560')) {
+                tier = 'minimum';
+            }
+            // 시리즈로 예상
+            else if (lowerRenderer.includes('rx 7')) {
+                tier = 'high';
+            }
+            else if (lowerRenderer.includes('rx 6')) {
                 tier = 'medium';
-            } else if (lowerRenderer.includes('iris')) {
+            }
+            else if (lowerRenderer.includes('rx 5')) {
                 tier = 'low';
-            } else {
+            }
+            else {
+                tier = 'minimum';
+            }
+        }
+        // Intel 그래픽 감지
+        else if (lowerRenderer.includes('intel')) {
+            if (lowerRenderer.includes('arc a770') ||
+                lowerRenderer.includes('arc a750')) {
+                tier = 'medium';
+            }
+            else if (lowerRenderer.includes('arc a580') ||
+                lowerRenderer.includes('arc a380')) {
+                tier = 'low';
+            }
+            else if (lowerRenderer.includes('arc')) {
+                tier = 'low';
+            }
+            else if (lowerRenderer.includes('iris')) {
+                tier = 'minimum';
+            }
+            else {
                 tier = 'minimum';
             }
         }

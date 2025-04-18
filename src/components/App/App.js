@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import CpuSelector from '../CpuSelector/CpuSelector';
 import CpuSlider from '../CpuSlider/CpuSlider';
@@ -11,6 +11,7 @@ import AnnouncementModal from '../Announcements/AnnouncementModal';
 import DxDiagUploader from '../DxDiagUploader/DxDiagUploader';
 import ReactGA from 'react-ga4';
 import { applyCpuPreset, applyGpuPreset } from '../../utils/configGenerator';
+import { detectHardware } from '../../utils/hardwareDetector';
 
 const App = () => {
   // 상태 관리
@@ -27,19 +28,7 @@ const App = () => {
   const [autoDetected, setAutoDetected] = useState(false);
   const [systemInfo, setSystemInfo] = useState(null);
   const [useCpuSlider, setUseCpuSlider] = useState(false);  // 슬라이더 사용 여부 상태
-
-  // GPU 또는 RAM 정보가 변경되면 UI에 반영하기 위한 Effect
-  useEffect(() => {
-    if (systemInfo && autoDetected) {
-      // 해당 UI 영역으로 스크롤
-      const autoDetectedSection = document.querySelector('.auto-detected-info');
-      if (autoDetectedSection) {
-        setTimeout(() => {
-          autoDetectedSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 300);
-      }
-    }
-  }, [systemInfo, autoDetected]);
+  const [detectionSource, setDetectionSource] = useState(''); // 감지 소스 추적
 
   // 이벤트 추적 함수들
   const trackConfigGeneration = (config) => {
@@ -57,43 +46,109 @@ const App = () => {
     });
   };
 
-  const trackAutoDetection = (info) => {
+  const trackAutoDetection = useCallback((info, source) => {
     ReactGA.event({
       category: '사용자 행동',
-      action: 'DxDiag 자동 감지',
+      action: `하드웨어 자동 감지 (${source})`,
       label: `CPU:${info.cpu.model}_GPU:${info.gpu.model}`
     });
-  };
+  }, []);
 
   // DxDiag 자동 감지 처리 함수
-  const handleSystemInfoDetected = (info) => {
+  const handleSystemInfoDetected = useCallback((info) => {
     if (!info) return;
 
     setSystemInfo(info);
     setAutoDetected(true);
+    setDetectionSource('dxdiag');
 
     // CPU 정보 업데이트
     setCores(info.cpu.cores);
     setThreads(info.cpu.threads);
 
-    // RAM 정보 업데이트 - ramSizeGB 속성만 사용
-    setRam(info.ram.ramSizeGB);
+    // RAM 정보 업데이트 - 자동 감지 비활성화, 기본값 16GB 사용
+    setRam(16);
 
     // GPU 정보 업데이트
     setGpuTier(info.gpu.tier);
 
     // 이벤트 추적
-    trackAutoDetection(info);
-  };
+    trackAutoDetection(info, 'dxdiag');
+  }, [trackAutoDetection, setCores, setThreads, setRam, setGpuTier, setSystemInfo, setAutoDetected, setDetectionSource]);
+
+  // 브라우저 API를 사용한 하드웨어 자동 감지
+  const detectBrowserHardware = useCallback(() => {
+    try {
+      const hardwareInfo = detectHardware();
+      console.log('브라우저 API로 감지된 하드웨어:', hardwareInfo);
+
+      // 하드웨어 정보가 충분히 감지되었는지 확인
+      if (
+        hardwareInfo.cpu.threads > 0 &&
+        hardwareInfo.gpu.model !== 'Unknown GPU'
+      ) {
+        // 시스템 정보 설정
+        setSystemInfo(hardwareInfo);
+        setAutoDetected(true);
+        setDetectionSource('browser');
+
+        // CPU 정보 업데이트
+        setCores(hardwareInfo.cpu.cores);
+        setThreads(hardwareInfo.cpu.threads);
+
+        // RAM 정보 업데이트 - 자동 감지 비활성화, 기본값 16GB 사용
+        setRam(16);
+
+        // GPU 정보 업데이트
+        setGpuTier(hardwareInfo.gpu.tier);
+
+        // 이벤트 추적
+        trackAutoDetection(hardwareInfo, 'browser-api');
+
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('브라우저 하드웨어 감지 오류:', error);
+      return false;
+    }
+  }, [trackAutoDetection, setCores, setThreads, setRam, setGpuTier, setSystemInfo, setAutoDetected, setDetectionSource]);
+
+  // 컴포넌트 마운트 시 하드웨어 자동 감지
+  useEffect(() => {
+    // 사용자의 로컬 스토리지에서 이전에 자동 감지를 비활성화했는지 확인
+    const autoDetectionDisabled = localStorage.getItem('autoDetectionDisabled') === 'true';
+
+    if (!autoDetectionDisabled) {
+      detectBrowserHardware();
+    }
+  }, [detectBrowserHardware]);
+
+  // GPU 또는 RAM 정보가 변경되면 UI에 반영하기 위한 Effect
+  useEffect(() => {
+    if (systemInfo && autoDetected) {
+      // 해당 UI 영역으로 스크롤
+      const autoDetectedSection = document.querySelector('.auto-detected-info');
+      if (autoDetectedSection) {
+        setTimeout(() => {
+          autoDetectedSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      }
+    }
+  }, [systemInfo, autoDetected]);
 
   // 자동 감지된 정보를 초기화하고 기본값으로 되돌리는 함수
   const handleResetAutoDetection = () => {
     setAutoDetected(false);
     setSystemInfo(null);
+    setDetectionSource('');
     setCores(8);
     setThreads(16);
     setRam(16);
     setGpuTier('medium');
+
+    // 자동 감지 비활성화 상태 저장
+    localStorage.setItem('autoDetectionDisabled', 'true');
 
     ReactGA.event({
       category: '사용자 행동',
@@ -118,7 +173,7 @@ const App = () => {
         <div className="app-header">
           <h1 className="app-title">모비노기 PC버전 최적화</h1>
         </div>
-        
+
         {showNotice && (
           <div className="notice-container">
             <div className="notice-content">
@@ -140,6 +195,15 @@ const App = () => {
             >
               닫기
             </button>
+          </div>
+        )}
+
+        {/* 자동 감지 상태 표시 */}
+        {autoDetected && detectionSource === 'browser' && (
+          <div className="auto-detection-notice">
+            <p>
+              <strong>브라우저 API를 통해 하드웨어가 자동 감지되었습니다.</strong> 더 정확한 감지를 위해 DxDiag 파일을 업로드해보세요.
+            </p>
           </div>
         )}
 
@@ -169,7 +233,8 @@ const App = () => {
               </div>
               <div className="system-info-item">
                 <span className="info-label">RAM:</span>
-                <span className="info-value">{systemInfo.ram.ramSizeGB}GB</span>
+                <span className="info-value">16GB (기본값)</span>
+                <span className="info-note">브라우저 보안 제한으로 자동 감지 불가</span>
               </div>
               <div className="system-info-item">
                 <span className="info-label">GPU:</span>
@@ -187,6 +252,12 @@ const App = () => {
                   systemInfo.gpu.tier === 'high' ? '상' :
                     systemInfo.gpu.tier === 'medium' ? '중' :
                       systemInfo.gpu.tier === 'low' ? '하' : '최하'}</span>
+              </div>
+              <div className="system-info-item">
+                <span className="info-label">감지 소스:</span>
+                <span className="info-value">
+                  {detectionSource === 'browser' ? '브라우저 API' : 'DxDiag 분석'}
+                </span>
               </div>
             </div>
 
@@ -229,7 +300,7 @@ const App = () => {
 
             <div className="auto-detected-message">
               <p>
-                <strong>자동으로 감지된 하드웨어에 맞게 CPU, GPU, RAM 설정이 적용되었습니다.</strong>
+                <strong>자동으로 감지된 하드웨어에 맞게 CPU, GPU 설정이 적용되었습니다.</strong>
               </p>
               <p className="auto-detected-tip">
                 설정을 수동으로 조정하시려면 아래 옵션을 변경하거나, 자동 감지를 초기화하려면 위의 '초기화' 버튼을 클릭하세요.
@@ -239,7 +310,7 @@ const App = () => {
         )}
 
         {/* CPU 선택 토글 버튼 */}
-        <div className="toggle-container">
+        {/* <div className="toggle-container">
           <button
             className="toggle-button"
             onClick={toggleCpuControl}
@@ -247,10 +318,10 @@ const App = () => {
           >
             {useCpuSlider ? "CPU 프리셋으로 전환" : "CPU 스레드 직접 설정으로 전환"}
           </button>
-        </div>
+        </div> */}
 
         {/* CPU 설정 (프리셋 또는 슬라이더) */}
-        {useCpuSlider ? (
+        {/* {useCpuSlider ? (
           <CpuSlider
             threads={threads}
             setThreads={setThreads}
@@ -263,8 +334,11 @@ const App = () => {
             setThreads={setThreads}
             autoDetected={autoDetected}
           />
-        )}
-
+        )} */}
+        <CpuSlider
+          threads={threads}
+          setThreads={setThreads}
+        />
         <div className="section-divider"></div>
 
         <GPUOptions
@@ -286,7 +360,6 @@ const App = () => {
           onConfigGeneration={() => {
             trackConfigGeneration({ cpuThreads: threads, gpuTier, ram });
           }}
-          autoDetected={autoDetected}
         />
 
         <footer className="app-footer">

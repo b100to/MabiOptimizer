@@ -702,3 +702,60 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* 자동 감지 메시지 스타일 */
+.auto-detection-notice {
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 12px 16px;
+  margin: 15px 0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.auto-detection-notice p {
+  margin: 0;
+  color: #0d47a1;
+}
+
+/* 자동 감지 정보 섹션 스타일 확장 */
+.system-info-item .info-label {
+  font-weight: 600;
+  color: #555;
+  margin-right: 8px;
+}
+
+.system-info-item .info-value {
+  color: #333;
+  word-break: break-word;
+}
+
+/* 감지 소스 배지 스타일 */
+.detection-source-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background-color: #e1f5fe;
+  color: #0288d1;
+  margin-left: 8px;
+}
+
+.detection-source-badge.dxdiag {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.detection-source-badge.browser {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+/* 정보 노트 스타일 */
+.info-note {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+  font-style: italic;
+}

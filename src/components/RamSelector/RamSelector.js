@@ -74,8 +74,6 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
 
     // 프리셋 변경 핸들러
     const handlePresetChange = (presetKey) => {
-        if (autoDetected) return;
-
         setSelectedPreset(presetKey);
         const preset = RAM_PRESETS[presetKey];
 
@@ -90,8 +88,6 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
 
     // 슬라이더 변경 핸들러
     const handleSliderChange = (e) => {
-        if (autoDetected) return;
-
         const value = Number(e.target.value);
         setSliderValue(value);
         const newRamValue = sliderToRam(value);
@@ -113,8 +109,14 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
         <div className="ram-selector">
             <h3 className="ram-selector-title">
                 메모리(RAM) 선택:
-                {autoDetected && <span className="auto-detected-badge">자동 감지됨</span>}
             </h3>
+
+            <div className="ram-notice">
+                <p>
+                    <strong>참고:</strong> 브라우저 보안 제한으로 인해 RAM은 자동으로 감지되지 않습니다.
+                    PC에 설치된 RAM 용량에 맞게 아래 옵션에서 직접 선택해주세요.
+                </p>
+            </div>
 
             <div className="ram-preset-grid">
                 {Object.entries(RAM_PRESETS).map(([key, preset]) => (
@@ -122,7 +124,6 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
                         key={key}
                         className={`ram-preset-button ${getRamPresetType(ram) === key ? 'active' : ''}`}
                         onClick={() => handlePresetChange(key)}
-                        disabled={autoDetected}
                     >
                         <div className="preset-content">
                             <div className="preset-name">{preset.name}</div>
@@ -136,13 +137,7 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
                 ))}
             </div>
 
-            {autoDetected && (
-                <div className="auto-detected-note">
-                    <span>자동으로 감지된 메모리(RAM) 용량에 맞게 설정되었습니다. 변경하려면 위의 '초기화' 버튼을 클릭하세요.</span>
-                </div>
-            )}
-
-            {showSlider && !autoDetected && (
+            {showSlider && (
                 <div className="slider-container">
                     <div className="slider-header">
                         <label className="slider-label">
@@ -166,6 +161,18 @@ const RamSelector = ({ ram, setRam, autoDetected = false }) => {
                     </div>
                 </div>
             )}
+
+            <div className="ram-tips">
+                <p>
+                    <strong>RAM 선택 도움말:</strong> 일반적으로 사용하시는 PC의 RAM 양에 따라 선택하세요.
+                </p>
+                <ul>
+                    <li>4GB: 최소 사양 (기본적인 게임 플레이)</li>
+                    <li>8GB: 일반 사양 (안정적인 게임 플레이)</li>
+                    <li>16GB: 권장 사양 (대부분의 기능을 원활하게 사용)</li>
+                    <li>32GB 이상: 고성능 (빠른 로딩과 대규모 전투에서 안정적인 성능)</li>
+                </ul>
+            </div>
         </div>
     );
 };

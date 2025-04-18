@@ -157,7 +157,7 @@ const ConfigForm = ({
   return (
     <div className="config-form">
       <div className="form-group">
-        <RamSelector ram={ram} setRam={setRam} autoDetected={autoDetected} />
+        <RamSelector ram={ram} setRam={setRam} />
       </div>
 
       <div className="fixed-settings-info">

@@ -109,12 +109,19 @@ export const detectGPU = () => {
         };
 
         // 정확한 모델명 추출을 위한 정규식
-        const extractModelRegex = /(?:nvidia geforce|amd|intel) (rtx|gtx|rx|arc|iris)[ -]([0-9a-z]+)/i;
+        // ANGLE 패턴도 처리: angle (nvidia, nvidia geforce rtx 4060 (0x00002882) Direct3D11 vs_5_0 ps_5_0, D3D11)
+        const extractModelRegex = /(nvidia geforce|amd|intel) (rtx|gtx|rx|arc|iris)[ -]([0-9a-z]+)|angle.*?(rtx|gtx|rx|arc|iris)[ -]([0-9a-z]+)/i;
         const modelMatch = lowerRenderer.match(extractModelRegex);
 
         let extractedModel = '';
-        if (modelMatch && modelMatch.length >= 3) {
-            extractedModel = `${modelMatch[1]} ${modelMatch[2]}`.toLowerCase();
+        if (modelMatch) {
+            if (modelMatch[2] && modelMatch[3]) {
+                // 일반적인 패턴: nvidia geforce rtx 4060
+                extractedModel = `${modelMatch[2]} ${modelMatch[3]}`.toLowerCase();
+            } else if (modelMatch[4] && modelMatch[5]) {
+                // ANGLE 패턴: angle (nvidia, nvidia geforce rtx 4060 (...))
+                extractedModel = `${modelMatch[4]} ${modelMatch[5]}`.toLowerCase();
+            }
             console.log('추출된 그래픽카드 모델:', extractedModel);
         }
 

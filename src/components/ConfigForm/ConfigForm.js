@@ -132,12 +132,6 @@ const ConfigForm = ({
         <RamSelector ram={ram} setRam={setRam} />
       </div>
 
-      <div className="ram-check-warning">
-        <p>
-          ⚠️ <strong>RAM 설정 확인하셨나요?</strong> RAM 설정이 PC 사양과 다르면 최적화 효과가 떨어집니다.
-        </p>
-      </div>
-
       <div className="settings-summary">
         <h3 className="summary-title">최적화 적용 요약</h3>
         <div className="summary-grid">

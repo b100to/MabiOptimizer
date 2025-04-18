@@ -1,5 +1,11 @@
 .ram-selector {
-    margin-bottom: 24px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius-card);
+    padding: 20px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    transition: all 0.3s ease;
 }
 
 .ram-selector-title {
@@ -196,6 +202,28 @@
     .ram-preset-button {
         padding: 14px 12px;
     }
+
+    .ram-label {
+        font-size: 14px;
+    }
+
+    .ram-selector h3 {
+        font-size: 18px;
+    }
+
+    .ram-option {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .ram-input-wrapper input {
+        font-size: 14px;
+    }
+
+    .ram-input-actions button {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
 }
 
 /* RAM 안내 메시지 스타일 */
@@ -242,22 +270,6 @@
 
     100% {
         box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .ram-notice {
-        background-color: rgba(255, 193, 7, 0.15);
-        border-color: rgba(255, 193, 7, 0.3);
-        color: #ffe69c;
-    }
-
-    .ram-notice p {
-        color: #ffe082;
-    }
-
-    .ram-notice strong {
-        color: #ffecb3;
     }
 }
 

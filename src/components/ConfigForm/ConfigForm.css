@@ -22,25 +22,6 @@
   --bg-tertiary: #f1f5f9;
 }
 
-/* 다크 모드 변수 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text-color: #e2e8f0;
-    --text-color-secondary: #94a3b8;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --border-color: #334155;
-    --bg-color: #0f172a;
-    --bg-hover: #1e293b;
-    --card-bg: #1e293b;
-    --hover-color: #1e293b;
-    --button-bg: #334155;
-    --shadow-color: rgba(0, 0, 0, 0.2);
-    --bg-secondary: #1e293b;
-    --bg-tertiary: #334155;
-  }
-}
-
 .config-form {
   width: 100%;
   margin-bottom: 40px;
@@ -480,33 +461,6 @@
   }
 }
 
-/* 다크 모드 지원 */
-@media (prefers-color-scheme: dark) {
-  .summary-item {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-
-  .highlight {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-
-  .cpu-gpu-setting {
-    background-color: rgba(138, 43, 226, 0.1);
-  }
-
-  .memory-setting {
-    background-color: rgba(43, 138, 226, 0.1);
-  }
-
-  .rendering-setting {
-    background-color: rgba(226, 119, 43, 0.1);
-  }
-
-  .other-setting {
-    background-color: rgba(128, 128, 128, 0.1);
-  }
-}
-
 @media (min-width: 1281px) {
   .summary-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -672,15 +626,4 @@
 
 .ram-check-warning strong {
   font-weight: 600;
-}
-
-@media (prefers-color-scheme: dark) {
-  .ram-check-warning {
-    background-color: rgba(255, 82, 82, 0.15);
-    border-color: rgba(255, 82, 82, 0.3);
-  }
-
-  .ram-check-warning p {
-    color: #ff8a80;
-  }
 }

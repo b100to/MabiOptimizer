@@ -62,7 +62,7 @@ body {
   font-weight: 700;
   margin-bottom: 0;
   text-align: center;
-  color: #000000 !important;
+  color: #000000;
   transition: color var(--transition-speed) ease;
   width: 100%;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -500,72 +500,6 @@ body {
 
   .source-badge {
     margin-left: 0;
-  }
-}
-
-/* 다크 모드 지원 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #0f172a;
-    --card-bg: #1e293b;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --border-color: #334155;
-    --hover-color: #273548;
-    --button-bg: #334155;
-    --shadow-color: rgba(0, 0, 0, 0.25);
-  }
-
-  /* 앱 타이틀 색상은 변경하지 않음 - 항상 검정색 유지 */
-  /* .app-title {
-    color: #f1f5f9;
-  } */
-
-  .system-info-item {
-    background-color: rgba(30, 41, 59, 0.5);
-  }
-
-  .notice-container {
-    background: linear-gradient(to right, #052e16, #064e3b);
-    border-color: #065f46;
-  }
-
-  .notice-content p {
-    color: #a7f3d0;
-  }
-
-  .notice-badge {
-    background-color: #059669;
-  }
-
-  .notice-close-button {
-    color: #a7f3d0;
-  }
-
-  .notice-link {
-    color: #a7f3d0;
-  }
-
-  .notice-date {
-    color: #a7f3d0;
-  }
-
-  .additional-gpu-info {
-    background-color: #273548;
-  }
-
-  .multi-gpu-item {
-    background-color: #1e293b;
-  }
-
-  .gpu-badge {
-    background-color: #1e3a8a;
-    color: #bfdbfe;
-  }
-
-  .gpu-badge.dedicated {
-    background-color: #155e75;
-    color: #a5f3fc;
   }
 }
 

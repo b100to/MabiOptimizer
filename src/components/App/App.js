@@ -9,8 +9,6 @@ import TermsModal from '../TermsModal/TermsModal';
 import PrivacyModal from '../PrivacyModal/PrivacyModal';
 import AnnouncementModal from '../Announcements/AnnouncementModal';
 import DxDiagUploader from '../DxDiagUploader/DxDiagUploader';
-import AdBanner from '../Ads/AdBanner';
-import AdSideBanner from '../Ads/AdSideBanner';
 import ReactGA from 'react-ga4';
 import { applyCpuPreset, applyGpuPreset } from '../../utils/configGenerator';
 
@@ -115,11 +113,6 @@ const App = () => {
 
   return (
     <div className="app-container">
-      {/* 좌측 사이드 광고 */}
-      <AdSideBanner slot="6457823914" position="left" format="vertical" />
-
-      {/* 우측 사이드 광고 */}
-      <AdSideBanner slot="9138675421" position="right" format="vertical" />
 
       <div className="app-card">
         <div className="app-header">
@@ -295,9 +288,6 @@ const App = () => {
           }}
           autoDetected={autoDetected}
         />
-
-        {/* 하단 광고 배너 */}
-        <AdBanner slot="1973645182" className="bottom-ad-banner" />
 
         <footer className="app-footer">
           <button

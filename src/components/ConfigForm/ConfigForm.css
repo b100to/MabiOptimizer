@@ -1,18 +1,27 @@
 .config-form {
+  width: 100%;
   margin-bottom: 40px;
 }
 
+.config-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 12px;
+}
+
 .form-group {
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 10px;
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--text-primary);
-  transition: color var(--transition-speed) ease;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--text-color);
 }
 
 .form-select {
@@ -44,52 +53,33 @@
 
 /* 생성 버튼 스타일 */
 .generate-button {
-  width: 100%;
-  padding: 18px 20px;
-  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  background-color: var(--accent-color);
   color: white;
-  font-weight: 600;
-  font-size: 18px;
   border: none;
-  border-radius: var(--border-radius-button);
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 30px;
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.2);
-  letter-spacing: 0.5px;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.generate-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, #2563eb, #4f46e5);
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.25);
 }
 
 .generate-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
-}
-
-.generate-button:hover::before {
-  opacity: 1;
+  background-color: var(--accent-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(var(--accent-color-rgb), 0.3);
 }
 
 .generate-button:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(var(--accent-color-rgb), 0.2);
 }
 
 .generate-button:disabled {
-  background: #94a3b8;
+  background-color: #cccccc;
+  color: #777777;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -104,51 +94,44 @@
 
 /* 이용약관 동의 체크박스 스타일 */
 .terms-agreement {
-  margin: 24px 0;
-  padding: 16px;
-  border-radius: var(--border-radius-input);
-  background-color: rgba(59, 130, 246, 0.05);
-  border: 1px solid rgba(59, 130, 246, 0.15);
+  margin: 30px 0;
 }
 
 .checkbox-container {
   display: flex;
   align-items: flex-start;
+  gap: 12px;
 }
 
 .checkbox-container input[type="checkbox"] {
-  margin-right: 10px;
-  margin-top: 3px;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
 }
 
 .terms-text {
-  font-size: 14px;
-  color: var(--text-primary);
+  font-size: 17px;
+  color: var(--text-color);
 }
 
 .text-link {
+  color: var(--accent-color);
   background: none;
   border: none;
   padding: 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--accent-color);
+  font: inherit;
+  text-decoration: underline;
   cursor: pointer;
-  text-decoration: none;
 }
 
 .text-link:hover {
-  text-decoration: underline;
-  color: #2563eb;
+  color: var(--accent-color-dark);
 }
 
 .terms-notice {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 8px;
-  padding-left: 28px;
-  line-height: 1.4;
-  font-style: italic;
+  margin-top: 12px;
+  color: #e74c3c;
+  font-size: 15px;
 }
 
 /* 고정된 설정 정보 스타일 */
@@ -198,749 +181,301 @@
 
 /* 프리뷰 및 설명 스타일 */
 .config-preview-section {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 28px;
-  margin-top: 36px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
-}
-
-.config-preview-section:hover {
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px);
-}
-
-.preview-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 0;
-  margin-bottom: 24px;
-  position: relative;
-  padding-bottom: 12px;
-}
-
-.preview-title::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-color), transparent);
-  border-radius: 2px;
-}
-
-.config-explanation {
-  margin-bottom: 24px;
-  background-color: rgba(241, 245, 249, 0.6);
-  padding: 16px;
-  border-radius: 8px;
-}
-
-.config-explanation h4 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.config-explanation ul {
-  margin: 0;
-  padding-left: 20px;
-}
-
-.config-explanation li {
-  margin-bottom: 12px;
-  position: relative;
-  padding-left: 8px;
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.config-explanation li:before {
-  content: "";
-  position: absolute;
-  left: -16px;
-  top: 9px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--accent-color);
-}
-
-.config-explanation li:last-child {
-  margin-bottom: 0;
-}
-
-/* 설정 파일 상세 내용 리팩토링 스타일 */
-.config-preview-tabs {
-  margin-bottom: 20px;
-}
-
-.tabs-header {
-  display: flex;
-  overflow-x: auto;
-  margin-bottom: 20px;
-  gap: 8px;
-  padding-bottom: 2px;
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-.tabs-header::-webkit-scrollbar {
-  display: none;
-  /* Chrome, Safari, Edge */
-}
-
-.tab-category {
-  background-color: #f8fafc;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.tab-category:hover {
-  background-color: #f1f5f9;
-  color: #334155;
-  border-color: #cbd5e1;
-}
-
-.tab-category.active {
-  background-color: #3b82f6;
-  color: white;
-  border-color: #3b82f6;
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.25);
-}
-
-.tab-info {
-  margin-top: 16px;
-  padding: 12px 16px;
-  background-color: #f0f9ff;
-  border-left: 3px solid #3b82f6;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #0369a1;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 토글 버튼 스타일 */
-.toggle-button {
-  background-color: #f1f5f9;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.toggle-button:hover {
-  background-color: #e2e8f0;
-  color: #334155;
-}
-
-.toggle-button::after {
-  content: '';
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  transition: transform 0.3s ease;
-  transform: rotate(180deg);
-}
-
-.toggle-button.expanded::after {
-  transform: rotate(0deg);
-}
-
-/* 설정 파일 구문 강조 스타일 */
-.config-preview .highlight {
-  padding: 6px 12px;
-  margin: 2px 0;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  width: 100%;
-  display: block;
-  overflow-x: visible;
-  white-space: pre;
-  border-left: 3px solid transparent;
-}
-
-.config-preview .highlight:hover {
-  background-color: rgba(241, 245, 249, 0.7);
-}
-
-/* CPU/GPU 설정 스타일 */
-.config-preview .cpu-gpu-setting {
-  color: #2563eb;
-  background-color: rgba(37, 99, 235, 0.03);
-  border-left-color: #2563eb;
-}
-
-.config-preview .cpu-gpu-setting:hover {
-  background-color: rgba(37, 99, 235, 0.08);
-}
-
-/* 메모리 설정 스타일 */
-.config-preview .memory-setting {
-  color: #059669;
-  background-color: rgba(5, 150, 105, 0.03);
-  border-left-color: #059669;
-}
-
-.config-preview .memory-setting:hover {
-  background-color: rgba(5, 150, 105, 0.08);
-}
-
-/* 렌더링 설정 스타일 */
-.config-preview .rendering-setting {
-  color: #d97706;
-  background-color: rgba(217, 119, 6, 0.03);
-  border-left-color: #d97706;
-}
-
-.config-preview .rendering-setting:hover {
-  background-color: rgba(217, 119, 6, 0.08);
-}
-
-/* 기타 설정 스타일 */
-.config-preview .other-setting {
-  color: #6b7280;
-  background-color: rgba(107, 114, 128, 0.03);
-  border-left-color: #6b7280;
-}
-
-.config-preview .other-setting:hover {
-  background-color: rgba(107, 114, 128, 0.08);
-}
-
-/* 탭 카테고리 버튼 활성화 상태 색상 */
-.tab-category.active[onclick*="cpu-gpu"] {
-  background-color: #2563eb;
-  border-color: #2563eb;
-}
-
-.tab-category.active[onclick*="memory"] {
-  background-color: #059669;
-  border-color: #059669;
-}
-
-.tab-category.active[onclick*="rendering"] {
-  background-color: #d97706;
-  border-color: #d97706;
-}
-
-.tab-category.active[onclick*="other"] {
-  background-color: #6b7280;
-  border-color: #6b7280;
-}
-
-/* 탭 카테고리 호버 상태 색상 */
-.tab-category:not(.active)[onclick*="cpu-gpu"]:hover {
-  color: #2563eb;
-  background-color: rgba(37, 99, 235, 0.1);
-}
-
-.tab-category:not(.active)[onclick*="memory"]:hover {
-  color: #059669;
-  background-color: rgba(5, 150, 105, 0.1);
-}
-
-.tab-category:not(.active)[onclick*="rendering"]:hover {
-  color: #d97706;
-  background-color: rgba(217, 119, 6, 0.1);
-}
-
-.tab-category:not(.active)[onclick*="other"]:hover {
-  color: #6b7280;
-  background-color: rgba(107, 114, 128, 0.1);
-}
-
-/* 프리뷰 스타일 */
-.config-preview {
-  background-color: #f8fafc;
-  border-radius: 10px;
-  padding: 16px;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-x: auto;
-  color: #334155;
-  height: auto;
-  max-height: 300px;
-  overflow-y: auto;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-  scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 #f1f5f9;
-  white-space: pre;
-}
-
-.config-preview.expanded {
-  max-height: 600px;
-}
-
-.config-preview::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.config-preview::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 10px;
-}
-
-.config-preview::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
-}
-
-.config-preview::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-.preview-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.secondary-button {
-  background-color: var(--button-secondary-bg);
-  color: var(--text-secondary);
+  margin-top: 40px;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-button);
-  padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.secondary-button:hover {
-  background-color: var(--hover-color);
-}
-
-.preview-button {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: var(--border-radius-button);
-  padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.preview-button:hover {
-  background-color: #2563eb;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-/* 설정값 요약 섹션 스타일 */
-.settings-summary {
-  background-color: #f8fafc;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-card);
-  padding: 24px;
-  margin-top: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  transition: all var(--transition-speed) ease;
-}
-
-.summary-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 0;
-  margin-bottom: 24px;
-  position: relative;
-  padding-bottom: 12px;
-}
-
-.summary-title::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-color), transparent);
-  border-radius: 2px;
-}
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.summary-item {
-  background-color: #f1f5f9;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.2s ease;
-}
-
-.summary-item:hover {
-  background-color: #e2e8f0;
-  transform: translateY(-2px);
-}
-
-.summary-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.summary-value {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 8px;
-}
-
-/* 반응형 스타일 */
-@media (max-width: 640px) {
-  .tabs-header {
-    padding-bottom: 8px;
-  }
-
-  .tab-category {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-}
-
-/* 프리뷰 헤더 스타일 */
 .preview-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 24px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.preview-title {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .preview-controls {
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
 
-.preview-info {
-  color: #64748b;
-  font-size: 0.9rem;
+.config-preview-tabs {
+  border-bottom: 1px solid var(--border-color);
 }
 
-.preview-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
+.tabs-header {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 0 16px;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.tab-category {
+  padding: 12px 16px;
+  font-size: 17px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-color-secondary);
+}
+
+.tab-category:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: var(--text-color);
+}
+
+.tab-category.active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.config-preview {
+  padding: 20px;
+  font-family: 'Consolas', monospace;
+  font-size: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.5;
+  margin: 0;
 }
 
 .toggle-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #f8fafc;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .toggle-button:hover {
-  background-color: #f1f5f9;
-  color: #334155;
+  background-color: var(--bg-hover);
 }
 
-.toggle-icon {
-  font-size: 0.8rem;
+.toggle-button.expanded {
+  background-color: var(--bg-hover);
+}
+
+.settings-summary {
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 35px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.summary-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease;
 }
 
-.tab-category {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  padding: 0.6rem 1.2rem;
+.summary-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.summary-label {
+  font-size: 17px;
+  color: var(--text-color-secondary);
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.highlight {
+  padding: 6px 10px;
+  margin: 3px 0;
+  border-radius: 4px;
+  border-left: 4px solid transparent;
+}
+
+.cpu-gpu-setting {
+  border-left-color: #8a2be2;
+  background-color: rgba(138, 43, 226, 0.05);
+}
+
+.memory-setting {
+  border-left-color: #2b8ae2;
+  background-color: rgba(43, 138, 226, 0.05);
+}
+
+.rendering-setting {
+  border-left-color: #e2772b;
+  background-color: rgba(226, 119, 43, 0.05);
+}
+
+.other-setting {
+  border-left-color: #808080;
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+.tab-info {
+  padding: 12px 20px;
+  color: var(--text-color-secondary);
+  font-size: 15px;
+  background-color: rgba(0, 0, 0, 0.01);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+/* 반응형 디자인 */
 @media (max-width: 768px) {
-  .preview-header {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .install-step {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: center;
+    text-align: center;
   }
 
-  .preview-controls {
-    width: 100%;
-    justify-content: space-between;
+  .step-number {
+    margin-bottom: 12px;
   }
 
-  .preview-info {
-    display: none;
+  .config-preview {
+    font-size: 14px;
   }
 
   .tab-category {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.85rem;
+    padding: 8px 12px;
+    font-size: 15px;
   }
 }
 
-/* PC 사양 확인 탭 스타일 */
-.pc-spec-guide-tab,
-.guide-content,
-.guide-step,
-.step-number,
-.step-instruction,
-.instruction-title,
-.instruction-detail,
-.keyboard-key,
-.command,
-.spec-screenshot {
-  display: none;
-}
-
-/* PC 사양 확인 가이드 스타일 (기존 스타일 삭제) */
-.pc-spec-guide {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .pc-spec-guide-tab {
-    padding: 16px;
+@media (max-width: 480px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
   }
 
-  .guide-step {
+  .path-container {
     flex-direction: column;
-    gap: 8px;
-  }
-
-  .step-number {
-    margin-bottom: 5px;
-  }
-}
-
-/* 설치 가이드 스타일 */
-.install-guide {
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.install-guide-title {
-  font-size: 1.2rem;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.install-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.install-step {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-}
-
-.step-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  background: var(--primary-color);
-  color: white;
-  border-radius: 50%;
-  font-weight: bold;
-  flex-shrink: 0;
-}
-
-.step-content {
-  flex: 1;
-}
-
-.step-content h4 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  color: var(--text-primary);
-}
-
-.path-container {
-  display: flex;
-  align-items: center;
-  background: var(--bg-tertiary);
-  border-radius: 6px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.file-path {
-  flex: 1;
-  font-family: monospace;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  overflow-x: auto;
-  white-space: nowrap;
-  padding: 0.25rem 0.5rem;
-}
-
-.copy-button {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.copy-button:hover {
-  background: var(--primary-color-dark);
-}
-
-.step-description {
-  margin: 0.5rem 0 0;
-  color: var(--text-tertiary);
-  font-size: 0.9rem;
-}
-
-.backup-illustration,
-.install-illustration {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--bg-tertiary);
-  border-radius: 6px;
-  padding: 0.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.file-icon,
-.folder-icon {
-  font-size: 1.2rem;
-}
-
-.file-icon.download {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: var(--primary-color);
-}
-
-.arrow {
-  color: var(--text-tertiary);
-  font-weight: bold;
-}
-
-.file-name,
-.folder-name {
-  font-family: monospace;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
-.restart-illustration {
-  display: flex;
-  justify-content: center;
-  background: var(--bg-tertiary);
-  border-radius: 6px;
-  padding: 0.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.restart-illustration svg {
-  color: var(--primary-color);
-  width: 2rem;
-  height: 2rem;
-}
-
-@media (max-width: 768px) {
-  .install-step {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .step-number {
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: 0.8rem;
-  }
-
-  .path-container,
-  .backup-illustration,
-  .install-illustration {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    align-items: stretch;
   }
 
   .copy-button {
-    align-self: flex-end;
+    margin-top: 8px;
+  }
+}
+
+/* 다크 모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .summary-item {
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
-  .backup-illustration,
-  .install-illustration {
-    flex-direction: row;
-    flex-wrap: wrap;
+  .highlight {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .cpu-gpu-setting {
+    background-color: rgba(138, 43, 226, 0.1);
+  }
+
+  .memory-setting {
+    background-color: rgba(43, 138, 226, 0.1);
+  }
+
+  .rendering-setting {
+    background-color: rgba(226, 119, 43, 0.1);
+  }
+
+  .other-setting {
+    background-color: rgba(128, 128, 128, 0.1);
+  }
+}
+
+@media (min-width: 1281px) {
+  .summary-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .install-steps {
+    gap: 35px;
+  }
+
+  .install-step {
+    padding: 25px;
+  }
+
+  .step-number {
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+  }
+
+  .step-content h4 {
+    font-size: 24px;
+  }
+
+  .summary-title {
+    font-size: 26px;
+  }
+
+  .summary-label {
+    font-size: 18px;
+  }
+
+  .summary-value {
+    font-size: 22px;
+  }
+
+  .config-preview {
+    font-size: 18px;
+    max-height: 500px;
+    padding: 25px;
+  }
+
+  .generate-button {
+    padding: 16px 28px;
+    font-size: 20px;
   }
 }

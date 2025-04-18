@@ -27,10 +27,9 @@ const App = () => {
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   const [autoDetected, setAutoDetected] = useState(false);
   const [systemInfo, setSystemInfo] = useState(null);
-  const [useCpuSlider, setUseCpuSlider] = useState(false);  // 슬라이더 사용 여부 상태
-  const [detectionSource, setDetectionSource] = useState(''); // 감지 소스 추적
+  const [detectionSource, setDetectionSource] = useState('');
 
-  // 이벤트 추적 함수들
+  // 이벤트 추적
   const trackConfigGeneration = (config) => {
     ReactGA.event({
       category: '최적화',
@@ -66,7 +65,7 @@ const App = () => {
     setCores(info.cpu.cores);
     setThreads(info.cpu.threads);
 
-    // RAM 정보 업데이트 - 자동 감지 비활성화, 기본값 16GB 사용
+    // RAM 정보 업데이트 - 기본값 16GB 사용
     setRam(16);
 
     // GPU 정보 업데이트
@@ -96,7 +95,7 @@ const App = () => {
         setCores(hardwareInfo.cpu.cores);
         setThreads(hardwareInfo.cpu.threads);
 
-        // RAM 정보 업데이트 - 자동 감지 비활성화, 기본값 16GB 사용
+        // RAM 정보 업데이트 - 기본값 16GB 사용
         setRam(16);
 
         // GPU 정보 업데이트
@@ -124,19 +123,6 @@ const App = () => {
     }
   }, [detectBrowserHardware]);
 
-  // GPU 또는 RAM 정보가 변경되면 UI에 반영하기 위한 Effect
-  useEffect(() => {
-    if (systemInfo && autoDetected) {
-      // 해당 UI 영역으로 스크롤
-      const autoDetectedSection = document.querySelector('.auto-detected-info');
-      if (autoDetectedSection) {
-        setTimeout(() => {
-          autoDetectedSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 300);
-      }
-    }
-  }, [systemInfo, autoDetected]);
-
   // 자동 감지된 정보를 초기화하고 기본값으로 되돌리는 함수
   const handleResetAutoDetection = () => {
     setAutoDetected(false);
@@ -156,19 +142,8 @@ const App = () => {
     });
   };
 
-  // CPU 선택기 토글 함수
-  const toggleCpuControl = () => {
-    setUseCpuSlider(!useCpuSlider);
-
-    ReactGA.event({
-      category: '사용자 행동',
-      action: `CPU ${useCpuSlider ? '프리셋' : '슬라이더'} 전환`
-    });
-  };
-
   return (
     <div className="app-container">
-
       <div className="app-card">
         <div className="app-header">
           <h1 className="app-title">모비노기 PC버전 최적화</h1>
@@ -180,7 +155,7 @@ const App = () => {
               <span className="notice-badge">공지사항</span>
               <p>
                 <span className="notice-date">2025.04.11</span>
-                모비노기 PC버전 최적화 툴 업데이트: 사양별 최적화 강화, 메모리 관리 개선, 배칭 시스템 최적화
+                모비노기 PC버전 최적화 툴 업데이트: 사양별 최적화 강화
                 <button
                   onClick={() => setShowAnnouncementModal(true)}
                   className="notice-link"
@@ -198,171 +173,138 @@ const App = () => {
           </div>
         )}
 
-        {/* 자동 감지 상태 표시 */}
-        {autoDetected && detectionSource === 'browser' && (
-          <div className="auto-detection-notice">
-            <p>
-              <strong>브라우저 API를 통해 하드웨어가 자동 감지되었습니다.</strong> 더 정확한 감지를 위해 DxDiag 파일을 업로드해보세요.
-            </p>
-          </div>
-        )}
+        {/* 자동 감지 섹션 */}
+        <div className="detection-section">
+          <h2 className="section-title">PC 사양 자동 감지</h2>
+          <p className="section-description">
+            시스템 사양을 자동으로 감지하여 최적의 설정을 적용합니다. 더 정확한 감지를 위해 DxDiag 파일을 업로드하세요.
+          </p>
+          <DxDiagUploader onSystemInfoDetected={handleSystemInfoDetected} />
 
-        {/* DxDiag 업로더 추가 */}
-        <DxDiagUploader onSystemInfoDetected={handleSystemInfoDetected} />
-
-        {autoDetected && systemInfo && (
-          <div className="auto-detected-info">
-            <div className="auto-detected-header">
-              <h3>자동 감지된 PC 사양</h3>
-              <button
-                className="reset-detection-button"
-                onClick={handleResetAutoDetection}
-                title="자동 감지된 사양을 초기화하고 기본값으로 돌아갑니다."
-              >
-                초기화
-              </button>
-            </div>
-            <div className="system-info-grid">
-              <div className="system-info-item">
-                <span className="info-label">CPU:</span>
-                <span className="info-value">{systemInfo.cpu.model}</span>
+          {autoDetected && systemInfo && (
+            <div className="auto-detected-info">
+              <div className="auto-detected-header">
+                <h3>감지된 PC 사양</h3>
+                <button
+                  className="reset-detection-button"
+                  onClick={handleResetAutoDetection}
+                  title="자동 감지된 사양을 초기화하고 기본값으로 돌아갑니다."
+                >
+                  초기화
+                </button>
               </div>
-              <div className="system-info-item">
-                <span className="info-label">코어/스레드:</span>
-                <span className="info-value">{systemInfo.cpu.cores}코어 / {systemInfo.cpu.threads}스레드</span>
-              </div>
-              <div className="system-info-item">
-                <span className="info-label">RAM:</span>
-                <span className="info-value">16GB (기본값)</span>
-                <span className="info-note">브라우저 보안 제한으로 자동 감지 불가</span>
-              </div>
-              <div className="system-info-item">
-                <span className="info-label">GPU:</span>
-                <span className="info-value">{systemInfo.gpu.model}</span>
-              </div>
-              {systemInfo.gpu.dedicatedMemory && (
+              <div className="system-info-grid">
                 <div className="system-info-item">
-                  <span className="info-label">그래픽 메모리:</span>
-                  <span className="info-value">{systemInfo.gpu.dedicatedMemory}</span>
+                  <span className="info-label">CPU:</span>
+                  <span className="info-value">{systemInfo.cpu.model}</span>
+                </div>
+                <div className="system-info-item">
+                  <span className="info-label">코어/스레드:</span>
+                  <span className="info-value">{systemInfo.cpu.cores}코어 / {systemInfo.cpu.threads}스레드</span>
+                </div>
+                <div className="system-info-item">
+                  <span className="info-label">RAM:</span>
+                  <span className="info-value">16GB (기본값)</span>
+                </div>
+                <div className="system-info-item">
+                  <span className="info-label">GPU:</span>
+                  <span className="info-value">{systemInfo.gpu.model}</span>
+                </div>
+                <div className="system-info-item">
+                  <span className="info-label">그래픽 성능 티어:</span>
+                  <span className="info-value">{systemInfo.gpu.tier === 'ultra' ? '최상' :
+                    systemInfo.gpu.tier === 'high' ? '상' :
+                      systemInfo.gpu.tier === 'medium' ? '중' :
+                        systemInfo.gpu.tier === 'low' ? '하' : '최하'}</span>
+                </div>
+                <div className="system-info-item">
+                  <span className="info-label">감지 소스:</span>
+                  <span className="info-value">
+                    {detectionSource === 'browser' ? '브라우저 API' : 'DxDiag 분석'}
+                  </span>
+                </div>
+              </div>
+
+              {systemInfo.gpu.details && systemInfo.gpu.details.length > 1 && (
+                <div className="additional-gpu-info">
+                  <h4>복수 그래픽 카드 감지됨</h4>
+                  <div className="multi-gpu-grid">
+                    {systemInfo.gpu.details.map((gpu, index) => (
+                      <div key={index} className="multi-gpu-item">
+                        <div className="gpu-item-header">
+                          <span>{index === 0 ? '기본 그래픽' : '보조 그래픽'} {index + 1}</span>
+                          {gpu.isIntegrated && <span className="gpu-badge">내장</span>}
+                          {!gpu.isIntegrated && <span className="gpu-badge dedicated">전용</span>}
+                        </div>
+                        <div className="gpu-item-content">
+                          <div className="gpu-detail">
+                            <span className="gpu-label">모델:</span>
+                            <span className="gpu-value">{gpu.cardName}</span>
+                          </div>
+                          {gpu.dedicatedMemory && (
+                            <div className="gpu-detail">
+                              <span className="gpu-label">메모리:</span>
+                              <span className="gpu-value">{gpu.dedicatedMemory}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
-              <div className="system-info-item">
-                <span className="info-label">그래픽 성능 티어:</span>
-                <span className="info-value">{systemInfo.gpu.tier === 'ultra' ? '최상' :
-                  systemInfo.gpu.tier === 'high' ? '상' :
-                    systemInfo.gpu.tier === 'medium' ? '중' :
-                      systemInfo.gpu.tier === 'low' ? '하' : '최하'}</span>
-              </div>
-              <div className="system-info-item">
-                <span className="info-label">감지 소스:</span>
-                <span className="info-value">
-                  {detectionSource === 'browser' ? '브라우저 API' : 'DxDiag 분석'}
-                </span>
-              </div>
             </div>
+          )}
+        </div>
 
-            {/* 다중 그래픽 카드 정보 표시 */}
-            {systemInfo.gpu.details && systemInfo.gpu.details.length > 1 && (
-              <div className="additional-gpu-info">
-                <h4>복수 그래픽 카드 감지됨</h4>
-                <div className="multi-gpu-grid">
-                  {systemInfo.gpu.details.map((gpu, index) => (
-                    <div key={index} className="multi-gpu-item">
-                      <div className="gpu-item-header">
-                        <span>{index === 0 ? '기본 그래픽' : '보조 그래픽'} {index + 1}</span>
-                        {gpu.isIntegrated && <span className="gpu-badge">내장</span>}
-                        {!gpu.isIntegrated && <span className="gpu-badge dedicated">전용</span>}
-                      </div>
-                      <div className="gpu-item-content">
-                        <div className="gpu-detail">
-                          <span className="gpu-label">모델:</span>
-                          <span className="gpu-value">{gpu.cardName}</span>
-                        </div>
-                        {gpu.dedicatedMemory && (
-                          <div className="gpu-detail">
-                            <span className="gpu-label">메모리:</span>
-                            <span className="gpu-value">{gpu.dedicatedMemory}</span>
-                          </div>
-                        )}
-                        {gpu.driverVersion && (
-                          <div className="gpu-detail">
-                            <span className="gpu-label">드라이버:</span>
-                            <span className="gpu-value">{gpu.driverVersion}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <p className="gpu-note">성능 최적화는 기본 그래픽 카드(첫 번째 항목)를 기준으로 적용됩니다.</p>
-              </div>
-            )}
+        <div className="section-divider"></div>
 
-            <div className="auto-detected-message">
-              <p>
-                <strong>자동으로 감지된 하드웨어에 맞게 CPU, GPU 설정이 적용되었습니다.</strong>
-              </p>
-              <p className="auto-detected-tip">
-                설정을 수동으로 조정하시려면 아래 옵션을 변경하거나, 자동 감지를 초기화하려면 위의 '초기화' 버튼을 클릭하세요.
-              </p>
-            </div>
-          </div>
-        )}
+        {/* 수동 설정 섹션 */}
+        <div className="manual-section">
+          <h2 className="section-title">수동 설정</h2>
 
-        {/* CPU 선택 토글 버튼 */}
-        {/* <div className="toggle-container">
-          <button
-            className="toggle-button"
-            onClick={toggleCpuControl}
-            disabled={autoDetected}
-          >
-            {useCpuSlider ? "CPU 프리셋으로 전환" : "CPU 스레드 직접 설정으로 전환"}
-          </button>
-        </div> */}
-
-        {/* CPU 설정 (프리셋 또는 슬라이더) */}
-        {/* {useCpuSlider ? (
+          <h3 className="subsection-title">CPU 스레드 설정</h3>
           <CpuSlider
             threads={threads}
             setThreads={setThreads}
           />
-        ) : (
-          <CpuSelector
-            cores={cores}
-            threads={threads}
-            setCores={setCores}
-            setThreads={setThreads}
+
+          <div className="sub-divider"></div>
+
+          <h3 className="subsection-title">GPU 설정</h3>
+          <GPUOptions
+            setGpuTier={setGpuTier}
+            currentTier={gpuTier}
             autoDetected={autoDetected}
           />
-        )} */}
-        <CpuSlider
-          threads={threads}
-          setThreads={setThreads}
-        />
-        <div className="section-divider"></div>
 
-        <GPUOptions
-          setGpuTier={setGpuTier}
-          currentTier={gpuTier}
-          autoDetected={autoDetected}
-        />
+          <div className="sub-divider"></div>
 
-        <div className="section-divider"></div>
-
-        <ConfigForm
-          cpuThreads={threads}
-          gpuTier={gpuTier}
-          ram={ram}
-          setRam={setRam}
-          termsAgreed={termsAgreed}
-          setTermsAgreed={setTermsAgreed}
-          onShowTerms={() => setShowTermsModal(true)}
-          onConfigGeneration={() => {
-            trackConfigGeneration({ cpuThreads: threads, gpuTier, ram });
-          }}
-        />
+          <ConfigForm
+            cpuThreads={threads}
+            gpuTier={gpuTier}
+            ram={ram}
+            setRam={setRam}
+            termsAgreed={termsAgreed}
+            setTermsAgreed={setTermsAgreed}
+            onShowTerms={() => setShowTermsModal(true)}
+            onConfigGeneration={() => {
+              trackConfigGeneration({ cpuThreads: threads, gpuTier, ram });
+            }}
+          />
+        </div>
 
         <footer className="app-footer">
+          <button
+            className="text-button"
+            onClick={() => {
+              setShowHelpModal(true);
+              trackHelpModalOpen();
+            }}
+          >
+            도움말
+          </button>
+          <span className="footer-divider">|</span>
           <button
             className="text-button"
             onClick={() => setShowTermsModal(true)}

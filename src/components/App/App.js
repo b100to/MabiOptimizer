@@ -113,6 +113,24 @@ const App = () => {
     }
   }, [trackAutoDetection, setCores, setThreads, setRam, setGpuTier, setSystemInfo, setAutoDetected, setDetectionSource]);
 
+  // 하드웨어 감지를 다시 수행하는 함수
+  const handleRedetectHardware = () => {
+    // 자동 감지 플래그 초기화
+    localStorage.removeItem('autoDetectionDisabled');
+
+    // 하드웨어 감지 실행
+    const detected = detectBrowserHardware();
+
+    if (!detected) {
+      alert('하드웨어 감지에 실패했습니다. 수동으로 설정하거나 DxDiag 파일을 업로드해 보세요.');
+    }
+
+    ReactGA.event({
+      category: '사용자 행동',
+      action: '하드웨어 재감지 시도'
+    });
+  };
+
   // 컴포넌트 마운트 시 하드웨어 자동 감지
   useEffect(() => {
     // 사용자의 로컬 스토리지에서 이전에 자동 감지를 비활성화했는지 확인
@@ -133,8 +151,8 @@ const App = () => {
     setRam(16);
     setGpuTier('medium');
 
-    // 자동 감지 비활성화 상태 저장
-    localStorage.setItem('autoDetectionDisabled', 'true');
+    // 자동 감지 비활성화 상태 제거 (새로고침 후에도 다시 자동 감지 될 수 있도록)
+    localStorage.removeItem('autoDetectionDisabled');
 
     ReactGA.event({
       category: '사용자 행동',
@@ -179,6 +197,17 @@ const App = () => {
           <p className="section-description">
             시스템 사양을 자동으로 감지하여 최적의 설정을 적용합니다. 더 정확한 감지를 위해 DxDiag 파일을 업로드하세요.
           </p>
+
+          <div className="detection-actions">
+            <button
+              className="detect-button"
+              onClick={handleRedetectHardware}
+              title="브라우저 API를 사용하여 하드웨어를 다시 감지합니다."
+            >
+              지금 하드웨어 자동 감지하기
+            </button>
+          </div>
+
           <DxDiagUploader onSystemInfoDetected={handleSystemInfoDetected} />
 
           {autoDetected && systemInfo && (

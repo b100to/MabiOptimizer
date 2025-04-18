@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <!-- 배경 -->
+  <rect width="1200" height="630" fill="#141924"/>
+  
+  <!-- 로고 부분 -->
+  <g transform="translate(250, 315) scale(1.2)">
+    <!-- 원형 테두리와 별 모양 -->
+    <circle cx="256" cy="0" r="140" fill="none" stroke="#ffffff" stroke-width="24"/>
+    
+    <!-- 별 모양들 -->
+    <path d="M138 -116l-22-22m258 0l22-22m0 278l-22-22m-258 0l22-22m42-170l-10-30m170 0l10-30m28 230l30 10m-228 0l-30 10" 
+          stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+    
+    <!-- M 글자 -->
+    <path d="M198 -70v140h30l30-50 30 50h30V-70h-30v70l-30-50-30 50v-70z" fill="#ffffff"/>
+    
+    <!-- 기어 아이콘 -->
+    <g transform="translate(405 90) scale(0.75)">
+      <circle cx="0" cy="0" r="40" fill="none" stroke="#ffffff" stroke-width="16"/>
+      <path d="M0 -65v-15m0 145v-15m65 -65h15m-145 0h15m46 -46l10 -10m-102 102l10 -10m102 0l10 10m-102 -102l10 10" 
+            stroke="#ffffff" stroke-width="16" stroke-linecap="round"/>
+    </g>
+  </g>
+  
+  <!-- 텍스트 부분 -->
+  <text x="600" y="480" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">모비노기 최적화 설정 생성기</text>
+  <text x="600" y="530" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">게임 성능을 위한 최적의 설정값 제공</text>
+</svg> 

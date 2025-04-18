@@ -1,7 +1,19 @@
 /**
  * 하드웨어 자동 감지 유틸리티
  * 브라우저의 API를 활용하여 CPU 코어/쓰레드, GPU 성능 등을 자동으로 감지
+ * 
+ * 참고: 이 기능은 Chrome 브라우저에서 가장 정확하게 작동합니다.
+ * Firefox, Safari 등에서는 WebGL 정보 접근 제한으로 인해 정확도가 낮을 수 있습니다.
  */
+
+/**
+ * 현재 브라우저가 Chrome인지 확인
+ * @returns {boolean} Chrome 브라우저 여부
+ */
+export const isChromeBrowser = () => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.indexOf('chrome') > -1 && userAgent.indexOf('edg') === -1 && userAgent.indexOf('opera') === -1;
+};
 
 /**
  * CPU 정보 자동 감지

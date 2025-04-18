@@ -11,7 +11,7 @@ import AnnouncementModal from '../Announcements/AnnouncementModal';
 import DxDiagUploader from '../DxDiagUploader/DxDiagUploader';
 import ReactGA from 'react-ga4';
 import { applyCpuPreset, applyGpuPreset } from '../../utils/configGenerator';
-import { detectHardware } from '../../utils/hardwareDetector';
+import { detectHardware, isChromeBrowser } from '../../utils/hardwareDetector';
 
 const App = () => {
   // 상태 관리
@@ -118,6 +118,11 @@ const App = () => {
     // 자동 감지 플래그 초기화
     localStorage.removeItem('autoDetectionDisabled');
 
+    // 크롬 브라우저가 아닌 경우 경고 메시지
+    if (!isChromeBrowser()) {
+      alert('현재 Chrome 브라우저가 아닙니다. 하드웨어 감지 정확도가 낮을 수 있으니 DxDiag 파일 분석을 권장합니다.');
+    }
+
     // 하드웨어 감지 실행
     const detected = detectBrowserHardware();
 
@@ -127,7 +132,8 @@ const App = () => {
 
     ReactGA.event({
       category: '사용자 행동',
-      action: '하드웨어 재감지 시도'
+      action: '하드웨어 재감지 시도',
+      label: isChromeBrowser() ? 'Chrome 브라우저' : '기타 브라우저'
     });
   };
 
@@ -193,27 +199,51 @@ const App = () => {
 
         {/* 자동 감지 섹션 */}
         <div className="detection-section">
-          <h2 className="section-title">PC 사양 자동 감지</h2>
-          <p className="section-description">
-            시스템 사양을 자동으로 감지하여 최적의 설정을 적용합니다. 더 정확한 감지를 위해 DxDiag 파일을 업로드하세요.
-          </p>
+          <h2 className="section-title">PC 사양 분석</h2>
 
-          <div className="detection-actions">
-            <button
-              className="detect-button"
-              onClick={handleRedetectHardware}
-              title="브라우저 API를 사용하여 하드웨어를 다시 감지합니다."
-            >
-              지금 하드웨어 자동 감지하기
-            </button>
+          {/* 브라우저 API 감지 영역 */}
+          <div className="detection-method browser-detection">
+            <h3 className="detection-subtitle">브라우저 API 자동 감지</h3>
+            <p className="detection-description">
+              브라우저 API를 활용하여 기본적인 하드웨어 정보를 감지합니다.
+            </p>
+            <div className="browser-info">
+              <span className="browser-warning">⚠️ 자동 감지 기능은 Chrome 브라우저에서 가장 정확하게 작동합니다.</span>
+            </div>
+
+            <div className="detection-actions">
+              <button
+                className="detect-button"
+                onClick={handleRedetectHardware}
+                title="브라우저 API를 사용하여 하드웨어를 다시 감지합니다."
+              >
+                브라우저로 하드웨어 감지하기
+              </button>
+            </div>
           </div>
 
-          <DxDiagUploader onSystemInfoDetected={handleSystemInfoDetected} />
+          <div className="method-divider">
+            <span className="method-divider-text">또는</span>
+          </div>
 
+          {/* DxDiag 파일 분석 영역 */}
+          <div className="detection-method dxdiag-detection">
+            <h3 className="detection-subtitle">DxDiag 파일 상세 분석 <span className="badge-accurate">더 정확함</span></h3>
+            <p className="detection-description">
+              DxDiag 파일 업로드를 통해 더 정확한 하드웨어 정보 분석이 가능합니다.
+            </p>
+            <DxDiagUploader onSystemInfoDetected={handleSystemInfoDetected} />
+          </div>
+
+          {/* 감지된 정보 표시 영역 */}
           {autoDetected && systemInfo && (
             <div className="auto-detected-info">
               <div className="auto-detected-header">
-                <h3>감지된 PC 사양</h3>
+                <h3>감지된 PC 사양
+                  <span className={`source-badge ${detectionSource === 'browser' ? 'browser-source' : 'dxdiag-source'}`}>
+                    {detectionSource === 'browser' ? '브라우저 API 감지' : 'DxDiag 분석'}
+                  </span>
+                </h3>
                 <button
                   className="reset-detection-button"
                   onClick={handleResetAutoDetection}

@@ -121,7 +121,7 @@ const DxDiagUploader = ({ onSystemInfoDetected }) => {
 
             <div className="dxdiag-feature-description">
                 <p>
-                    <strong>자동 하드웨어 감지 기능</strong>이 내 PC에 맞는 최적화 설정을 자동으로 찾아줍니다.
+                    <strong>DxDiag 파일 분석은 브라우저 API보다 더 정확한 하드웨어 정보</strong>를 제공하여 PC에 맞는 최적화 설정을 찾아줍니다.
                 </p>
                 <ul>
                     <li><strong>CPU 성능 감지:</strong> 코어 및 스레드 수를 자동 감지하여 최적의 작업자 수 설정</li>

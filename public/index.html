@@ -41,10 +41,16 @@
   <!-- 카카오 애드핏 스크립트 -->
   <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
 
-  <!-- 상단 가로형 광고 -->
-  <ins class="kakao_ad_area"
-    style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 1000; display: block;"
-    data-ad-unit="DAN-9dL5cz0j0tduTxEE" data-ad-width="728" data-ad-height="90"></ins>
+  <!-- 하단 가로형 광고 (닫기 버튼 추가) -->
+  <div id="bottom-ad-container"
+    style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 1000; display: block;">
+    <div style="position: relative;">
+      <button onclick="closeBottomAd()"
+        style="position: absolute; top: -20px; right: 0; background: #333; color: white; border: none; border-radius: 3px; padding: 2px 6px; cursor: pointer; font-size: 12px;">닫기</button>
+      <ins class="kakao_ad_area" style="display: block;" data-ad-unit="DAN-9dL5cz0j0tduTxEE" data-ad-width="728"
+        data-ad-height="90"></ins>
+    </div>
+  </div>
 
   <!-- 오른쪽 광고 -->
   <ins class="kakao_ad_area" style="position: fixed; top: 100px; right: 10px; z-index: 1000; display: block;"
@@ -53,6 +59,13 @@
   <!-- 왼쪽 광고 -->
   <ins class="kakao_ad_area" style="position: fixed; top: 100px; left: 10px; z-index: 1000; display: block;"
     data-ad-unit="DAN-bBAcIc4XbbQ3n9jz" data-ad-width="160" data-ad-height="600"></ins>
+
+  <!-- 광고 닫기 스크립트 -->
+  <script>
+    function closeBottomAd() {
+      document.getElementById('bottom-ad-container').style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>

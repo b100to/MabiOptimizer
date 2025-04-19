@@ -441,11 +441,11 @@ const determineGpuTier = (cardName) => {
             } else if (model.includes('4070 ti super') || model.includes('4070 ti') || model.includes('4070 super')) {
                 return 'ultra';
             } else if (model.includes('4070')) {
-                return 'high';
+                return 'ultra';
             } else if (model.includes('4060 ti') || model.includes('4060')) {
                 return 'high';
             } else if (model.includes('4050')) {
-                return 'medium';
+                return 'high';
             }
         }
         // RTX 3000 시리즈
@@ -453,16 +453,20 @@ const determineGpuTier = (cardName) => {
             if (model.includes('3090') || model.includes('3080')) {
                 return 'ultra';
             } else if (model.includes('3070')) {
-                return 'high';
+                return 'ultra';
+            } else if (model.includes('3060 ti')) {
+                return 'ultra';
             } else if (model.includes('3060')) {
                 return 'high';
             } else if (model.includes('3050')) {
-                return 'medium';
+                return 'high';
             }
         }
         // RTX 2000 시리즈
         else if (model.includes('rtx 20')) {
-            if (model.includes('2080')) {
+            if (model.includes('2080 ti')) {
+                return 'ultra';
+            } else if (model.includes('2080')) {
                 return 'high';
             } else if (model.includes('2070')) {
                 return 'high';
@@ -473,18 +477,20 @@ const determineGpuTier = (cardName) => {
         // GTX 16xx 시리즈
         else if (model.includes('gtx 16')) {
             if (model.includes('1660')) {
-                return 'medium';
+                return 'high';
             } else if (model.includes('1650')) {
-                return 'low';
+                return 'medium';
             }
         }
         // GTX 10xx 시리즈
         else if (model.includes('gtx 10')) {
             if (model.includes('1080')) {
-                return 'medium';
+                return 'high';
             } else if (model.includes('1070')) {
                 return 'medium';
             } else if (model.includes('1060')) {
+                return 'medium';
+            } else if (model.includes('1050 ti')) {
                 return 'medium';
             } else if (model.includes('1050')) {
                 return 'low';
@@ -495,15 +501,15 @@ const determineGpuTier = (cardName) => {
             if (model.includes('980')) {
                 return 'low';
             } else {
-                return 'minimum';
+                return 'low';
             }
         }
         else if (model.includes('gtx 7') || model.includes('gtx 8')) {
-            return 'minimum';
+            return 'low';
         }
         // 기타 엔트리급 GPU
         else if (model.includes('gt') || model.includes('mx')) {
-            return 'minimum';
+            return 'low';
         }
     }
     // AMD 그래픽 카드
@@ -528,16 +534,16 @@ const determineGpuTier = (cardName) => {
         }
         // Radeon RX 7000 시리즈
         else if (model.includes('rx 7') || model.includes('rx7')) {
-            if (model.includes('7900 xtx') || model.includes('7900 xt') || model.includes('7900 gre')) {
+            if (model.includes('7900 xtx') || model.includes('7900 xt')) {
                 return 'ultra';
             } else if (model.includes('7800 xt') || model.includes('7800')) {
-                return 'high';
+                return 'ultra';
             } else if (model.includes('7700 xt') || model.includes('7700')) {
-                return 'high';
+                return 'ultra';
             } else if (model.includes('7600 xt') || model.includes('7600')) {
-                return 'medium';
+                return 'high';
             } else if (model.includes('7500')) {
-                return 'medium';
+                return 'high';
             }
         }
         // Radeon RX 6000 시리즈
@@ -547,9 +553,9 @@ const determineGpuTier = (cardName) => {
             } else if (model.includes('6800') || model.includes('6750') || model.includes('6700')) {
                 return 'high';
             } else if (model.includes('6650') || model.includes('6600')) {
-                return 'medium';
+                return 'high';
             } else if (model.includes('6500') || model.includes('6400')) {
-                return 'low';
+                return 'medium';
             }
         }
         // Radeon RX 5000 시리즈
@@ -575,25 +581,25 @@ const determineGpuTier = (cardName) => {
             return 'low';
         }
         else if (model.includes('hd')) {
-            return 'minimum';
+            return 'low';
         }
     }
     // Intel 내장 그래픽 & 외장 GPU
     else if (model.includes('intel') || model.includes('hd graphics') || model.includes('uhd graphics')) {
         if (model.includes('arc a7')) {
-            return 'medium';
+            return 'high';
         } else if (model.includes('arc a5')) {
-            return 'low';
+            return 'medium';
         } else if (model.includes('arc a3')) {
-            return 'low';
+            return 'medium';
         } else if (model.includes('iris xe')) {
             return 'low';
         } else if (model.includes('iris plus') || model.includes('iris pro')) {
-            return 'minimum';
+            return 'low';
         } else if (model.includes('uhd graphics')) {
-            return 'minimum';
+            return 'low';
         } else if (model.includes('hd graphics')) {
-            return 'minimum';
+            return 'low';
         }
     }
 

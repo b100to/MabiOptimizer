@@ -33,6 +33,57 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9632991253223801"
     crossorigin="anonymous"></script>
   <title>모비노기/PC 최적화 설정 생성기 | 게임 성능 최적화</title>
+  <style>
+    /* 광고 컨테이너 스타일 */
+    #bottom-ad-container {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: block;
+      width: 100%;
+      max-width: 728px;
+      margin-bottom: 60px;
+      /* 하단 여백 추가 */
+    }
+
+    /* 사이드 광고 스타일 */
+    .side-ad {
+      position: fixed;
+      top: 100px;
+      z-index: 1000;
+      display: none;
+      /* 기본적으로 숨김 */
+    }
+
+    /* 데스크톱에서만 사이드 광고 표시 */
+    @media (min-width: 1200px) {
+      .side-ad {
+        display: block;
+      }
+
+      .side-ad.left {
+        left: 10px;
+      }
+
+      .side-ad.right {
+        right: 10px;
+      }
+    }
+
+    /* 모바일 대응 */
+    @media (max-width: 768px) {
+      #bottom-ad-container {
+        padding: 0 10px;
+      }
+
+      /* 광고 아래 콘텐츠 여백 */
+      .content-wrapper {
+        padding-bottom: 100px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -42,9 +93,8 @@
   <!-- 카카오 애드핏 스크립트 -->
   <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
 
-  <!-- 하단 가로형 광고 (닫기 버튼 추가) -->
-  <div id="bottom-ad-container"
-    style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 1000; display: block;">
+  <!-- 하단 가로형 광고 -->
+  <div id="bottom-ad-container">
     <div style="position: relative;">
       <button onclick="closeBottomAd()"
         style="position: absolute; top: -20px; right: 0; background: #333; color: white; border: none; border-radius: 3px; padding: 2px 6px; cursor: pointer; font-size: 12px;">닫기</button>
@@ -54,12 +104,12 @@
   </div>
 
   <!-- 오른쪽 광고 -->
-  <ins class="kakao_ad_area" style="position: fixed; top: 100px; right: 10px; z-index: 1000; display: block;"
-    data-ad-unit="DAN-GWKTQ8FOGKUO8jY3" data-ad-width="160" data-ad-height="600"></ins>
+  <ins class="kakao_ad_area side-ad right" data-ad-unit="DAN-GWKTQ8FOGKUO8jY3" data-ad-width="160"
+    data-ad-height="600"></ins>
 
   <!-- 왼쪽 광고 -->
-  <ins class="kakao_ad_area" style="position: fixed; top: 100px; left: 10px; z-index: 1000; display: block;"
-    data-ad-unit="DAN-bBAcIc4XbbQ3n9jz" data-ad-width="160" data-ad-height="600"></ins>
+  <ins class="kakao_ad_area side-ad left" data-ad-unit="DAN-bBAcIc4XbbQ3n9jz" data-ad-width="160"
+    data-ad-height="600"></ins>
 
   <!-- 광고 닫기 스크립트 -->
   <script>

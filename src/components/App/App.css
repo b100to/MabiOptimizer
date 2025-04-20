@@ -30,7 +30,10 @@ body {
 
 /* 앱 컨테이너 스타일 */
 .app-container {
-  padding: 40px;
+  min-height: 100vh;
+  padding: 20px;
+  padding-bottom: 120px;
+  /* 하단 광고를 위한 여백 */
   max-width: 1280px;
   margin: 0 auto;
   transition: all var(--transition-speed) ease;
@@ -434,6 +437,8 @@ body {
 @media (max-width: 768px) {
   .app-container {
     padding: 20px;
+    padding-bottom: 150px;
+    /* 모바일에서 더 큰 여백 */
   }
 
   .app-card {

@@ -2,7 +2,7 @@
   "name": "mobinogi-pc-optimizer",
   "version": "1.0.0",
   "description": "모비노기 PC버전 최적화를 위한 설정 생성기",
-  "main": "src/index.js",
+  "main": "src/index.tsx",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -34,9 +34,9 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^22.14.1",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "typescript": "^5.8.3"
+    "@types/node": "^16.18.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^4.9.5"
   }
 }

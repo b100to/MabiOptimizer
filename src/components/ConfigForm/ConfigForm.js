@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ConfigForm.css';
 import RamSelector from '../RamSelector/RamSelector';
 import { generateConfig, downloadConfigFile } from '../../utils/configGenerator';
+import KakaoAdModal from '../Ads/KakaoAdModal';
 
 const ConfigForm = ({
   cpuThreads,
@@ -16,6 +17,7 @@ const ConfigForm = ({
   const [configContent, setConfigContent] = useState('');
   const [showFullConfig, setShowFullConfig] = useState(false);
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'cpu-gpu', 'memory', 'rendering'
+  const [adOpen, setAdOpen] = useState(false);
 
   // GPU 티어에 따른 텍스트 반환
   const getGpuTierText = (tier) => {
@@ -57,6 +59,9 @@ const ConfigForm = ({
 
     // 파일 다운로드
     downloadConfigFile(config);
+
+    // 광고 모달 열기
+    setAdOpen(true);
   };
 
   // 워커 수 계산 (보통 논리 코어/스레드 수의 3/4 정도가 최적)
@@ -195,7 +200,7 @@ const ConfigForm = ({
                 className="generate-button"
                 disabled={!termsAgreed}
               >
-                최적화 설정 파일 생성하기
+                설정 파일 생성하기
               </button>
               {!termsAgreed && (
                 <div className="terms-notice">
@@ -312,6 +317,9 @@ const ConfigForm = ({
           </>
         )}
       </div>
+
+      {/* 광고 모달 */}
+      <KakaoAdModal open={adOpen} onClose={() => setAdOpen(false)} />
     </div>
   );
 };
